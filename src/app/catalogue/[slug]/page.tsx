@@ -17,9 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const product = getProductBySlug(params.slug);
 
   if (!product) {
-    return {
-      title: 'Produit non trouvé',
-    };
+    return { title: 'Produit non trouv\u00e9' };
   }
 
   return {
@@ -46,7 +44,6 @@ export default function ProductDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Get related products (same subcategory, different product)
   const relatedProducts = getProductsBySubcategory(product.subcategory)
     .filter(p => p.id !== product.id)
     .slice(0, 4);
@@ -55,18 +52,23 @@ export default function ProductDetailPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-off-white">
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumb
-          items={[
-            { label: 'Accueil', href: '/' },
-            { label: 'Catalogue', href: '/catalogue' },
-            { label: product.category, href: `/catalogue?category=${encodeURIComponent(product.category)}` },
-            { label: product.name },
-          ]}
-        />
+      {/* Page Header */}
+      <div className="bg-warm-beige py-4">
+        <div className="container mx-auto">
+          <Breadcrumb
+            items={[
+              { label: 'Accueil', href: '/' },
+              { label: 'Catalogue', href: '/catalogue' },
+              { label: product.category, href: `/catalogue?category=${encodeURIComponent(product.category)}` },
+              { label: product.name },
+            ]}
+          />
+        </div>
+      </div>
 
+      <div className="container mx-auto py-10">
         {/* Product Detail */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {/* Image Gallery */}
           <div>
             <ImageGallery images={product.images} alt={product.name} />
@@ -74,37 +76,33 @@ export default function ProductDetailPage({ params }: PageProps) {
 
           {/* Product Info */}
           <div>
-            <div className="mb-4">
-              <span className="inline-block bg-warm-beige text-dark-olive px-3 py-1 rounded-full text-sm font-semibold">
-                {product.category}
-              </span>
-            </div>
+            <span className="inline-block bg-dark-olive text-off-white px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-4">
+              {product.category}
+            </span>
 
-            <h1 className="text-4xl font-serif font-bold text-dark-olive mb-2">
+            <h1 className="text-3xl md:text-4xl font-serif font-bold text-dark-olive mb-2">
               {product.name}
             </h1>
 
-            <p className="text-teak-brown font-medium mb-6">
-              {product.subcategory}
-            </p>
+            <p className="text-teak-brown font-medium mb-6">{product.subcategory}</p>
 
             {product.collection && (
               <div className="mb-6 pb-6 border-b border-gray-200">
-                <p className="text-sm text-gray-600">
-                  Collection: <span className="font-semibold">{product.collection}</span>
+                <p className="text-xs uppercase tracking-wider text-gray-500">
+                  Collection : <span className="font-semibold text-dark-charcoal">{product.collection}</span>
                 </p>
               </div>
             )}
 
             {/* Description */}
             <div className="mb-8 pb-8 border-b border-gray-200">
-              <h3 className="font-serif font-bold text-lg mb-4 text-dark-olive">
-                Caractéristiques
+              <h3 className="font-sans font-semibold text-xs uppercase tracking-widest text-dark-olive mb-4">
+                Caract&eacute;ristiques
               </h3>
               <ul className="space-y-2">
                 {descriptionLines.map((line, idx) => (
-                  <li key={idx} className="flex gap-3 text-gray-700">
-                    <span className="text-teak-brown font-bold flex-shrink-0">✓</span>
+                  <li key={idx} className="flex gap-3 text-gray-700 text-sm">
+                    <span className="text-teak-brown font-bold flex-shrink-0">&check;</span>
                     <span>{line.replace(/^✓\s*/, '')}</span>
                   </li>
                 ))}
@@ -113,45 +111,39 @@ export default function ProductDetailPage({ params }: PageProps) {
 
             {/* Dimensions */}
             <div className="mb-8 pb-8 border-b border-gray-200">
-              <h3 className="font-serif font-bold text-lg mb-2 text-dark-olive">
+              <h3 className="font-sans font-semibold text-xs uppercase tracking-widest text-dark-olive mb-2">
                 Dimensions
               </h3>
-              <p className="text-gray-700">{product.dimensions}</p>
+              <p className="text-gray-700 text-sm">{product.dimensions}</p>
             </div>
 
             {/* CTAs */}
-            <div className="space-y-4 mb-8">
-              <Link
-                href={`/devis?product=${product.slug}`}
-                className="block text-center btn-primary"
-              >
+            <div className="space-y-3 mb-8">
+              <Link href={`/devis?product=${product.slug}`} className="block text-center btn-primary w-full">
                 Demander un devis pour ce produit
               </Link>
-              <Link
-                href="/contact"
-                className="block text-center btn-secondary"
-              >
+              <Link href="/contact" className="block text-center btn-outline w-full">
                 Voir en showroom
               </Link>
             </div>
 
             {/* Showroom Info */}
-            <div className="bg-warm-beige p-6 rounded-lg">
-              <h4 className="font-serif font-bold mb-4 text-dark-olive">
+            <div className="bg-warm-beige p-6">
+              <h4 className="font-sans font-semibold text-xs uppercase tracking-widest text-dark-olive mb-4">
                 Visitez nos showrooms
               </h4>
-              <div className="space-y-3 text-sm">
+              <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="font-semibold text-dark-olive">Showroom SUD</p>
-                  <p className="text-gray-600">Saint-Pierre</p>
-                  <a href="tel:+262262350679" className="text-teak-brown hover:underline">
+                  <p className="text-gray-600 text-xs">Saint-Pierre</p>
+                  <a href="tel:+262262350679" className="text-teak-brown hover:underline text-xs">
                     0262 35 06 79
                   </a>
                 </div>
                 <div>
                   <p className="font-semibold text-dark-olive">Showroom NORD</p>
-                  <p className="text-gray-600">Saint-Denis</p>
-                  <a href="tel:+262262203030" className="text-teak-brown hover:underline">
+                  <p className="text-gray-600 text-xs">Saint-Denis</p>
+                  <a href="tel:+262262203030" className="text-teak-brown hover:underline text-xs">
                     0262 20 30 30
                   </a>
                 </div>
@@ -161,11 +153,13 @@ export default function ProductDetailPage({ params }: PageProps) {
         </div>
 
         {/* Quote Form */}
-        <section className="mb-16 bg-white rounded-lg p-8 border border-warm-beige">
-          <h2 className="text-3xl font-serif font-bold text-dark-olive mb-8 text-center">
-            Vous êtes intéressé ?
-          </h2>
-          <div className="max-w-2xl mx-auto">
+        <section className="mb-20 bg-white p-10 border border-gray-100">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-serif font-bold text-dark-olive section-heading">
+              Vous &ecirc;tes int&eacute;ress&eacute; ?
+            </h2>
+          </div>
+          <div className="max-w-2xl mx-auto mt-10">
             <QuoteForm productSlug={product.slug} productName={product.name} />
           </div>
         </section>
@@ -173,10 +167,10 @@ export default function ProductDetailPage({ params }: PageProps) {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section className="mb-16">
-            <h2 className="text-3xl font-serif font-bold text-dark-olive mb-8 text-center">
+            <h2 className="text-3xl font-serif font-bold text-dark-olive section-heading-left mb-10">
               Vous aimerez aussi
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
               {relatedProducts.map(relProduct => (
                 <ProductCard key={relProduct.id} {...relProduct} />
               ))}

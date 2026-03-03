@@ -14,14 +14,10 @@ const categoryImages: Record<string, string> = {
 };
 
 export default function Home() {
-  // Get featured products (first 8)
   const featuredProducts = products.slice(0, 8);
 
-  // Calculate category counts
   const categories = Array.from(
-    new Map(
-      products.map(p => [p.category, p.category])
-    ).values()
+    new Map(products.map(p => [p.category, p.category])).values()
   ).map(cat => ({
     name: cat,
     count: products.filter(p => p.category === cat).length,
@@ -31,7 +27,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen bg-dark-charcoal overflow-hidden flex items-center justify-center">
+      <section className="relative h-[85vh] min-h-[600px] bg-dark-charcoal overflow-hidden flex items-center">
         <Image
           src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&h=1080&fit=crop"
           alt="Mobilier en teck DIMEXOI"
@@ -41,61 +37,68 @@ export default function Home() {
           unoptimized
         />
         <div className="hero-overlay absolute inset-0"></div>
-        <div className="relative z-10 text-center text-off-white max-w-2xl mx-auto px-6">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4">
-            Mobilier en teck d'exception
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90">
-            À La Réunion depuis 1995
-          </p>
-          <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <Link href="/catalogue" className="btn-primary">
-              Découvrir nos collections
-            </Link>
-            <Link href="/devis" className="btn-secondary">
-              Demander un devis
-            </Link>
+        <div className="relative z-10 container mx-auto">
+          <div className="max-w-2xl">
+            <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">
+              Depuis 1995 &agrave; La R&eacute;union
+            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-off-white mb-6 leading-tight">
+              Mobilier en teck<br />
+              <span className="text-teak-light italic">d&apos;exception</span>
+            </h1>
+            <p className="text-lg text-gray-200 mb-10 max-w-lg leading-relaxed">
+              D&eacute;couvrez notre collection de meubles artisanaux en teck massif.
+              Qualit&eacute;, durabilit&eacute; et &eacute;l&eacute;gance intemporelle.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/catalogue" className="btn-primary">
+                D&eacute;couvrir le catalogue
+              </Link>
+              <Link href="/devis" className="btn-secondary">
+                Demander un devis
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Trust Bar */}
-      <section className="bg-dark-olive text-off-white py-6">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-sm md:text-base">
-            <div>
-              <p className="font-serif font-bold text-lg">31 ans</p>
-              <p className="text-xs md:text-sm opacity-90">de savoir-faire</p>
-            </div>
-            <div>
-              <p className="font-serif font-bold text-lg">100% Teck</p>
-              <p className="text-xs md:text-sm opacity-90">massif</p>
-            </div>
-            <div>
-              <p className="font-serif font-bold text-lg">Sur-mesure</p>
-              <p className="text-xs md:text-sm opacity-90">disponible</p>
-            </div>
-            <div>
-              <p className="font-serif font-bold text-lg">2 Showrooms</p>
-              <p className="text-xs md:text-sm opacity-90">à La Réunion</p>
-            </div>
+      <section className="bg-dark-olive text-off-white py-8">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: '31 ans', label: 'de savoir-faire', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+              { value: '100% Teck', label: 'massif certifi\u00e9', icon: 'M5 13l4 4L19 7' },
+              { value: 'Sur-mesure', label: 'disponible', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' },
+              { value: '2 Showrooms', label: '\u00e0 La R\u00e9union', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' },
+            ].map((item, idx) => (
+              <div key={idx} className="flex flex-col items-center">
+                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white bg-opacity-10 mb-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
+                  </svg>
+                </div>
+                <p className="font-serif font-bold text-lg">{item.value}</p>
+                <p className="text-xs opacity-80 tracking-wider uppercase">{item.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 bg-off-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive mb-4">
+      <section className="py-20 bg-off-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive section-heading">
               Nos univers
             </h2>
-            <p className="text-gray-600 text-lg">
-              Trouvez le meuble parfait pour chaque pièce
+            <p className="text-gray-600 mt-8">
+              Trouvez le meuble parfait pour chaque pi&egrave;ce
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {categories.map((category) => (
               <CategoryCard
                 key={category.name}
@@ -108,22 +111,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive mb-4">
-              Sélection de meubles
-            </h2>
-            <p className="text-gray-600 text-lg mb-8">
-              Découvrez nos créations artisanales en teck massif
-            </p>
-            <Link href="/catalogue" className="inline-block btn-outline">
+      {/* Featured Products */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive section-heading-left">
+                S&eacute;lection de meubles
+              </h2>
+              <p className="text-gray-600 mt-8">
+                D&eacute;couvrez nos cr&eacute;ations artisanales en teck massif
+              </p>
+            </div>
+            <Link href="/catalogue" className="mt-6 md:mt-0 btn-outline">
               Voir tout le catalogue
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
@@ -132,48 +137,45 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-warm-beige">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
+      <section className="py-20 bg-warm-beige">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&h=400&fit=crop"
+                src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&h=500&fit=crop"
                 alt="DIMEXOI showroom"
                 width={600}
-                height={400}
-                className="rounded-lg"
+                height={500}
+                className="w-full h-auto object-cover"
                 unoptimized
               />
+              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-teak-brown -z-10 hidden lg:block"></div>
             </div>
             <div>
-              <h2 className="text-4xl font-serif font-bold text-dark-olive mb-6">
+              <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">Notre histoire</p>
+              <h2 className="text-4xl font-serif font-bold text-dark-olive section-heading-left">
                 DIMEXOI
               </h2>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                Depuis 1995, DIMEXOI crée des meubles en teck massif d'exception à La Réunion. Notre engagement : acheter moins, mais mieux.
+              <p className="text-gray-700 mb-4 leading-relaxed mt-8">
+                Depuis 1995, DIMEXOI cr&eacute;e des meubles en teck massif d&apos;exception &agrave; La R&eacute;union. Notre engagement : acheter moins, mais mieux.
               </p>
-              <p className="text-gray-700 mb-4 leading-relaxed">
-                Chaque pièce est sélectionnée pour sa qualité, sa durabilité et son esthétique intemporelle. Notre équipe de 8 experts accompagne chaque client dans son projet.
+              <p className="text-gray-700 mb-8 leading-relaxed">
+                Chaque pi&egrave;ce est s&eacute;lectionn&eacute;e pour sa qualit&eacute;, sa durabilit&eacute; et son esth&eacute;tique intemporelle. Notre &eacute;quipe de 8 experts accompagne chaque client.
               </p>
-              <div className="grid grid-cols-2 gap-6 mt-8">
-                <div>
-                  <p className="text-3xl font-serif font-bold text-teak-brown">31</p>
-                  <p className="text-sm text-gray-600">années d'expertise</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-serif font-bold text-teak-brown">8</p>
-                  <p className="text-sm text-gray-600">collaborateurs passionnés</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-serif font-bold text-teak-brown">4.9/5</p>
-                  <p className="text-sm text-gray-600">Note sur Meta</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-serif font-bold text-teak-brown">100%</p>
-                  <p className="text-sm text-gray-600">Teck massif</p>
-                </div>
+              <div className="grid grid-cols-2 gap-8 mb-10">
+                {[
+                  { value: '31', label: "ann\u00e9es d'expertise" },
+                  { value: '8', label: 'collaborateurs passionn\u00e9s' },
+                  { value: '4.9/5', label: 'Note sur Meta' },
+                  { value: '100%', label: 'Teck massif' },
+                ].map((stat, idx) => (
+                  <div key={idx}>
+                    <p className="text-3xl font-serif font-bold text-teak-brown">{stat.value}</p>
+                    <p className="text-sm text-gray-600">{stat.label}</p>
+                  </div>
+                ))}
               </div>
-              <Link href="/a-propos" className="inline-block mt-8 btn-primary">
+              <Link href="/a-propos" className="btn-outline">
                 En savoir plus
               </Link>
             </div>
@@ -181,89 +183,74 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Showroom CTA Section */}
-      <section className="py-16 bg-dark-olive text-off-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-center mb-4">
-            Venez voir et toucher nos meubles
-          </h2>
-          <p className="text-center text-lg opacity-90 mb-12">
-            Visitez nos deux showrooms à La Réunion pour découvrir toute notre collection
-          </p>
+      {/* Showroom CTA */}
+      <section className="py-20 bg-dark-olive text-off-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold section-heading">
+              Venez voir et toucher nos meubles
+            </h2>
+            <p className="text-lg opacity-80 mt-8">
+              Visitez nos deux showrooms &agrave; La R&eacute;union
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {/* Showroom SUD */}
-            <div className="bg-dark-charcoal bg-opacity-50 p-8 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
+            <div className="bg-white bg-opacity-5 border border-white border-opacity-10 p-8">
               <h3 className="text-2xl font-serif font-bold mb-4">Showroom SUD</h3>
-              <p className="opacity-90 mb-2">8 rue Benjamin Hoareau</p>
-              <p className="opacity-90 mb-4">ZI n°3, 97410 Saint-Pierre</p>
+              <p className="opacity-80 mb-2 text-sm">8 rue Benjamin Hoareau</p>
+              <p className="opacity-80 mb-4 text-sm">ZI n&deg;3, 97410 Saint-Pierre</p>
               <p className="font-semibold mb-2">
-                <a href="tel:+262262350679" className="hover:text-teak-brown">
-                  0262 35 06 79
-                </a>
+                <a href="tel:+262262350679" className="text-teak-light hover:text-off-white transition-colors">0262 35 06 79</a>
               </p>
-              <p className="opacity-90 mb-4">
-                <a href="mailto:contact@dimexoi.fr" className="hover:text-teak-brown">
-                  contact@dimexoi.fr
-                </a>
+              <p className="text-sm opacity-80 mb-4">
+                <a href="mailto:contact@dimexoi.fr" className="hover:text-teak-light transition-colors">contact@dimexoi.fr</a>
               </p>
-              <p className="text-sm opacity-75">
-                Mardi - Samedi<br />
-                9h00 - 17h00
-              </p>
+              <p className="text-xs opacity-60 uppercase tracking-wider">Mar - Sam : 9h - 17h</p>
             </div>
-
-            {/* Showroom NORD */}
-            <div className="bg-dark-charcoal bg-opacity-50 p-8 rounded-lg">
+            <div className="bg-white bg-opacity-5 border border-white border-opacity-10 p-8">
               <h3 className="text-2xl font-serif font-bold mb-4">Showroom NORD</h3>
-              <p className="opacity-90 mb-2">43 rue Tourette</p>
-              <p className="opacity-90 mb-4">97400 Saint-Denis</p>
+              <p className="opacity-80 mb-2 text-sm">43 rue Tourette</p>
+              <p className="opacity-80 mb-4 text-sm">97400 Saint-Denis</p>
               <p className="font-semibold mb-2">
-                <a href="tel:+262262203030" className="hover:text-teak-brown">
-                  0262 20 30 30
-                </a>
+                <a href="tel:+262262203030" className="text-teak-light hover:text-off-white transition-colors">0262 20 30 30</a>
               </p>
-              <p className="opacity-90 mb-4">
-                <a href="mailto:bernard.runasia@gmail.com" className="hover:text-teak-brown">
-                  bernard.runasia@gmail.com
-                </a>
+              <p className="text-sm opacity-80 mb-4">
+                <a href="mailto:bernard.runasia@gmail.com" className="hover:text-teak-light transition-colors">bernard.runasia@gmail.com</a>
               </p>
-              <p className="text-sm opacity-75">
-                Mardi - Samedi<br />
-                10h00 - 13h00 & 14h00 - 18h00
-              </p>
+              <p className="text-xs opacity-60 uppercase tracking-wider">Mar - Sam : 10h-13h &amp; 14h-18h</p>
             </div>
           </div>
 
           <div className="text-center">
-            <Link href="/contact" className="inline-block bg-teak-brown text-off-white px-8 py-3 rounded-lg font-semibold hover:bg-off-white hover:text-dark-olive transition-colors">
+            <Link href="/contact" className="btn-teak">
               Nous contacter
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-12 bg-warm-beige">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-3xl font-serif font-bold text-center text-dark-olive mb-4">
-            Restez informé
+      {/* Newsletter */}
+      <section className="py-16 bg-warm-beige">
+        <div className="container mx-auto max-w-xl text-center">
+          <h2 className="text-3xl font-serif font-bold text-dark-olive section-heading">
+            Restez inform&eacute;
           </h2>
-          <p className="text-center text-gray-700 mb-6">
-            Recevez nos dernières collections et actualités
+          <p className="text-gray-600 mb-8 mt-8">
+            Recevez nos derni&egrave;res collections et actualit&eacute;s
           </p>
-          <form className="flex gap-2">
+          <form className="flex">
             <input
               type="email"
               placeholder="Votre email"
-              className="flex-1 px-4 py-3 rounded text-dark-charcoal"
+              className="flex-1 px-4 py-3 border border-gray-300 text-dark-charcoal text-sm focus:outline-none focus:border-dark-olive transition-colors"
               required
             />
             <button
               type="submit"
-              className="bg-dark-olive text-off-white px-6 py-3 rounded font-semibold hover:bg-teak-brown transition-colors"
+              className="bg-dark-olive text-off-white px-8 py-3 font-semibold text-sm uppercase tracking-wider hover:bg-dark-olive-light transition-colors"
             >
-              S'abonner
+              S&apos;abonner
             </button>
           </form>
         </div>

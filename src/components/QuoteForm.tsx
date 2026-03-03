@@ -34,9 +34,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
       const crmUrl = process.env.NEXT_PUBLIC_CRM_URL;
       const response = await fetch(`${crmUrl}api/submissions`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -46,10 +44,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
 
       setSuccess(true);
       (e.target as HTMLFormElement).reset();
-
-      setTimeout(() => {
-        setSuccess(false);
-      }, 5000);
+      setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Une erreur s\'est produite');
     } finally {
@@ -58,17 +53,17 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
       {/* Product Selection */}
       {productSlug && productName ? (
-        <div className="bg-warm-beige p-4 rounded-lg">
-          <p className="text-sm text-gray-600">Produit sélectionné :</p>
+        <div className="bg-warm-beige p-4 border-l-4 border-teak-brown">
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Produit selectionne</p>
           <p className="font-serif font-bold text-dark-olive">{productName}</p>
           <input type="hidden" name="product" value={productSlug} />
         </div>
       ) : (
         <div>
-          <label htmlFor="product" className="block text-sm font-semibold mb-2">
+          <label htmlFor="product" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
             Produit (optionnel)
           </label>
           <input
@@ -76,118 +71,83 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
             id="product"
             name="product"
             placeholder="Entrez le nom du produit"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
+            className="form-input"
           />
         </div>
       )}
 
-      {/* Name */}
-      <div>
-        <label htmlFor="name" className="block text-sm font-semibold mb-2">
-          Nom et Prénom *
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Nom et Prenom *
+          </label>
+          <input type="text" id="name" name="name" required className="form-input" />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Email *
+          </label>
+          <input type="email" id="email" name="email" required className="form-input" />
+        </div>
       </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-semibold mb-2">
-          Email *
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Telephone *
+          </label>
+          <input type="tel" id="phone" name="phone" required className="form-input" />
+        </div>
+        <div>
+          <label htmlFor="projectType" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Type de projet *
+          </label>
+          <select id="projectType" name="projectType" required className="form-input">
+            <option value="">Selectionnez un type</option>
+            <option value="renovation">Renovation</option>
+            <option value="demenagement">Emmenagement</option>
+            <option value="other">Autre</option>
+          </select>
+        </div>
       </div>
 
-      {/* Phone */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-semibold mb-2">
-          Téléphone *
+        <label htmlFor="showroom" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+          Showroom prefere *
         </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
-      </div>
-
-      {/* Project Type */}
-      <div>
-        <label htmlFor="projectType" className="block text-sm font-semibold mb-2">
-          Type de projet *
-        </label>
-        <select
-          id="projectType"
-          name="projectType"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        >
-          <option value="">Sélectionnez un type</option>
-          <option value="renovation">Rénovation</option>
-          <option value="demenagement">Emménagement</option>
-          <option value="other">Autre</option>
-        </select>
-      </div>
-
-      {/* Showroom Preference */}
-      <div>
-        <label htmlFor="showroom" className="block text-sm font-semibold mb-2">
-          Showroom préféré *
-        </label>
-        <select
-          id="showroom"
-          name="showroom"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        >
-          <option value="">Sélectionnez un showroom</option>
+        <select id="showroom" name="showroom" required className="form-input">
+          <option value="">Selectionnez un showroom</option>
           <option value="sud">SUD - Saint-Pierre</option>
           <option value="nord">NORD - Saint-Denis</option>
-          <option value="both">Pas de préférence</option>
+          <option value="both">Pas de preference</option>
         </select>
       </div>
 
-      {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold mb-2">
+        <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
           Message
         </label>
         <textarea
           id="message"
           name="message"
-          placeholder="Décrivez votre projet, vos préférences..."
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive resize-none"
+          placeholder="Decrivez votre projet, vos preferences..."
+          className="form-input resize-none"
           rows={5}
         ></textarea>
       </div>
 
-      {/* Error Message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
           {error}
         </div>
       )}
 
-      {/* Success Message */}
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-          Merci ! Votre demande a été envoyée avec succès. Nous vous recontacterons très bientôt.
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 text-sm">
+          Merci ! Votre demande a ete envoyee avec succes. Nous vous recontacterons tres bientot.
         </div>
       )}
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isLoading}
@@ -196,9 +156,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
         {isLoading ? 'Envoi en cours...' : 'Envoyer ma demande'}
       </button>
 
-      <p className="text-xs text-gray-600 text-center">
-        * Champs obligatoires
-      </p>
+      <p className="text-xs text-gray-500 text-center">* Champs obligatoires</p>
     </form>
   );
 }

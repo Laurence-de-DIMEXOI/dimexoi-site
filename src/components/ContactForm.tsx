@@ -27,9 +27,7 @@ export default function ContactForm() {
       const crmUrl = process.env.NEXT_PUBLIC_CRM_URL;
       const response = await fetch(`${crmUrl}api/submissions`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -39,10 +37,7 @@ export default function ContactForm() {
 
       setSuccess(true);
       (e.target as HTMLFormElement).reset();
-
-      setTimeout(() => {
-        setSuccess(false);
-      }, 5000);
+      setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Une erreur s\'est produite');
     } finally {
@@ -51,65 +46,62 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Name */}
-      <div>
-        <label htmlFor="name" className="block text-sm font-semibold mb-2">
-          Nom et Prénom *
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Nom et Prenom *
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            className="form-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Email *
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            className="form-input"
+          />
+        </div>
       </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-semibold mb-2">
-          Email *
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Telephone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            className="form-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="subject" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
+            Sujet *
+          </label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            required
+            className="form-input"
+          />
+        </div>
       </div>
 
-      {/* Phone */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-semibold mb-2">
-          Téléphone
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
-      </div>
-
-      {/* Subject */}
-      <div>
-        <label htmlFor="subject" className="block text-sm font-semibold mb-2">
-          Sujet *
-        </label>
-        <input
-          type="text"
-          id="subject"
-          name="subject"
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive"
-        />
-      </div>
-
-      {/* Message */}
-      <div>
-        <label htmlFor="message" className="block text-sm font-semibold mb-2">
+        <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-2">
           Message *
         </label>
         <textarea
@@ -117,26 +109,23 @@ export default function ContactForm() {
           name="message"
           required
           placeholder="Entrez votre message..."
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive resize-none"
+          className="form-input resize-none"
           rows={5}
         ></textarea>
       </div>
 
-      {/* Error Message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
           {error}
         </div>
       )}
 
-      {/* Success Message */}
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-          Merci ! Votre message a été envoyé avec succès.
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 text-sm">
+          Merci ! Votre message a ete envoye avec succes.
         </div>
       )}
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isLoading}
@@ -145,9 +134,7 @@ export default function ContactForm() {
         {isLoading ? 'Envoi en cours...' : 'Envoyer le message'}
       </button>
 
-      <p className="text-xs text-gray-600 text-center">
-        * Champs obligatoires
-      </p>
+      <p className="text-xs text-gray-500 text-center">* Champs obligatoires</p>
     </form>
   );
 }

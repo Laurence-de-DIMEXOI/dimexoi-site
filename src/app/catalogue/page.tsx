@@ -41,74 +41,88 @@ function CatalogueContent() {
 
   return (
     <main className="min-h-screen bg-off-white">
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumb
-          items={[
-            { label: 'Accueil', href: '/' },
-            { label: 'Catalogue' },
-          ]}
-        />
+      {/* Page Header */}
+      <div className="bg-dark-olive text-off-white py-12">
+        <div className="container mx-auto">
+          <Breadcrumb
+            items={[
+              { label: 'Accueil', href: '/' },
+              { label: 'Catalogue' },
+            ]}
+          />
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-2">
+            Catalogue complet
+          </h1>
+          <p className="text-sm opacity-80 mt-2 uppercase tracking-wider">
+            {products.length} produits en teck massif
+          </p>
+        </div>
+      </div>
 
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive mb-8">
-          Catalogue complet
-        </h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="container mx-auto py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
           {/* Sidebar Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg p-6 border border-warm-beige sticky top-24">
-              <h3 className="font-serif font-bold text-lg mb-4 text-dark-olive">
+            <div className="bg-white p-6 border border-gray-100 sticky top-24">
+              <h3 className="font-sans font-semibold text-xs uppercase tracking-widest text-dark-olive mb-6 pb-3 border-b border-gray-100">
                 Filtres
               </h3>
 
               {/* Search */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold mb-2">Recherche</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Recherche</label>
                 <input
                   type="text"
                   placeholder="Chercher un produit..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive text-sm"
+                  className="form-input"
                 />
               </div>
 
               {/* Categories */}
               <div className="mb-6">
-                <label className="block text-sm font-semibold mb-2">Catégorie</label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => {
-                    setSelectedCategory(e.target.value);
-                    setSelectedSubcategory('');
-                  }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive text-sm"
-                >
-                  <option value="">Toutes les catégories</option>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Cat&eacute;gorie</label>
+                <div className="space-y-1">
+                  <button
+                    onClick={() => { setSelectedCategory(''); setSelectedSubcategory(''); }}
+                    className={`block w-full text-left px-3 py-2 text-sm transition-colors ${!selectedCategory ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'}`}
+                  >
+                    Toutes les cat&eacute;gories
+                  </button>
                   {categories.map(cat => (
-                    <option key={cat} value={cat}>
+                    <button
+                      key={cat}
+                      onClick={() => { setSelectedCategory(cat); setSelectedSubcategory(''); }}
+                      className={`block w-full text-left px-3 py-2 text-sm transition-colors ${selectedCategory === cat ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'}`}
+                    >
                       {cat}
-                    </option>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
 
               {/* Subcategories */}
               {filteredSubcategories.length > 0 && (
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Sous-catégorie</label>
-                  <select
-                    value={selectedSubcategory}
-                    onChange={(e) => setSelectedSubcategory(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive text-sm"
-                  >
-                    <option value="">Toutes les sous-catégories</option>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Sous-cat&eacute;gorie</label>
+                  <div className="space-y-1 max-h-60 overflow-y-auto">
+                    <button
+                      onClick={() => setSelectedSubcategory('')}
+                      className={`block w-full text-left px-3 py-2 text-sm transition-colors ${!selectedSubcategory ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'}`}
+                    >
+                      Toutes
+                    </button>
                     {filteredSubcategories.map(subcat => (
-                      <option key={subcat} value={subcat}>
+                      <button
+                        key={subcat}
+                        onClick={() => setSelectedSubcategory(subcat)}
+                        className={`block w-full text-left px-3 py-2 text-sm transition-colors ${selectedSubcategory === subcat ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'}`}
+                      >
                         {subcat}
-                      </option>
+                      </button>
                     ))}
-                  </select>
+                  </div>
                 </div>
               )}
 
@@ -120,9 +134,9 @@ function CatalogueContent() {
                     setSelectedSubcategory('');
                     setSearchQuery('');
                   }}
-                  className="w-full text-sm font-semibold text-dark-olive hover:text-teak-brown transition-colors"
+                  className="w-full text-xs font-semibold uppercase tracking-wider text-teak-brown hover:text-dark-olive transition-colors py-2 border-t border-gray-100 mt-4 pt-4"
                 >
-                  Réinitialiser les filtres
+                  R&eacute;initialiser les filtres
                 </button>
               )}
             </div>
@@ -130,22 +144,25 @@ function CatalogueContent() {
 
           {/* Products Grid */}
           <div className="lg:col-span-3">
-            <div className="mb-6">
-              <p className="text-gray-600">
-                {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
+            <div className="mb-8 flex items-center justify-between">
+              <p className="text-sm text-gray-500 uppercase tracking-wider">
+                {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouv&eacute;{filteredProducts.length !== 1 ? 's' : ''}
               </p>
             </div>
 
             {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredProducts.map(product => (
                   <ProductCard key={product.id} {...product} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-600 mb-4">
-                  Aucun produit ne correspond à vos critères.
+              <div className="text-center py-20 bg-white border border-gray-100">
+                <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <p className="text-gray-500 mb-4">
+                  Aucun produit ne correspond &agrave; vos crit&egrave;res.
                 </p>
                 <button
                   onClick={() => {
@@ -153,7 +170,7 @@ function CatalogueContent() {
                     setSelectedSubcategory('');
                     setSearchQuery('');
                   }}
-                  className="text-dark-olive font-semibold hover:text-teak-brown"
+                  className="btn-outline"
                 >
                   Voir tous les produits
                 </button>
@@ -170,7 +187,7 @@ export default function CataloguePage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-off-white flex items-center justify-center">
-        <p className="text-gray-500">Chargement du catalogue...</p>
+        <p className="text-gray-500 text-sm uppercase tracking-wider">Chargement du catalogue...</p>
       </div>
     }>
       <CatalogueContent />
