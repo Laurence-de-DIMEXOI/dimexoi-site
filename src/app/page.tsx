@@ -5,12 +5,13 @@ import CategoryCard from '@/src/components/CategoryCard';
 import { products } from '@/src/lib/products';
 
 const categoryImages: Record<string, string> = {
-  'Chambre': 'https://images.unsplash.com/photo-1540932424986-bd8b50f8dbca?w=800&h=600&fit=crop',
-  'Salon': 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
-  'Salle à manger': 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&h=600&fit=crop',
-  'Entrée': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop',
-  'Salle de bains': 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop',
-  'Extérieur': 'https://images.unsplash.com/photo-1564078516533-13f6855d1840?w=800&h=600&fit=crop',
+  'Chambre': 'https://lh3.googleusercontent.com/d/1kQwn1zIMOqDjqHLMG8weJPyQvKlIFr3K=w800',
+  'Salon': 'https://lh3.googleusercontent.com/d/1E7-BN2ad8z0tB6nED_MwOdOQ1xIOGIQr=w800',
+  'Salle à manger': 'https://lh3.googleusercontent.com/d/1hyKRB2FsLBUe-xJ5_uOfMNab1V4Ghb7n=w800',
+  'Entrée': 'https://lh3.googleusercontent.com/d/1_XSN7w57OQntEfJ7H38eE6o8Ely2wB5s=w800',
+  'Salle de bains': 'https://lh3.googleusercontent.com/d/1UWP-2Y6I5rDyks9MlrbmjQ-DQpQ7Ue7n=w800',
+  'Extérieur': 'https://lh3.googleusercontent.com/d/1G-8Pcws2HaeM_Gx_fMUsGtGspkVmMKos=w800',
+  'Sur-mesure': 'https://lh3.googleusercontent.com/d/1_dOM2NzRQ4HtK0ae_jhBVb7QQ2lKOpDy=w800',
 };
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
   ).map(cat => ({
     name: cat,
     count: products.filter(p => p.category === cat).length,
-    image: categoryImages[cat] || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop',
+    image: categoryImages[cat] || 'https://lh3.googleusercontent.com/d/1E7-BN2ad8z0tB6nED_MwOdOQ1xIOGIQr=w800',
   }));
 
   return (
@@ -29,7 +30,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] bg-dark-charcoal overflow-hidden flex items-center">
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&h=1080&fit=crop"
+          src="https://lh3.googleusercontent.com/d/1E7-BN2ad8z0tB6nED_MwOdOQ1xIOGIQr=w1920"
           alt="Mobilier en teck DIMEXOI"
           fill
           className="object-cover"
@@ -37,7 +38,7 @@ export default function Home() {
           unoptimized
         />
         <div className="hero-overlay absolute inset-0"></div>
-        <div className="relative z-10 container mx-auto">
+        <div className="relative z-10 container mx-auto px-6">
           <div className="max-w-2xl">
             <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">
               Depuis 1995 &agrave; La R&eacute;union
@@ -142,7 +143,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&h=500&fit=crop"
+                src="https://lh3.googleusercontent.com/d/1hyKRB2FsLBUe-xJ5_uOfMNab1V4Ghb7n=w800"
                 alt="DIMEXOI showroom"
                 width={600}
                 height={500}

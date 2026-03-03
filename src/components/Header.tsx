@@ -2,10 +2,12 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useDevisCart } from './DevisCartProvider';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { itemCount, toggleCart } = useDevisCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,11 +80,27 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* CTA + Mobile Toggle */}
+            {/* CTA + Cart + Mobile Toggle */}
             <div className="flex items-center gap-4">
               <Link href="/devis" className="hidden md:inline-flex btn-primary">
                 Demander un devis
               </Link>
+
+              {/* Devis Cart Icon */}
+              <button
+                onClick={toggleCart}
+                className="relative w-10 h-10 flex items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
+                aria-label="Mon devis"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                {itemCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-teak-brown text-off-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {itemCount > 9 ? '9+' : itemCount}
+                  </span>
+                )}
+              </button>
 
               <button
                 className="lg:hidden w-10 h-10 flex items-center justify-center text-dark-olive"

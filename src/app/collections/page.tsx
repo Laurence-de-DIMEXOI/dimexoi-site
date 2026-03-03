@@ -19,7 +19,7 @@ export default function CollectionsPage() {
   return (
     <main className="min-h-screen bg-off-white">
       {/* Page Header */}
-      <div className="bg-dark-olive text-off-white py-12">
+      <div className="bg-dark-olive text-off-white py-14">
         <div className="container mx-auto">
           <Breadcrumb
             items={[
@@ -27,7 +27,7 @@ export default function CollectionsPage() {
               { label: 'Collections' },
             ]}
           />
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-2">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-3">
             Collections
           </h1>
           <p className="text-sm opacity-80 mt-2 uppercase tracking-wider">

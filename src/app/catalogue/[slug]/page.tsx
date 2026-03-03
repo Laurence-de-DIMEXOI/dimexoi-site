@@ -5,6 +5,7 @@ import ImageGallery from '@/src/components/ImageGallery';
 import QuoteForm from '@/src/components/QuoteForm';
 import ProductCard from '@/src/components/ProductCard';
 import { getProductBySlug, getProductsBySubcategory, products } from '@/src/lib/products';
+import { ProductSchema } from '@/src/components/SchemaOrg';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -52,8 +53,15 @@ export default function ProductDetailPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-off-white">
+      <ProductSchema
+        name={product.name}
+        description={product.description.split('\n')[0]}
+        image={product.images?.[0] || ''}
+        category={product.category}
+        slug={product.slug}
+      />
       {/* Page Header */}
-      <div className="bg-warm-beige py-4">
+      <div className="bg-warm-beige py-5">
         <div className="container mx-auto">
           <Breadcrumb
             items={[
@@ -66,9 +74,9 @@ export default function ProductDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-12">
         {/* Product Detail */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 mb-20">
           {/* Image Gallery */}
           <div>
             <ImageGallery images={product.images} alt={product.name} />

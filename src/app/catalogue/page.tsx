@@ -42,7 +42,7 @@ function CatalogueContent() {
   return (
     <main className="min-h-screen bg-off-white">
       {/* Page Header */}
-      <div className="bg-dark-olive text-off-white py-12">
+      <div className="bg-dark-olive text-off-white py-14">
         <div className="container mx-auto">
           <Breadcrumb
             items={[
@@ -50,16 +50,16 @@ function CatalogueContent() {
               { label: 'Catalogue' },
             ]}
           />
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-2">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-3">
             Catalogue complet
           </h1>
-          <p className="text-sm opacity-80 mt-2 uppercase tracking-wider">
+          <p className="text-sm opacity-80 mt-3 uppercase tracking-wider">
             {products.length} produits en teck massif
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
           {/* Sidebar Filters */}
           <div className="lg:col-span-1">

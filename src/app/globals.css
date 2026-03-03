@@ -18,8 +18,8 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #FDFBF7;
-  color: #2C2C2C;
+  background-color: #FFFFFF;
+  color: #0D0D0D;
   line-height: 1.7;
 }
 
@@ -38,19 +38,25 @@ button {
 }
 
 ::selection {
-  background-color: #4A5D23;
-  color: #FDFBF7;
+  background-color: #111111;
+  color: #FFFFFF;
 }
 
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 2rem;
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 3rem;
   }
 }
 
@@ -69,7 +75,7 @@ button {
   transform: translateX(-50%);
   width: 50px;
   height: 3px;
-  background-color: #8B6914;
+  background-color: #C4661F;
 }
 
 .section-heading-left {
@@ -85,16 +91,16 @@ button {
   bottom: 0;
   width: 50px;
   height: 3px;
-  background-color: #8B6914;
+  background-color: #C4661F;
 }
 
 /* Hero Overlay */
 .hero-overlay {
   background: linear-gradient(
     160deg,
-    rgba(44, 44, 44, 0.65) 0%,
-    rgba(44, 44, 44, 0.3) 50%,
-    rgba(74, 93, 35, 0.2) 100%
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.35) 50%,
+    rgba(0, 0, 0, 0.15) 100%
   );
 }
 
@@ -134,11 +140,11 @@ button {
 
 .product-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 25px 50px rgba(74, 93, 35, 0.12);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
 .product-card:hover::after {
-  border-color: #F5F0EB;
+  border-color: #F9EBC7;
 }
 
 .product-card .product-image img {
@@ -189,8 +195,8 @@ button {
 .category-card:hover .category-overlay {
   background: linear-gradient(
     to top,
-    rgba(74, 93, 35, 0.8) 0%,
-    rgba(74, 93, 35, 0.3) 50%,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
     transparent 100%
   );
 }
@@ -210,7 +216,7 @@ button {
 
 .form-input:focus {
   @apply outline-none border-dark-olive;
-  box-shadow: 0 0 0 1px #4A5D23;
+  box-shadow: 0 0 0 1px #111111;
 }
 
 .form-input::placeholder {
@@ -254,12 +260,12 @@ input, textarea, select {
 }
 
 .gallery-thumbnail:hover {
-  border-color: #8B6914;
+  border-color: #C4661F;
   opacity: 1;
 }
 
 .gallery-thumbnail.active {
-  border-color: #4A5D23;
+  border-color: #111111;
   opacity: 1;
 }
 
@@ -302,16 +308,16 @@ input, textarea, select {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F5F0EB;
+  background: #F9F9F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c4bfb7;
+  background: #CCCCCC;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B6914;
+  background: #C4661F;
 }
 
 /* Responsive */

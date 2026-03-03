@@ -9,15 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'warm-beige': '#F5F0EB',
-        'dark-olive': '#4A5D23',
-        'dark-olive-light': '#5A7030',
-        'teak-brown': '#8B6914',
-        'teak-light': '#A37D1E',
-        'off-white': '#FDFBF7',
-        'dark-charcoal': '#2C2C2C',
-        'forest-green': '#3B4D1A',
-        'cream': '#FAF7F2',
+        // LUXURY BLACK & WHITE BASE
+        'dark-olive': '#111111',
+        'dark-olive-light': '#222222',
+        'off-white': '#FFFFFF',
+        'dark-charcoal': '#0D0D0D',
+        // WARM ACCENTS (palette)
+        'teak-brown': '#C4661F',
+        'teak-light': '#B99470',
+        'warm-beige': '#F9EBC7',
+        'cream': '#FEFAE0',
+        'russet': '#783D19',
+        // FOREST TOUCHES
+        'forest-green': '#5F6F52',
+        'laurel': '#A9B388',
       },
       fontFamily: {
         serif: ['Playfair Display', 'serif'],
