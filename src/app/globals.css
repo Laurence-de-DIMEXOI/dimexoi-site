@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #FDFBF7;
+  color: #2C2C2C;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
+a {
+  transition: all 0.3s ease;
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Hero gradient overlay */
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Smooth animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Product card hover effect */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(74, 93, 35, 0.1);
+}
+
+/* Category card overlay */
+.category-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
+}
+
+.category-card:hover .category-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-dark-olive text-off-white px-6 py-3 rounded-lg font-semibold hover:bg-teak-brown transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-warm-beige text-dark-olive px-6 py-3 rounded-lg font-semibold hover:bg-teak-brown hover:text-off-white transition-colors border border-dark-olive;
+}
+
+.btn-outline {
+  @apply border-2 border-dark-olive text-dark-olive px-6 py-3 rounded-lg font-semibold hover:bg-dark-olive hover:text-off-white transition-colors;
+}
+
+/* Form styles */
+input, textarea, select {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-olive;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Image gallery */
+.gallery-main {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.gallery-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.gallery-thumbnail {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 0.25rem;
+  transition: border-color 0.3s ease;
+}
+
+.gallery-thumbnail:hover {
+  border-color: #4A5D23;
+}
+
+.gallery-thumbnail.active {
+  border-color: #4A5D23;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  @apply flex items-center gap-2 text-sm text-gray-600 mb-4;
+}
+
+.breadcrumb-separator {
+  @apply mx-1 text-gray-400;
+}
+
+/* Dropdown animation */
+.dropdown-enter {
+  animation: dropdownEnter 0.3s ease-out;
+}
+
+@keyframes dropdownEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sticky header shadow */
+header.sticky {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
