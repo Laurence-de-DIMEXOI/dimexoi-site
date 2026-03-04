@@ -8,18 +8,30 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
+      redirect: 'follow',
     });
 
-    if (!response.ok) {
-      const text = await response.text();
-      return NextResponse.json(
-        { error: text || 'Erreur du serveur CRM' },
-        { status: response.status }
-      );
+    // Read response body as text first
+    const responseText = await response.text();
+
+    // Try to parse as JSON, fallback to wrapping in object
+    let responseData;
+    try {
+      responseData = JSON.parse(responseText);
+    } catch {
+      responseData = { status: 'ok', raw: responseText };
     }
 
-    const data = await response.json().catch(() => ({}));
-    return NextResponse.json(data, { status: 200 });
+    // Accept any 2xx or 3xx as success (kokpit may redirect after processing)
+    if (response.status < 400) {
+      return NextResponse.json(responseData, { status: 200 });
+    }
+
+    // Only treat 4xx/5xx as real errors
+    return NextResponse.json(
+      { error: responseData?.error || responseText || 'Erreur du serveur CRM' },
+      { status: response.status }
+    );
   } catch (error) {
     console.error('Webhook demande error:', error);
     return NextResponse.json(
