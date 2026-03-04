@@ -161,9 +161,11 @@ export default function Header() {
               </Link>
 
               {/* Desktop CTA */}
-              <Link href="/devis" className="hidden lg:inline-flex btn-primary text-sm ml-2">
-                Demander un devis
-              </Link>
+              <div className="hidden lg:block ml-2">
+                <Link href="/devis" className="btn-primary text-sm">
+                  Demander un devis
+                </Link>
+              </div>
             </div>
           </div>
         </div>
