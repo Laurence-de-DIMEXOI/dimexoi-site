@@ -175,7 +175,7 @@ export default function AboutPage() {
               'Livraison sous condition d\'accessibilit\u00e9',
             ].map((item, idx) => (
               <p key={idx} className="flex items-center gap-3 text-gray-700">
-                <span className="w-6 h-6 flex items-center justify-center bg-dark-olive text-off-white text-xs rounded-full flex-shrink-0">&check;</span>
+                <span className="w-6 h-6 flex items-center justify-center bg-dark-olive text-off-white text-xs rounded-full flex-shrink-0">✓</span>
                 {item}
               </p>
             ))}

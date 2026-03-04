@@ -109,7 +109,7 @@ function DevisContent() {
             Demander un devis
           </h1>
           <p className="text-sm opacity-80 mt-3 uppercase tracking-wider">
-            R&eacute;ponse sous 24h
+            Réponse sous 48h
           </p>
         </div>
       </div>

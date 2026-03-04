@@ -110,7 +110,7 @@ export default function ProductDetailPage({ params }: PageProps) {
               <ul className="space-y-2">
                 {descriptionLines.map((line, idx) => (
                   <li key={idx} className="flex gap-3 text-gray-700 text-sm">
-                    <span className="text-teak-brown font-bold flex-shrink-0">&check;</span>
+                    <span className="text-teak-brown font-bold flex-shrink-0">✓</span>
                     <span>{line.replace(/^✓\s*/, '')}</span>
                   </li>
                 ))}

@@ -3,11 +3,11 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="bg-dark-olive text-gray-400">
-      <div className="container mx-auto py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <div className="container mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-4">
               <span className="text-xl font-serif font-bold text-off-white border-2 border-off-white px-3 py-1 tracking-wide">
                 DIMEXOI
               </span>
@@ -15,11 +15,9 @@ export default function Footer() {
             <p className="text-sm leading-relaxed mb-4">
               Mobilier en teck d&apos;exception depuis 1995. Savoir-faire artisanal, 100% teck massif Tectona Grandis.
             </p>
-            <p className="text-xs text-gray-600 uppercase tracking-wider mb-6">
-              BOIS.d&apos;Orient by DIMEXOI
+            <p className="text-xs text-gray-500 uppercase tracking-widest mb-6 font-medium">
+              BOIS.d&apos;Orient <span className="text-gray-600">by</span> DIMEXOI
             </p>
-
-            {/* Social Media */}
             <div className="flex gap-3">
               <a href="https://www.facebook.com/dimexoi" target="_blank" rel="noopener noreferrer" className="w-9 h-9 flex items-center justify-center border border-gray-700 text-gray-500 hover:text-off-white hover:border-teak-brown transition-all" aria-label="Facebook">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33C10.24.5,9.5,3.44,9.5,5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4Z"/></svg>
@@ -32,54 +30,32 @@ export default function Footer() {
 
           {/* Showroom Sud */}
           <div>
-            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">
-              Showroom SUD
-            </h4>
+            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">Showroom SUD</h4>
             <div className="space-y-2 text-sm">
               <p>8 rue Benjamin Hoareau</p>
-              <p>ZI n&deg;3, 97410 Saint-Pierre</p>
-              <p className="pt-2">
-                <a href="tel:+262262350679" className="text-teak-brown hover:text-off-white transition-colors font-medium">
-                  0262 35 06 79
-                </a>
-              </p>
-              <p>
-                <a href="mailto:contact@dimexoi.fr" className="hover:text-off-white transition-colors">
-                  contact@dimexoi.fr
-                </a>
-              </p>
+              <p>ZI n°3, 97410 Saint-Pierre</p>
+              <p className="pt-2"><a href="tel:+262262350679" className="text-teak-brown hover:text-off-white transition-colors font-medium">0262 35 06 79</a></p>
+              <p><a href="mailto:contact@dimexoi.fr" className="hover:text-off-white transition-colors">contact@dimexoi.fr</a></p>
               <p className="text-xs text-gray-600 pt-2">Mar - Sam : 9h - 17h</p>
             </div>
           </div>
 
           {/* Showroom Nord */}
           <div>
-            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">
-              Showroom NORD
-            </h4>
+            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">Showroom NORD</h4>
             <div className="space-y-2 text-sm">
               <p>43 rue Tourette</p>
               <p>97400 Saint-Denis</p>
-              <p className="pt-2">
-                <a href="tel:+262262203030" className="text-teak-brown hover:text-off-white transition-colors font-medium">
-                  0262 20 30 30
-                </a>
-              </p>
-              <p>
-                <a href="mailto:bernard.runasia@gmail.com" className="hover:text-off-white transition-colors">
-                  bernard.runasia@gmail.com
-                </a>
-              </p>
+              <p className="pt-2"><a href="tel:+262262203030" className="text-teak-brown hover:text-off-white transition-colors font-medium">0262 20 30 30</a></p>
+              <p><a href="mailto:bernard.runasia@gmail.com" className="hover:text-off-white transition-colors">bernard.runasia@gmail.com</a></p>
               <p className="text-xs text-gray-600 pt-2">Mar - Sam : 10h-13h &amp; 14h-18h</p>
             </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">
-              Navigation
-            </h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-off-white font-sans font-semibold text-xs uppercase tracking-widest mb-6">Navigation</h4>
+            <ul className="space-y-3 text-sm">
               {[
                 { href: '/catalogue', label: 'Catalogue' },
                 { href: '/collections', label: 'Collections' },
@@ -88,9 +64,7 @@ export default function Footer() {
                 { href: '/contact', label: 'Contact' },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:text-teak-brown transition-colors">
-                    {link.label}
-                  </Link>
+                  <Link href={link.href} className="hover:text-teak-brown transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -98,33 +72,23 @@ export default function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="border-t border-gray-800 pt-10 mb-10">
+        <div className="border-t border-gray-800 pt-12 mb-12">
           <div className="max-w-md">
-            <h4 className="text-off-white font-serif text-lg font-bold mb-2">Restez inform&eacute;</h4>
-            <p className="text-sm mb-4">Recevez nos derni&egrave;res collections et actualit&eacute;s</p>
+            <h4 className="text-off-white font-serif text-lg font-bold mb-2">Restez informé</h4>
+            <p className="text-sm mb-4">Recevez nos dernières collections et actualités</p>
             <form className="flex">
-              <input
-                type="email"
-                placeholder="Votre email"
-                className="flex-1 px-4 py-3 bg-white bg-opacity-5 border border-gray-700 text-off-white text-sm placeholder-gray-600 focus:outline-none focus:border-teak-brown transition-colors"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-teak-brown text-off-white px-6 py-3 font-semibold text-sm uppercase tracking-wider hover:bg-teak-light transition-colors"
-              >
-                OK
-              </button>
+              <input type="email" placeholder="Votre email" className="flex-1 px-4 py-3 bg-white bg-opacity-5 border border-gray-700 text-off-white text-sm placeholder-gray-600 focus:outline-none focus:border-teak-brown transition-colors" required />
+              <button type="submit" className="bg-teak-brown text-off-white px-6 py-3 font-semibold text-sm uppercase tracking-wider hover:bg-teak-light transition-colors">OK</button>
             </form>
           </div>
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-xs">
-          <p>&copy; {new Date().getFullYear()} DIMEXOI. Tous droits r&eacute;serv&eacute;s.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/mentions-legales" className="hover:text-teak-brown transition-colors">Mentions l&eacute;gales</Link>
-            <Link href="/confidentialite" className="hover:text-teak-brown transition-colors">Confidentialit&eacute;</Link>
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-xs gap-4">
+          <p>&copy; {new Date().getFullYear()} DIMEXOI. Tous droits réservés.</p>
+          <div className="flex gap-6">
+            <Link href="/mentions-legales" className="hover:text-teak-brown transition-colors">Mentions légales</Link>
+            <Link href="/confidentialite" className="hover:text-teak-brown transition-colors">Confidentialité</Link>
             <Link href="/cgu" className="hover:text-teak-brown transition-colors">CGU</Link>
           </div>
         </div>
