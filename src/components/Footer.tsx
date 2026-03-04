@@ -83,7 +83,7 @@ export default function Footer() {
               <p>43 rue Tourette</p>
               <p>97400 Saint-Denis</p>
               <p className="pt-2"><a href="tel:+262262203030" className="text-teak-brown hover:text-off-white transition-colors font-medium">0262 20 30 30</a></p>
-              <p><a href="mailto:bernard.runasia@gmail.com" className="hover:text-off-white transition-colors">bernard.runasia@gmail.com</a></p>
+              <p><a href="mailto:bernard@dimexoi.fr" className="hover:text-off-white transition-colors">bernard@dimexoi.fr</a></p>
               <p className="text-xs text-gray-600 pt-2">Mar - Sam : 10h-13h &amp; 14h-18h</p>
             </div>
           </div>

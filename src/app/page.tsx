@@ -271,7 +271,7 @@ export default function Home() {
                 <a href="tel:+262262203030" className="text-teak-light hover:text-off-white transition-colors">0262 20 30 30</a>
               </p>
               <p className="text-sm opacity-80 mb-4">
-                <a href="mailto:bernard.runasia@gmail.com" className="hover:text-teak-light transition-colors">bernard.runasia@gmail.com</a>
+                <a href="mailto:bernard@dimexoi.fr" className="hover:text-teak-light transition-colors">bernard@dimexoi.fr</a>
               </p>
               <p className="text-xs opacity-60 uppercase tracking-wider">Mar - Sam : 10h-13h &amp; 14h-18h</p>
             </div>

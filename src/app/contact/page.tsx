@@ -58,7 +58,7 @@ export default function ContactPage() {
                 address: '43 rue Tourette\n97400 Saint-Denis',
                 phone: '0262 20 30 30',
                 phoneLink: '+262262203030',
-                email: 'bernard.runasia@gmail.com',
+                email: 'bernard@dimexoi.fr',
                 hours: 'Mardi - Samedi\n10h00 - 13h00 & 14h00 - 18h00',
                 mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.1234567890!2d55.4567890!3d-20.8765432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2481f2c1234567!2s43%20Rue%20Tourette%2C%2097400%20Saint-Denis!5e0!3m2!1sfr!2sfr!4v1234567890',
               },
