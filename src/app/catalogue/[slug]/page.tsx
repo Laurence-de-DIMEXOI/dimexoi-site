@@ -61,7 +61,7 @@ export default function ProductDetailPage({ params }: PageProps) {
         slug={product.slug}
       />
       {/* Page Header */}
-      <div className="bg-dark-olive text-off-white py-10 sm:py-14">
+      <div className="bg-warm-beige py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
@@ -71,12 +71,6 @@ export default function ProductDetailPage({ params }: PageProps) {
               { label: product.name },
             ]}
           />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3">
-            {product.name}
-          </h1>
-          <p className="text-sm opacity-80 mt-3 uppercase tracking-wider">
-            {product.category} &middot; {product.subcategory}
-          </p>
         </div>
       </div>
 
