@@ -77,7 +77,7 @@ function CatalogueContent() {
 
   const activeFilterCount = [selectedCategory, selectedSubcategory, selectedCollection, searchQuery].filter(Boolean).length;
 
-  const SidebarContent = () => (
+  const sidebarContent = (
     <div className="space-y-6">
       {/* Search */}
       <div>
@@ -268,7 +268,7 @@ function CatalogueContent() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
-            <SidebarContent />
+            {sidebarContent}
           </div>
         )}
 
@@ -276,7 +276,7 @@ function CatalogueContent() {
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-28">
-              <SidebarContent />
+              {sidebarContent}
             </div>
           </aside>
 
