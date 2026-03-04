@@ -9,9 +9,17 @@ interface QuoteFormProps {
 }
 
 const SHOWROOM_MAP: Record<string, string> = {
-  sud: 'Saint-Pierre',
-  nord: 'Saint-Denis',
+  sud: 'SUD - Saint-Pierre',
+  nord: 'NORD - Saint-Denis',
   both: 'Pas de préférence',
+};
+
+const BUDGET_MAP: Record<string, string> = {
+  'moins-1000': 'Moins de 1 000€',
+  '1000-3000': '1 000€ - 3 000€',
+  '3000-5000': '3 000€ - 5 000€',
+  '5000-10000': '5 000€ - 10 000€',
+  'plus-10000': 'Plus de 10 000€',
 };
 
 export default function QuoteForm({ productSlug, productName }: QuoteFormProps) {
@@ -36,16 +44,27 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
     const formData = new FormData(e.currentTarget);
     const showroomKey = formData.get('showroom') as string;
 
+    const budgetKey = formData.get('budget') as string;
+    const produitName = (formData.get('produit') as string) || productName || '';
+
+    // Build articles array if product is specified
+    const articles = produitName ? [{
+      nom: produitName,
+      categorie: '',
+      finition: '',
+      quantite: 1,
+    }] : [];
+
     const data = {
       nom: formData.get('nom'),
       prenom: formData.get('prenom'),
       email: formData.get('email'),
       telephone: formData.get('telephone'),
-      produit: formData.get('produit') || productSlug || '',
-      message: formData.get('message') || '',
       showroom: SHOWROOM_MAP[showroomKey] || showroomKey,
-      budget: formData.get('budget') || '',
-      source: 'site-web',
+      budget: BUDGET_MAP[budgetKey] || budgetKey || '',
+      message: formData.get('message') || '',
+      source: 'site-web-v2',
+      articles,
       consentements: {
         offre: consentOffers,
         newsletter: consentNewsletter,
@@ -57,7 +76,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
     };
 
     try {
-      const response = await fetch('/api/webhooks/demande', {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/demande', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

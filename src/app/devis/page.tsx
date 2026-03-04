@@ -10,9 +10,17 @@ import { getProductBySlug } from '@/src/lib/products';
 import { useState } from 'react';
 
 const SHOWROOM_MAP: Record<string, string> = {
-  sud: 'Saint-Pierre',
-  nord: 'Saint-Denis',
+  sud: 'SUD - Saint-Pierre',
+  nord: 'NORD - Saint-Denis',
   both: 'Pas de préférence',
+};
+
+const BUDGET_MAP: Record<string, string> = {
+  'moins-1000': 'Moins de 1 000€',
+  '1000-3000': '1 000€ - 3 000€',
+  '3000-5000': '3 000€ - 5 000€',
+  '5000-10000': '5 000€ - 10 000€',
+  'plus-10000': 'Plus de 10 000€',
 };
 
 function DevisContent() {
@@ -41,45 +49,36 @@ function DevisContent() {
 
     const formData = new FormData(e.currentTarget);
 
-    const devisItems = items.map(item => ({
-      slug: item.slug,
-      name: item.name,
-      category: item.category,
-      subcategory: item.subcategory,
-      finish: item.finish,
-      finishLabel: FINISHES.find(f => f.value === item.finish)?.label || item.finish,
-      quantity: item.quantity,
+    // Build articles array for CRM
+    const articles = items.map(item => ({
+      nom: item.name,
+      categorie: item.subcategory || item.category,
+      finition: FINISHES.find(f => f.value === item.finish)?.label || item.finish,
+      quantite: item.quantity,
     }));
 
-    if (product && devisItems.length === 0) {
-      devisItems.push({
-        slug: product.slug,
-        name: product.name,
-        category: product.category,
-        subcategory: product.subcategory,
-        finish: 'miel',
-        finishLabel: 'Miel',
-        quantity: 1,
+    if (product && articles.length === 0) {
+      articles.push({
+        nom: product.name,
+        categorie: product.subcategory || product.category,
+        finition: 'Miel',
+        quantite: 1,
       });
     }
 
-    // Build product description string for CRM
-    const produitDesc = devisItems.length > 0
-      ? devisItems.map(item => `${item.name} (${item.finishLabel}) x${item.quantity}`).join(', ')
-      : '';
-
     const showroomKey = formData.get('showroom') as string;
+    const budgetKey = formData.get('budget') as string;
 
     const data = {
       nom: formData.get('nom'),
       prenom: formData.get('prenom'),
       email: formData.get('email'),
       telephone: formData.get('telephone'),
-      produit: produitDesc,
-      message: formData.get('message') || '',
       showroom: SHOWROOM_MAP[showroomKey] || showroomKey,
-      budget: formData.get('budget') || '',
-      source: 'site-web',
+      budget: BUDGET_MAP[budgetKey] || budgetKey || '',
+      message: formData.get('message') || '',
+      source: 'site-web-v2',
+      articles,
       consentements: {
         offre: consentOffers,
         newsletter: consentNewsletter,
@@ -91,7 +90,7 @@ function DevisContent() {
     };
 
     try {
-      const response = await fetch('/api/webhooks/demande', {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/demande', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

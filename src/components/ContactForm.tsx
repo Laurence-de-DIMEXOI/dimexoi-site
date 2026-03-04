@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const SHOWROOM_MAP: Record<string, string> = {
-  sud: 'Saint-Pierre',
-  nord: 'Saint-Denis',
+  sud: 'SUD - Saint-Pierre',
+  nord: 'NORD - Saint-Denis',
   both: 'Pas de préférence',
 };
 
@@ -33,11 +33,9 @@ export default function ContactForm() {
       prenom: formData.get('prenom'),
       email: formData.get('email'),
       telephone: formData.get('telephone') || '',
-      produit: '',
       message: formData.get('message'),
       showroom: SHOWROOM_MAP[showroomKey] || showroomKey || '',
-      budget: '',
-      source: 'site-web',
+      source: 'site-web-v2',
       consentements: {
         offre: false,
         newsletter: false,
@@ -49,7 +47,7 @@ export default function ContactForm() {
     };
 
     try {
-      const response = await fetch('/api/webhooks/demande', {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/demande', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

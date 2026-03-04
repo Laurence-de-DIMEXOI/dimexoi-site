@@ -16,10 +16,10 @@ export default function Footer() {
     setNlError('');
 
     try {
-      const response = await fetch('/api/webhooks/newsletter', {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: nlEmail, nom: '', prenom: '' }),
+        body: JSON.stringify({ email: nlEmail, nom: '', prenom: '', source: 'footer-site' }),
       });
 
       if (!response.ok) {
