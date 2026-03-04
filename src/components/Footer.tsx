@@ -1,6 +1,42 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Footer() {
+  const [nlEmail, setNlEmail] = useState('');
+  const [nlLoading, setNlLoading] = useState(false);
+  const [nlSuccess, setNlSuccess] = useState(false);
+  const [nlError, setNlError] = useState('');
+
+  const handleNewsletter = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!nlEmail) return;
+    setNlLoading(true);
+    setNlError('');
+
+    try {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: nlEmail, nom: '', prenom: '' }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur');
+      }
+
+      setNlSuccess(true);
+      setNlEmail('');
+      setTimeout(() => setNlSuccess(false), 5000);
+    } catch {
+      setNlError('Une erreur s\'est produite. Réessayez.');
+      setTimeout(() => setNlError(''), 5000);
+    } finally {
+      setNlLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-dark-olive text-gray-400">
       <div className="container mx-auto px-6 py-20">
@@ -76,10 +112,32 @@ export default function Footer() {
           <div className="max-w-md">
             <h4 className="text-off-white font-serif text-lg font-bold mb-2">Restez informé</h4>
             <p className="text-sm mb-4">Recevez nos dernières collections et actualités</p>
-            <form className="flex">
-              <input type="email" placeholder="Votre email" className="flex-1 px-4 py-3 bg-white bg-opacity-5 border border-gray-700 text-off-white text-sm placeholder-gray-600 focus:outline-none focus:border-teak-brown transition-colors" required />
-              <button type="submit" className="bg-teak-brown text-off-white px-6 py-3 font-semibold text-sm uppercase tracking-wider hover:bg-teak-light transition-colors">OK</button>
-            </form>
+            {nlSuccess ? (
+              <div className="bg-green-900 bg-opacity-30 border border-green-700 text-green-300 px-4 py-3 text-sm">
+                Merci ! Vous êtes inscrit(e) à notre newsletter.
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletter} className="flex">
+                <input
+                  type="email"
+                  placeholder="Votre email"
+                  value={nlEmail}
+                  onChange={(e) => setNlEmail(e.target.value)}
+                  className="flex-1 px-4 py-3 bg-white bg-opacity-5 border border-gray-700 text-off-white text-sm placeholder-gray-600 focus:outline-none focus:border-teak-brown transition-colors"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={nlLoading}
+                  className="bg-teak-brown text-off-white px-6 py-3 font-semibold text-sm uppercase tracking-wider hover:bg-teak-light transition-colors disabled:opacity-50"
+                >
+                  {nlLoading ? '...' : 'OK'}
+                </button>
+              </form>
+            )}
+            {nlError && (
+              <p className="text-red-400 text-xs mt-2">{nlError}</p>
+            )}
           </div>
         </div>
 

@@ -41,7 +41,7 @@ export default function AboutPage() {
               Depuis 1995, DIMEXOI cr&eacute;e des meubles en teck massif d&apos;exception &agrave; La R&eacute;union. Notre engagement envers l&apos;excellence artisanale et la durabilit&eacute; a fait notre renomm&eacute;e aupr&egrave;s de clients exigeants.
             </p>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Chaque meuble est une cr&eacute;ation unique, fa&ccedil;onn&eacute;e par l&apos;expertise de notre &eacute;quipe de 8 collaborateurs passionn&eacute;s. Nous s&eacute;lectionnons uniquement le meilleur teck Tectona Grandis.
+              Chaque pi&egrave;ce est fa&ccedil;onn&eacute;e &agrave; la main par notre &eacute;quipe de 8 artisans en Indon&eacute;sie, h&eacute;ritiers d&apos;un savoir-faire ancestral. Nous s&eacute;lectionnons uniquement le meilleur teck Tectona Grandis.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Notre philosophie : acheter moins, mais mieux. Nous privil&eacute;gions la qualit&eacute;, la durabilit&eacute; et l&apos;esth&eacute;tique intemporelle.
@@ -104,7 +104,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-10">
             {[
               { value: '31', label: "ann\u00e9es d'expertise" },
-              { value: '8', label: 'collaborateurs' },
+              { value: '8', label: 'artisans en Indonésie' },
               { value: '2', label: 'showrooms' },
               { value: '4.9/5', label: 'note Meta' },
             ].map((stat, idx) => (

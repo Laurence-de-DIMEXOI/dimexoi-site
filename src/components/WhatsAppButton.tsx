@@ -1,7 +1,7 @@
 'use client';
 
 export default function WhatsAppButton() {
-  const phoneNumber = '262692000000'; // Remplacer par le vrai numero WhatsApp
+  const phoneNumber = '262692464679';
   const message = encodeURIComponent('Bonjour DIMEXOI, je souhaite des informations sur vos meubles en teck.');
 
   return (

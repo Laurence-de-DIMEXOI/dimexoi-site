@@ -215,12 +215,12 @@ export default function Home() {
                 Depuis 1995, DIMEXOI crée des meubles en teck massif d&apos;exception à La Réunion. Notre engagement : acheter moins, mais <em className="italic">mieux</em>.
               </p>
               <p className="text-gray-700 mb-8 leading-relaxed">
-                Chaque pièce est sélectionnée pour sa qualité, sa durabilité et son esthétique <em className="italic">intemporelle</em>. Notre équipe de 8 experts accompagne chaque client.
+                Chaque pièce est façonnée à la main par notre équipe de 8 artisans en Indonésie, héritiers d&apos;un savoir-faire <em className="italic">ancestral</em>.
               </p>
               <div className="grid grid-cols-2 gap-8 mb-10">
                 {[
                   { value: '31', label: "années d'expertise" },
-                  { value: '8', label: 'collaborateurs passionnés' },
+                  { value: '8', label: 'artisans en Indonésie' },
                   { value: '4.9/5', label: 'Note sur Meta' },
                   { value: '100%', label: 'Teck massif' },
                 ].map((stat, idx) => (
