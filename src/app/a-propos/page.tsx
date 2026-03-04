@@ -13,7 +13,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-off-white">
       {/* Page Header */}
       <div className="bg-dark-olive text-off-white py-14">
-        <div className="container mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
               { label: 'Accueil', href: '/' },
@@ -29,7 +29,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="container mx-auto py-16">
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         {/* Story Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
           <div>

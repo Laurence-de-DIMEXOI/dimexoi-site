@@ -57,8 +57,8 @@ export default function Header() {
   return (
     <>
       {/* Top Bar - Desktop only */}
-      <div className="bg-dark-charcoal text-gray-300 text-xs hidden md:block">
-        <div className="container mx-auto py-3 px-6 flex justify-between items-center">
+      <div className="bg-dark-charcoal text-gray-300 text-xs hidden lg:block">
+        <div className="max-w-7xl mx-auto py-2.5 px-8 flex justify-between items-center">
           <div className="flex items-center gap-8">
             <a href="tel:+262262350679" className="hover:text-off-white transition-colors flex items-center gap-2">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
@@ -81,34 +81,31 @@ export default function Header() {
 
       {/* Main Navigation */}
       <header className={`sticky top-0 z-50 bg-off-white transition-all duration-300 ${scrolled ? 'shadow-nav' : 'border-b border-warm-beige'}`}>
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Left: Hamburger (mobile) */}
-            <div className="flex items-center gap-2 lg:hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+            {/* Left: Hamburger (mobile/tablet) */}
+            <div className="lg:hidden">
               <button
-                className="w-10 h-10 flex flex-col items-center justify-center text-dark-olive"
+                className="w-10 h-10 flex items-center justify-center text-dark-olive"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Menu"
               >
                 {isOpen ? (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 ) : (
-                  <>
-                    <span className="block w-5 h-0.5 bg-dark-olive mb-1"></span>
-                    <span className="block w-5 h-0.5 bg-dark-olive mb-1"></span>
-                    <span className="block w-5 h-0.5 bg-dark-olive"></span>
-                  </>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
                 )}
-                <span className="text-[9px] font-semibold uppercase tracking-wider mt-0.5">Menu</span>
               </button>
             </div>
 
-            {/* Center: Logo */}
-            <Link href="/" className="flex items-center gap-3 group absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
-              <span className="text-xl md:text-2xl font-serif font-bold text-dark-olive border-2 border-dark-olive px-2.5 py-0.5 md:px-3 md:py-1 tracking-wide group-hover:bg-dark-olive group-hover:text-off-white transition-all duration-300">
+            {/* Logo - centered on mobile, left on desktop */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <span className="text-lg sm:text-xl lg:text-2xl font-serif font-bold text-dark-olive border-2 border-dark-olive px-2 py-0.5 lg:px-3 lg:py-1 tracking-wide group-hover:bg-dark-olive group-hover:text-off-white transition-all duration-300">
                 DIMEXOI
               </span>
-              <div className="hidden sm:flex flex-col items-start leading-none">
+              <div className="hidden md:flex flex-col items-start leading-none">
                 <span className="text-[10px] font-bold text-dark-olive uppercase tracking-[0.2em]">BOIS.d&apos;Orient</span>
                 <span className="text-[8px] text-gray-400 uppercase tracking-[0.15em]">by DIMEXOI</span>
               </div>
@@ -128,11 +125,11 @@ export default function Header() {
             </nav>
 
             {/* Right: Icons */}
-            <div className="flex items-center gap-1 md:gap-3">
-              {/* Search Icon */}
+            <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
+              {/* Search Icon - hidden on small mobile, visible from sm */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="w-10 h-10 flex items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
+                className="hidden sm:flex w-10 h-10 items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
                 aria-label="Rechercher"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,7 +154,7 @@ export default function Header() {
               </button>
 
               {/* Desktop CTA */}
-              <Link href="/devis" className="hidden md:inline-flex btn-primary text-sm ml-2">
+              <Link href="/devis" className="hidden lg:inline-flex btn-primary text-sm ml-2">
                 Demander un devis
               </Link>
             </div>
@@ -167,7 +164,7 @@ export default function Header() {
         {/* Search Bar - slides down */}
         {searchOpen && (
           <div className="border-t border-gray-100 bg-off-white">
-            <div className="container mx-auto px-4 md:px-6 py-3">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
               <form onSubmit={handleSearch} className="relative max-w-2xl mx-auto">
                 <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -193,7 +190,7 @@ export default function Header() {
         )}
       </header>
 
-      {/* Mobile Menu - Fullscreen overlay */}
+      {/* Mobile Menu - Slide from left */}
       {isOpen && (
         <div className="fixed inset-0 z-[60] lg:hidden">
           {/* Backdrop */}
@@ -203,14 +200,10 @@ export default function Header() {
           <div className="absolute left-0 top-0 h-full w-80 max-w-[85vw] bg-off-white shadow-2xl overflow-y-auto" style={{ animation: 'slideInLeft 0.3s ease-out' }}>
             {/* Header */}
             <div className="flex items-center justify-between p-5 border-b border-warm-beige">
-              <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
+              <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                 <span className="text-lg font-serif font-bold text-dark-olive border-2 border-dark-olive px-2 py-0.5 tracking-wide">
                   DIMEXOI
                 </span>
-                <div className="flex flex-col leading-none">
-                  <span className="text-[9px] font-bold text-dark-olive uppercase tracking-[0.15em]">BOIS.d&apos;Orient</span>
-                  <span className="text-[7px] text-gray-400 uppercase tracking-[0.1em]">by DIMEXOI</span>
-                </div>
               </Link>
               <button onClick={() => setIsOpen(false)} className="w-10 h-10 flex items-center justify-center text-dark-charcoal hover:text-dark-olive">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>

@@ -12,7 +12,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-off-white">
       {/* Page Header */}
       <div className="bg-dark-olive text-off-white py-14">
-        <div className="container mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
               { label: 'Accueil', href: '/' },
@@ -28,7 +28,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="container mx-auto py-16">
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Contact Form */}
           <div className="bg-white p-8 border border-gray-100">

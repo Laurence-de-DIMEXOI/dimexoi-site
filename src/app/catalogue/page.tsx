@@ -1,82 +1,10 @@
 'use client';
 
-import { useState, useMemo, useRef, useEffect, Suspense } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import Breadcrumb from '@/src/components/Breadcrumb';
 import ProductCard from '@/src/components/ProductCard';
 import { products, getCategories, getSubcategories, getCollections } from '@/src/lib/products';
 import { useSearchParams } from 'next/navigation';
-
-function FilterDropdown({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: string[];
-  onChange: (val: string) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(!open)}
-        className={`flex items-center gap-2 px-4 py-2.5 text-sm border transition-colors ${
-          value
-            ? 'border-teak-brown bg-teak-brown bg-opacity-5 text-dark-olive font-medium'
-            : 'border-gray-200 bg-white text-gray-600 hover:border-gray-400'
-        }`}
-      >
-        <span>{value || label}</span>
-        <svg
-          className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {open && (
-        <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 shadow-lg z-30 min-w-[200px] max-h-72 overflow-y-auto">
-          <button
-            onClick={() => { onChange(''); setOpen(false); }}
-            className={`block w-full text-left px-4 py-2.5 text-sm transition-colors ${
-              !value ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:bg-gray-50'
-            }`}
-          >
-            Tous
-          </button>
-          {options.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => { onChange(opt); setOpen(false); }}
-              className={`block w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                value === opt ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 function CatalogueContent() {
   const searchParams = useSearchParams();
@@ -90,6 +18,7 @@ function CatalogueContent() {
   const [selectedSubcategory, setSelectedSubcategory] = useState(subcategoryParam);
   const [selectedCollection, setSelectedCollection] = useState(collectionParam);
   const [sortBy, setSortBy] = useState('');
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const categories = getCategories();
   const subcategories = getSubcategories();
@@ -146,11 +75,150 @@ function CatalogueContent() {
     setSortBy('');
   };
 
+  const activeFilterCount = [selectedCategory, selectedSubcategory, selectedCollection, searchQuery].filter(Boolean).length;
+
+  const SidebarContent = () => (
+    <div className="space-y-6">
+      {/* Search */}
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-dark-olive mb-3">Recherche</h3>
+        <div className="relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 bg-white text-dark-charcoal placeholder-gray-400 focus:outline-none focus:border-teak-brown transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-dark-olive mb-3">Catégories</h3>
+        <ul className="space-y-1">
+          <li>
+            <button
+              onClick={() => { setSelectedCategory(''); setSelectedSubcategory(''); }}
+              className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                !selectedCategory ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+              }`}
+            >
+              Toutes les catégories
+            </button>
+          </li>
+          {categories.map((cat) => (
+            <li key={cat}>
+              <button
+                onClick={() => { setSelectedCategory(cat); setSelectedSubcategory(''); }}
+                className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                  selectedCategory === cat ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+                }`}
+              >
+                {cat}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Subcategories */}
+      {filteredSubcategories.length > 0 && (
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-dark-olive mb-3">Sous-catégories</h3>
+          <ul className="space-y-1">
+            <li>
+              <button
+                onClick={() => setSelectedSubcategory('')}
+                className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                  !selectedSubcategory ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+                }`}
+              >
+                Toutes
+              </button>
+            </li>
+            {filteredSubcategories.map((sub) => (
+              <li key={sub}>
+                <button
+                  onClick={() => setSelectedSubcategory(sub)}
+                  className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                    selectedSubcategory === sub ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+                  }`}
+                >
+                  {sub}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Collections */}
+      {collections.length > 0 && (
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-dark-olive mb-3">Collections</h3>
+          <ul className="space-y-1">
+            <li>
+              <button
+                onClick={() => { setSelectedCollection(''); }}
+                className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                  !selectedCollection ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+                }`}
+              >
+                Toutes
+              </button>
+            </li>
+            {collections.map((col) => (
+              <li key={col}>
+                <button
+                  onClick={() => { setSelectedCollection(col); setSelectedCategory(''); setSelectedSubcategory(''); }}
+                  className={`block w-full text-left px-3 py-2 text-sm transition-colors ${
+                    selectedCollection === col ? 'text-dark-olive font-semibold bg-warm-beige' : 'text-gray-600 hover:text-dark-olive hover:bg-gray-50'
+                  }`}
+                >
+                  {col}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Sort */}
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-dark-olive mb-3">Trier par</h3>
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="w-full px-3 py-2.5 text-sm border border-gray-200 bg-white text-dark-charcoal focus:outline-none focus:border-teak-brown transition-colors"
+        >
+          <option value="">Par défaut</option>
+          <option value="name-asc">A → Z</option>
+          <option value="name-desc">Z → A</option>
+          <option value="newest">Nouveautés</option>
+        </select>
+      </div>
+
+      {/* Clear filters */}
+      {hasActiveFilters && (
+        <button
+          onClick={clearAll}
+          className="w-full text-center text-xs font-semibold uppercase tracking-wider text-teak-brown hover:text-dark-olive transition-colors py-3 border border-teak-brown hover:border-dark-olive"
+        >
+          Réinitialiser les filtres
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <main className="min-h-screen bg-off-white">
       {/* Page Header */}
-      <div className="bg-dark-olive text-off-white py-14">
-        <div className="container mx-auto px-6">
+      <div className="bg-dark-olive text-off-white py-10 sm:py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
               { label: 'Accueil', href: '/' },
@@ -160,7 +228,7 @@ function CatalogueContent() {
               ),
             ]}
           />
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mt-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mt-3">
             {pageTitle}
           </h1>
           <p className="text-sm opacity-80 mt-3 uppercase tracking-wider">
@@ -169,108 +237,87 @@ function CatalogueContent() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-10">
-        {/* Horizontal Filter Bar */}
-        <div className="mb-8">
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            {/* Search */}
-            <div className="relative">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Rechercher..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 pr-4 py-2.5 text-sm border border-gray-200 bg-white text-dark-charcoal placeholder-gray-400 focus:outline-none focus:border-teak-brown transition-colors w-48"
-              />
-            </div>
-
-            {/* Category Dropdown */}
-            <FilterDropdown
-              label="Catégorie"
-              value={selectedCategory}
-              options={categories}
-              onChange={(val) => { setSelectedCategory(val); setSelectedSubcategory(''); }}
-            />
-
-            {/* Subcategory Dropdown (only if relevant) */}
-            {filteredSubcategories.length > 0 && (
-              <FilterDropdown
-                label="Sous-catégorie"
-                value={selectedSubcategory}
-                options={filteredSubcategories}
-                onChange={setSelectedSubcategory}
-              />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        {/* Mobile: Filter toggle + result count */}
+        <div className="flex items-center justify-between mb-6 lg:hidden">
+          <p className="text-sm text-gray-500">
+            {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
+          </p>
+          <button
+            onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-gray-200 bg-white text-dark-olive hover:border-dark-olive transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            Filtres
+            {activeFilterCount > 0 && (
+              <span className="bg-teak-brown text-off-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {activeFilterCount}
+              </span>
             )}
+          </button>
+        </div>
 
-            {/* Collection Dropdown */}
-            {collections.length > 0 && (
-              <FilterDropdown
-                label="Collection"
-                value={selectedCollection}
-                options={collections}
-                onChange={(val) => { setSelectedCollection(val); setSelectedCategory(''); setSelectedSubcategory(''); }}
-              />
-            )}
-
-            {/* Sort Dropdown */}
-            <div className="ml-auto">
-              <FilterDropdown
-                label="Trier par"
-                value={
-                  sortBy === 'name-asc' ? 'A → Z' :
-                  sortBy === 'name-desc' ? 'Z → A' :
-                  sortBy === 'newest' ? 'Nouveautés' : ''
-                }
-                options={['A → Z', 'Z → A', 'Nouveautés']}
-                onChange={(val) => {
-                  if (val === 'A → Z') setSortBy('name-asc');
-                  else if (val === 'Z → A') setSortBy('name-desc');
-                  else if (val === 'Nouveautés') setSortBy('newest');
-                  else setSortBy('');
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Active Filters & Result Count */}
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500">
-              {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
-            </p>
-            {hasActiveFilters && (
-              <button
-                onClick={clearAll}
-                className="text-xs font-semibold uppercase tracking-wider text-teak-brown hover:text-dark-olive transition-colors"
-              >
-                Réinitialiser les filtres
+        {/* Mobile Filters Panel */}
+        {mobileFiltersOpen && (
+          <div className="lg:hidden mb-8 p-5 bg-white border border-gray-100 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-dark-olive">Filtres</h2>
+              <button onClick={() => setMobileFiltersOpen(false)} className="text-gray-400 hover:text-dark-olive">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
+            </div>
+            <SidebarContent />
+          </div>
+        )}
+
+        <div className="flex gap-8 lg:gap-10">
+          {/* Desktop Sidebar */}
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-28">
+              <SidebarContent />
+            </div>
+          </aside>
+
+          {/* Products */}
+          <div className="flex-1 min-w-0">
+            {/* Desktop result count */}
+            <div className="hidden lg:flex items-center justify-between mb-6">
+              <p className="text-sm text-gray-500">
+                {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearAll}
+                  className="text-xs font-semibold uppercase tracking-wider text-teak-brown hover:text-dark-olive transition-colors"
+                >
+                  Réinitialiser
+                </button>
+              )}
+            </div>
+
+            {filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
+                {filteredProducts.map(product => (
+                  <ProductCard key={product.id} {...product} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 bg-white border border-gray-100">
+                <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <p className="text-gray-500 mb-4">
+                  Aucun produit ne correspond à vos critères.
+                </p>
+                <button onClick={clearAll} className="btn-outline">
+                  Voir tous les produits
+                </button>
+              </div>
             )}
           </div>
         </div>
-
-        {/* Products Grid - Full Width */}
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard key={product.id} {...product} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-20 bg-white border border-gray-100">
-            <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <p className="text-gray-500 mb-4">
-              Aucun produit ne correspond à vos critères.
-            </p>
-            <button onClick={clearAll} className="btn-outline">
-              Voir tous les produits
-            </button>
-          </div>
-        )}
       </div>
     </main>
   );

@@ -62,7 +62,7 @@ export default function ProductDetailPage({ params }: PageProps) {
       />
       {/* Page Header */}
       <div className="bg-warm-beige py-5">
-        <div className="container mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
               { label: 'Accueil', href: '/' },
@@ -74,7 +74,7 @@ export default function ProductDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="container mx-auto py-12">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         {/* Product Detail */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 mb-20">
           {/* Image Gallery */}

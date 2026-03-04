@@ -53,7 +53,7 @@ export default function Home() {
           unoptimized
         />
         <div className="hero-overlay absolute inset-0"></div>
-        <div className="relative z-10 container mx-auto px-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">
               Depuis 1995 à La Réunion
@@ -80,7 +80,7 @@ export default function Home() {
 
       {/* Trust Bar */}
       <section className="bg-dark-olive text-off-white py-10">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: '31 ans', label: 'de savoir-faire', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
@@ -104,7 +104,7 @@ export default function Home() {
 
       {/* Categories Section — Mosaic Layout */}
       <section className="py-20 bg-off-white">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive section-heading">
               Nos <em className="italic">univers</em>
@@ -168,7 +168,7 @@ export default function Home() {
 
       {/* Featured Products */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14">
             <div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-dark-olive section-heading-left">
@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* About Section */}
       <section className="py-20 bg-warm-beige">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <Image
@@ -240,7 +240,7 @@ export default function Home() {
 
       {/* Showroom CTA */}
       <section className="py-20 bg-dark-olive text-off-white">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-serif font-bold section-heading">
               Venez voir et <em className="italic">toucher</em> nos meubles
@@ -287,7 +287,7 @@ export default function Home() {
 
       {/* Newsletter */}
       <section className="py-16 bg-warm-beige">
-        <div className="container mx-auto px-6 max-w-xl text-center">
+        <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-serif font-bold text-dark-olive section-heading">
             Restez informé
           </h2>

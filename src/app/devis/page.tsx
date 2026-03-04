@@ -133,7 +133,7 @@ function DevisContent() {
   return (
     <main className="min-h-screen bg-off-white">
       <div className="bg-dark-olive text-off-white py-14">
-        <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
               { label: 'Accueil', href: '/' },
@@ -149,7 +149,7 @@ function DevisContent() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-gray-600 leading-relaxed">

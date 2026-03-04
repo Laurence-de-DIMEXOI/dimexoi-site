@@ -45,12 +45,18 @@ button {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 2.5rem;
+    padding: 0 2rem;
   }
 }
 
@@ -271,15 +277,11 @@ input, textarea, select {
 
 /* Breadcrumb */
 .breadcrumb {
-  @apply flex flex-wrap items-center gap-2 text-sm text-gray-500 py-4;
-}
-
-.breadcrumb a {
-  @apply text-dark-olive hover:text-teak-brown font-medium;
+  @apply flex flex-wrap items-center gap-2 text-sm py-4;
 }
 
 .breadcrumb-separator {
-  @apply mx-1 text-gray-300;
+  @apply mx-1;
 }
 
 /* Mobile Menu */

@@ -10,13 +10,13 @@ export default function MentionsLegalesPage() {
   return (
     <main className="min-h-screen bg-off-white">
       <div className="bg-dark-olive text-off-white py-14">
-        <div className="container mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: 'Accueil', href: '/' }, { label: 'Mentions l\u00e9gales' }]} />
           <h1 className="text-4xl font-serif font-bold mt-3">Mentions l&eacute;gales</h1>
         </div>
       </div>
 
-      <div className="container mx-auto py-16 max-w-3xl">
+      <div className="max-w-3xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="space-y-10 text-gray-700 text-sm leading-relaxed">
           <section>
             <h2 className="font-serif font-bold text-2xl text-dark-olive mb-4 section-heading-left">
