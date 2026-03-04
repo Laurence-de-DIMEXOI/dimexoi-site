@@ -76,14 +76,16 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
     };
 
     try {
-      const response = await fetch('/api/webhooks/demande', {
+      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/demande', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi du formulaire');
+      const result = await response.json().catch(() => null);
+
+      if (!result?.success) {
+        throw new Error(result?.error || 'Erreur lors de l\'envoi du formulaire');
       }
 
       setSuccess(true);
