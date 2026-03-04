@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 
 export interface DevisItem {
   slug: string;
@@ -27,6 +27,35 @@ interface DevisCartContextType {
 
 const DevisCartContext = createContext<DevisCartContextType | undefined>(undefined);
 
+const STORAGE_KEY = 'dimexoi-devis-cart';
+
+function loadCartFromStorage(): DevisItem[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {
+    // localStorage indisponible ou données corrompues
+  }
+  return [];
+}
+
+function saveCartToStorage(items: DevisItem[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    if (items.length === 0) {
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+  } catch {
+    // localStorage plein ou indisponible
+  }
+}
+
 export const FINISHES = [
   { value: 'miel', label: 'Miel', color: '#B99470', image: 'https://lh3.googleusercontent.com/d/1GIWB7l1NH8Dtw3mM_WS1o4gLQH18vg30=w100' },
   { value: 'brut', label: 'Brut', color: '#C4A882', image: 'https://lh3.googleusercontent.com/d/1IdnUyKCOxCpHI-xWNrBzAoDEXVnfpT2m=w100' },
@@ -38,6 +67,23 @@ export const FINISHES = [
 export function DevisCartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<DevisItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Charger le panier depuis localStorage au montage (côté client uniquement)
+  useEffect(() => {
+    const stored = loadCartFromStorage();
+    if (stored.length > 0) {
+      setItems(stored);
+    }
+    setHydrated(true);
+  }, []);
+
+  // Sauvegarder dans localStorage à chaque modification
+  useEffect(() => {
+    if (hydrated) {
+      saveCartToStorage(items);
+    }
+  }, [items, hydrated]);
 
   const addItem = useCallback((newItem: Omit<DevisItem, 'quantity'>) => {
     setItems(prev => {
