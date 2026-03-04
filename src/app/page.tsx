@@ -45,7 +45,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] bg-dark-charcoal overflow-hidden flex items-center">
         <Image
-          src="https://lh3.googleusercontent.com/d/1E7-BN2ad8z0tB6nED_MwOdOQ1xIOGIQr=w1920"
+          src="https://lh3.googleusercontent.com/d/1kQwn1zIMOqDjqHLMG8weJPyQvKlIFr3K=w1920"
           alt="Mobilier en teck DIMEXOI"
           fill
           className="object-cover"
