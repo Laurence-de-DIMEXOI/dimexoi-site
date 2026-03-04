@@ -28,9 +28,9 @@ export default function MentionsLegalesPage() {
               <p><strong>Si&egrave;ge social :</strong> 8 rue Benjamin Hoareau, ZI n&deg;3, 97410 Saint-Pierre, La R&eacute;union</p>
               <p><strong>T&eacute;l&eacute;phone :</strong> 0262 35 06 79</p>
               <p><strong>Email :</strong> contact@dimexoi.fr</p>
-              <p><strong>SIRET :</strong> [Num&eacute;ro SIRET &agrave; compl&eacute;ter]</p>
-              <p><strong>TVA intracommunautaire :</strong> [Num&eacute;ro TVA &agrave; compl&eacute;ter]</p>
-              <p><strong>Directeur de la publication :</strong> [Nom du g&eacute;rant &agrave; compl&eacute;ter]</p>
+              <p><strong>SIRET :</strong> 402 268 247 00010</p>
+              <p><strong>TVA intracommunautaire :</strong> FR11 402 268 247</p>
+              <p><strong>Directeur de la publication :</strong> Laurence Payet</p>
             </div>
           </section>
 

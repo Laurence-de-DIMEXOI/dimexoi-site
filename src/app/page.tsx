@@ -55,12 +55,12 @@ export default function Home() {
         <div className="hero-overlay absolute inset-0"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">
+            <p className="text-gray-300 font-semibold text-sm uppercase tracking-widest mb-4">
               Depuis 1995 à La Réunion
             </p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-off-white mb-6 leading-tight">
               Mobilier en <em className="not-italic">teck</em><br />
-              <span className="text-teak-light italic">d&apos;exception</span>
+              <span className="text-off-white italic">d&apos;exception</span>
             </h1>
             <p className="text-lg text-gray-200 mb-10 max-w-lg leading-relaxed">
               Découvrez notre collection de meubles <em className="italic">artisanaux</em> en teck massif.
@@ -256,10 +256,10 @@ export default function Home() {
               <p className="opacity-80 mb-2 text-sm">8 rue Benjamin Hoareau</p>
               <p className="opacity-80 mb-4 text-sm">ZI n°3, 97410 Saint-Pierre</p>
               <p className="font-semibold mb-2">
-                <a href="tel:+262262350679" className="text-teak-light hover:text-off-white transition-colors">0262 35 06 79</a>
+                <a href="tel:+262262350679" className="text-off-white hover:text-gray-300 transition-colors">0262 35 06 79</a>
               </p>
               <p className="text-sm opacity-80 mb-4">
-                <a href="mailto:contact@dimexoi.fr" className="hover:text-teak-light transition-colors">contact@dimexoi.fr</a>
+                <a href="mailto:contact@dimexoi.fr" className="hover:text-off-white transition-colors">contact@dimexoi.fr</a>
               </p>
               <p className="text-xs opacity-60 uppercase tracking-wider">Mar - Sam : 9h - 17h</p>
             </div>
@@ -268,10 +268,10 @@ export default function Home() {
               <p className="opacity-80 mb-2 text-sm">43 rue Tourette</p>
               <p className="opacity-80 mb-4 text-sm">97400 Saint-Denis</p>
               <p className="font-semibold mb-2">
-                <a href="tel:+262262203030" className="text-teak-light hover:text-off-white transition-colors">0262 20 30 30</a>
+                <a href="tel:+262262203030" className="text-off-white hover:text-gray-300 transition-colors">0262 20 30 30</a>
               </p>
               <p className="text-sm opacity-80 mb-4">
-                <a href="mailto:bernard@dimexoi.fr" className="hover:text-teak-light transition-colors">bernard@dimexoi.fr</a>
+                <a href="mailto:bernard@dimexoi.fr" className="hover:text-off-white transition-colors">bernard@dimexoi.fr</a>
               </p>
               <p className="text-xs opacity-60 uppercase tracking-wider">Mar - Sam : 10h-13h &amp; 14h-18h</p>
             </div>

@@ -401,13 +401,13 @@ function DevisContent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <p className="font-semibold mb-2 text-sm uppercase tracking-wider">Showroom SUD</p>
-                <a href="tel:+262262350679" className="text-teak-light hover:text-off-white transition-colors">
+                <a href="tel:+262262350679" className="text-off-white hover:text-gray-300 transition-colors">
                   0262 35 06 79
                 </a>
               </div>
               <div>
                 <p className="font-semibold mb-2 text-sm uppercase tracking-wider">Showroom NORD</p>
-                <a href="tel:+262262203030" className="text-teak-light hover:text-off-white transition-colors">
+                <a href="tel:+262262203030" className="text-off-white hover:text-gray-300 transition-colors">
                   0262 20 30 30
                 </a>
               </div>

@@ -15,7 +15,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       {items.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
           {item.href ? (
-            <Link href={item.href} className="text-gray-300 hover:text-teak-light font-medium text-xs uppercase tracking-wider">
+            <Link href={item.href} className="text-gray-300 hover:text-off-white font-medium text-xs uppercase tracking-wider">
               {item.label}
             </Link>
           ) : (
