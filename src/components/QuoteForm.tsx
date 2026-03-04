@@ -76,7 +76,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
     };
 
     try {
-      const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/demande', {
+      const response = await fetch('/api/webhooks/demande', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
