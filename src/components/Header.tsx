@@ -82,40 +82,36 @@ export default function Header() {
       {/* Main Navigation */}
       <header className={`sticky top-0 z-50 bg-off-white transition-all duration-300 ${scrolled ? 'shadow-nav' : 'border-b border-warm-beige'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+          <div className="flex items-center justify-between h-14 lg:h-20 relative">
 
-            {/* Mobile: Logo left with subtitle + devis icon right */}
-            {/* Desktop: Logo left, nav center, CTA + icons right */}
+            {/* === MOBILE / TABLET (< lg) === */}
+            {/* Left: Hamburger */}
+            <button
+              className="lg:hidden w-10 h-10 flex items-center justify-center text-dark-olive"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Menu"
+            >
+              {isOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
 
-            {/* Left zone: hamburger (hidden on mobile, visible on tablet) + Logo */}
-            <div className="flex items-center gap-2">
-              {/* Hamburger - only visible on tablet (sm to lg), hidden on phone & desktop */}
-              <button
-                className="hidden sm:flex lg:hidden w-10 h-10 items-center justify-center text-dark-olive"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Menu"
-              >
-                {isOpen ? (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                ) : (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                )}
-              </button>
+            {/* Center: Logo (absolute center on mobile, normal flow on desktop) */}
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex items-center gap-2 group">
+              <span className="text-lg lg:text-2xl font-serif font-bold text-dark-olive border-2 border-dark-olive px-2 py-0.5 lg:px-3 lg:py-1 tracking-wide group-hover:bg-dark-olive group-hover:text-off-white transition-all duration-300">
+                DIMEXOI
+              </span>
+              <div className="flex flex-col items-start leading-none">
+                <span className="text-[9px] lg:text-[10px] font-bold text-dark-olive uppercase tracking-[0.15em] lg:tracking-[0.2em]">BOIS.d&apos;Orient</span>
+                <span className="text-[7px] lg:text-[8px] text-gray-400 uppercase tracking-[0.1em] lg:tracking-[0.15em]">by DIMEXOI</span>
+              </div>
+            </Link>
 
-              {/* Logo - always visible with subtitle */}
-              <Link href="/" className="flex items-center gap-2 group">
-                <span className="text-lg sm:text-xl lg:text-2xl font-serif font-bold text-dark-olive border-2 border-dark-olive px-2 py-0.5 lg:px-3 lg:py-1 tracking-wide group-hover:bg-dark-olive group-hover:text-off-white transition-all duration-300">
-                  DIMEXOI
-                </span>
-                <div className="flex flex-col items-start leading-none">
-                  <span className="text-[9px] sm:text-[10px] font-bold text-dark-olive uppercase tracking-[0.15em] sm:tracking-[0.2em]">BOIS.d&apos;Orient</span>
-                  <span className="text-[7px] sm:text-[8px] text-gray-400 uppercase tracking-[0.1em] sm:tracking-[0.15em]">by DIMEXOI</span>
-                </div>
-              </Link>
-            </div>
-
+            {/* === DESKTOP (lg+) === */}
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-10">
               {navLinks.map((link) => (
@@ -129,12 +125,12 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Right: Icons */}
-            <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
-              {/* Search Icon - desktop + tablet only */}
+            {/* Right zone */}
+            <div className="flex items-center gap-1 lg:gap-3">
+              {/* Search Icon - desktop only */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="hidden sm:flex w-10 h-10 items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
+                className="hidden lg:flex w-10 h-10 items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
                 aria-label="Rechercher"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,7 +138,7 @@ export default function Header() {
                 </svg>
               </button>
 
-              {/* Devis Cart Icon - always visible */}
+              {/* Devis Icon - always visible */}
               <Link
                 href="/devis"
                 className="relative w-10 h-10 flex items-center justify-center text-dark-olive hover:text-teak-brown transition-colors"
@@ -163,21 +159,6 @@ export default function Header() {
                   </span>
                 )}
               </Link>
-
-              {/* Mobile hamburger - phone only (< sm) */}
-              <button
-                className="sm:hidden w-10 h-10 flex items-center justify-center text-dark-olive"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-label="Menu"
-              >
-                {isOpen ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                )}
-              </button>
 
               {/* Desktop CTA */}
               <Link href="/devis" className="hidden lg:inline-flex btn-primary text-sm ml-2">
