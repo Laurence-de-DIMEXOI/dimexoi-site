@@ -83,8 +83,9 @@ function CatalogueContent() {
   const categoryParam = searchParams.get('category') || '';
   const subcategoryParam = searchParams.get('subcategory') || '';
   const collectionParam = searchParams.get('collection') || '';
+  const searchParam = searchParams.get('search') || '';
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(searchParam);
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [selectedSubcategory, setSelectedSubcategory] = useState(subcategoryParam);
   const [selectedCollection, setSelectedCollection] = useState(collectionParam);
