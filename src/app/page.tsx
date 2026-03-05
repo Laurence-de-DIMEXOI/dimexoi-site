@@ -197,8 +197,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <Image
-                src="https://lh3.googleusercontent.com/d/1hyKRB2FsLBUe-xJ5_uOfMNab1V4Ghb7n=w800"
-                alt="DIMEXOI showroom"
+                src="/images/restaurant-geraniums.jpg"
+                alt="Restaurant Les Géraniums - Mobilier DIMEXOI"
                 width={600}
                 height={500}
                 className="w-full h-auto object-cover"
@@ -212,15 +212,15 @@ export default function Home() {
                 DIMEXOI &amp; <em className="italic">Bois d&apos;Orient</em>
               </h2>
               <p className="text-gray-700 mb-4 leading-relaxed mt-8">
-                Depuis 1995, DIMEXOI crée des meubles en teck massif d&apos;exception à La Réunion. Notre engagement : acheter moins, mais <em className="italic">mieux</em>.
+                Depuis 1995, DIMEXOI propose du mobilier en teck massif d&apos;exception à La Réunion. Notre engagement : acheter moins, mais <em className="italic">mieux</em>.
               </p>
               <p className="text-gray-700 mb-8 leading-relaxed">
-                Chaque pièce est façonnée à la main par notre équipe de 8 artisans en Indonésie, héritiers d&apos;un savoir-faire <em className="italic">ancestral</em>.
+                Chaque pièce est façonnée à la main par des artisans en Indonésie, héritiers d&apos;un savoir-faire <em className="italic">ancestral</em>. Notre équipe de 8 collaborateurs à La Réunion vous accueille dans nos deux showrooms.
               </p>
               <div className="grid grid-cols-2 gap-8 mb-10">
                 {[
                   { value: '31', label: "années d'expertise" },
-                  { value: '8', label: 'artisans en Indonésie' },
+                  { value: '8', label: 'collaborateurs à La Réunion' },
                   { value: '4.9/5', label: 'Note sur Meta' },
                   { value: '100%', label: 'Teck massif' },
                 ].map((stat, idx) => (
