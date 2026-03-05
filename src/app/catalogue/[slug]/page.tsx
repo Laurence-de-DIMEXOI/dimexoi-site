@@ -6,6 +6,7 @@ import QuoteForm from '@/src/components/QuoteForm';
 import ProductCard from '@/src/components/ProductCard';
 import { getProductBySlug, getProductsBySubcategory, products } from '@/src/lib/products';
 import { ProductSchema } from '@/src/components/SchemaOrg';
+import AddToDevisButton from '@/src/components/AddToDevisButton';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -133,9 +134,13 @@ export default function ProductDetailPage({ params }: PageProps) {
 
             {/* CTAs */}
             <div className="space-y-3 mb-8">
-              <Link href={`/devis?product=${product.slug}`} className="block text-center btn-primary w-full">
-                Demander un devis pour ce produit
-              </Link>
+              <AddToDevisButton
+                slug={product.slug}
+                name={product.name}
+                category={product.category}
+                subcategory={product.subcategory}
+                image={product.images?.[0] || ''}
+              />
               <Link href="/contact" className="block text-center btn-outline w-full">
                 Voir en showroom
               </Link>

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Breadcrumb from '@/src/components/Breadcrumb';
 import { useDevisCart, FINISHES } from '@/src/components/DevisCartProvider';
 import { getProductBySlug } from '@/src/lib/products';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const SHOWROOM_MAP: Record<string, string> = {
   sud: 'SUD - Saint-Pierre',
@@ -27,7 +27,23 @@ function DevisContent() {
   const searchParams = useSearchParams();
   const productSlug = searchParams.get('product');
   const product = productSlug ? getProductBySlug(productSlug) : null;
-  const { items, removeItem, updateQuantity, updateFinish, clearCart } = useDevisCart();
+  const { items, addItem, removeItem, updateQuantity, updateFinish, clearCart } = useDevisCart();
+  const [productAdded, setProductAdded] = useState(false);
+
+  // Si un produit est passé par URL, l'ajouter au panier automatiquement
+  useEffect(() => {
+    if (product && !productAdded && !items.find(i => i.slug === product.slug)) {
+      addItem({
+        slug: product.slug,
+        name: product.name,
+        category: product.category,
+        subcategory: product.subcategory,
+        image: product.images?.[0] || '',
+        finish: 'miel',
+      });
+      setProductAdded(true);
+    }
+  }, [product, items, addItem, productAdded]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -56,15 +72,6 @@ function DevisContent() {
       finition: FINISHES.find(f => f.value === item.finish)?.label || item.finish,
       quantite: item.quantity,
     }));
-
-    if (product && articles.length === 0) {
-      articles.push({
-        nom: product.name,
-        categorie: product.subcategory || product.category,
-        finition: 'Miel',
-        quantite: 1,
-      });
-    }
 
     const showroomKey = formData.get('showroom') as string;
     const budgetKey = formData.get('budget') as string;
@@ -118,18 +125,7 @@ function DevisContent() {
     }
   };
 
-  const allItems = [...items];
-  if (product && !items.find(i => i.slug === product.slug)) {
-    allItems.unshift({
-      slug: product.slug,
-      name: product.name,
-      category: product.category,
-      subcategory: product.subcategory,
-      image: product.images?.[0] || '',
-      finish: 'miel',
-      quantity: 1,
-    });
-  }
+  const allItems = items;
 
   return (
     <main className="min-h-screen bg-off-white">
@@ -168,7 +164,7 @@ function DevisContent() {
               </div>
               <div className="divide-y divide-gray-50">
                 {allItems.map((item) => {
-                  const isFromCart = items.find(i => i.slug === item.slug && i.finish === item.finish);
+                  const isFromCart = true;
                   return (
                     <div key={`${item.slug}-${item.finish}`} className="px-6 py-5 flex gap-5">
                       <div className="w-20 h-20 bg-warm-beige flex-shrink-0 relative overflow-hidden">
