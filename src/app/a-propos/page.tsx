@@ -104,7 +104,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-10">
             {[
               { value: '31', label: "ann\u00e9es d'expertise" },
-              { value: '8', label: 'artisans en Indonésie' },
+              { value: '100%', label: 'teck massif' },
               { value: '2', label: 'showrooms' },
               { value: '4.9/5', label: 'note Meta' },
             ].map((stat, idx) => (
