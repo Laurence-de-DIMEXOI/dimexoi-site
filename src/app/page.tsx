@@ -215,12 +215,12 @@ export default function Home() {
                 Depuis 1995, DIMEXOI propose du mobilier en teck massif d&apos;exception à La Réunion. Notre engagement : acheter moins, mais <em className="italic">mieux</em>.
               </p>
               <p className="text-gray-700 mb-8 leading-relaxed">
-                Chaque pièce est façonnée à la main par des artisans en Indonésie, héritiers d&apos;un savoir-faire <em className="italic">ancestral</em>. Notre équipe de 8 collaborateurs à La Réunion vous accueille dans nos deux showrooms.
+                Chaque pièce est façonnée à la main par des artisans en Indonésie, héritiers d&apos;un savoir-faire <em className="italic">ancestral</em>. Notre équipe passionnée à La Réunion vous accueille dans nos deux showrooms.
               </p>
               <div className="grid grid-cols-2 gap-8 mb-10">
                 {[
                   { value: '31', label: "années d'expertise" },
-                  { value: '8', label: 'collaborateurs à La Réunion' },
+                  { value: '2', label: 'showrooms à La Réunion' },
                   { value: '4.9/5', label: 'Note sur Meta' },
                   { value: '100%', label: 'Teck massif' },
                 ].map((stat, idx) => (

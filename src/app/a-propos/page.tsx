@@ -41,7 +41,7 @@ export default function AboutPage() {
               Depuis 1995, DIMEXOI propose du mobilier en teck massif d&apos;exception &agrave; La R&eacute;union. Notre engagement envers l&apos;excellence artisanale et la durabilit&eacute; a fait notre renomm&eacute;e aupr&egrave;s de clients exigeants.
             </p>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Chaque pi&egrave;ce est fa&ccedil;onn&eacute;e &agrave; la main par des artisans en Indon&eacute;sie, h&eacute;ritiers d&apos;un savoir-faire ancestral. Notre &eacute;quipe de 8 collaborateurs &agrave; La R&eacute;union vous accueille dans nos deux showrooms. Nous s&eacute;lectionnons uniquement le meilleur teck Tectona Grandis.
+              Chaque pi&egrave;ce est fa&ccedil;onn&eacute;e &agrave; la main par des artisans en Indon&eacute;sie, h&eacute;ritiers d&apos;un savoir-faire ancestral. Notre &eacute;quipe passionn&eacute;e &agrave; La R&eacute;union vous accueille dans nos deux showrooms. Nous s&eacute;lectionnons uniquement le meilleur teck Tectona Grandis.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Notre philosophie : acheter moins, mais mieux. Nous privil&eacute;gions la qualit&eacute;, la durabilit&eacute; et l&apos;esth&eacute;tique intemporelle.
