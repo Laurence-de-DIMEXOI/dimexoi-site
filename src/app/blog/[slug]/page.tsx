@@ -145,12 +145,14 @@ export default async function BlogArticlePage({ params }: PageProps) {
           <div
             className="prose prose-lg max-w-none
               prose-headings:font-serif prose-headings:text-dark-charcoal prose-headings:font-bold
-              prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-warm-beige prose-h2:pb-3
-              prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-              prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4
+              prose-h2:text-3xl prose-h2:mt-20 prose-h2:mb-8 prose-h2:border-b prose-h2:border-warm-beige prose-h2:pb-5
+              prose-h3:text-xl prose-h3:mt-14 prose-h3:mb-5
+              prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-6
               prose-strong:text-dark-charcoal prose-strong:font-semibold
               prose-a:text-teak-brown prose-a:underline hover:prose-a:text-dark-olive
               prose-em:text-gray-500
+              prose-table:my-0
+              [&>.not-prose]:my-14
             "
             dangerouslySetInnerHTML={{ __html: article.content }}
           />

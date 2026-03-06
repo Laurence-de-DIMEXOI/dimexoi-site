@@ -5,7 +5,7 @@ export function LocalBusinessSchema() {
     name: 'DIMEXOI',
     alternateName: "BOIS d'Orient by DIMEXOI",
     description: 'Mobilier en teck haut de gamme depuis 1995 \u00e0 La R\u00e9union. Meubles artisanaux en teck massif Tectona Grandis.',
-    url: 'https://dimexoi.re',
+    url: 'https://dimexoi.fr',
     telephone: '+262262350679',
     email: 'contact@dimexoi.fr',
     foundingDate: '1995',
@@ -117,7 +117,7 @@ export function ProductSchema({
     description,
     image,
     category,
-    url: `https://dimexoi.re/catalogue/${slug}`,
+    url: `https://dimexoi.fr/catalogue/${slug}`,
     brand: {
       '@type': 'Brand',
       name: 'DIMEXOI',
@@ -135,7 +135,7 @@ export function ProductSchema({
         '@type': 'Organization',
         name: 'DIMEXOI',
       },
-      url: `https://dimexoi.re/devis?product=${slug}`,
+      url: `https://dimexoi.fr/devis?product=${slug}`,
     },
   };
 

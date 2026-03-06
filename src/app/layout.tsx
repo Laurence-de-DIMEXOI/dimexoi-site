@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     default: 'DIMEXOI - Mobilier en Teck Haut de Gamme | La R\u00e9union (974)',
     template: '%s | DIMEXOI',
   },
-  description: 'DIMEXOI, sp\u00e9cialiste du mobilier en teck massif \u00e0 La R\u00e9union depuis 1995. 207 meubles artisanaux, 2 showrooms \u00e0 Saint-Pierre et Saint-Denis. Devis gratuit.',
+  description: 'DIMEXOI, spécialiste du mobilier en teck massif à La Réunion depuis 1995. Large choix de meubles artisanaux, 2 showrooms à Saint-Pierre et Saint-Denis. Devis gratuit.',
   keywords: [
     'mobilier teck La R\u00e9union',
     'meuble teck 974',
