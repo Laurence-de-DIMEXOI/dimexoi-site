@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import Breadcrumb from '@/src/components/Breadcrumb';
+import TableOfContents from '@/src/components/TableOfContents';
 import { getArticleBySlug, articles, getRelatedArticles } from '@/src/lib/blog';
 
 interface PageProps {
@@ -137,17 +138,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Table of Contents */}
-          <nav className="bg-gray-50 border border-gray-100 p-6 mb-10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Sommaire</p>
-            <ul className="space-y-2">
-              <li><a href="#pourquoi-teck" className="text-sm text-dark-olive hover:text-teak-brown transition-colors">Pourquoi choisir le teck pour sa salle de bain ?</a></li>
-              <li><a href="#choisir-meuble" className="text-sm text-dark-olive hover:text-teak-brown transition-colors">Comment choisir son meuble sous vasque en teck ?</a></li>
-              <li><a href="#finitions" className="text-sm text-dark-olive hover:text-teak-brown transition-colors">Les finitions disponibles</a></li>
-              <li><a href="#entretien" className="text-sm text-dark-olive hover:text-teak-brown transition-colors">Comment entretenir un meuble en teck ?</a></li>
-              <li><a href="#reunion" className="text-sm text-dark-olive hover:text-teak-brown transition-colors">Pourquoi acheter chez DIMEXOI à La Réunion ?</a></li>
-            </ul>
-          </nav>
+          {/* Table of Contents - auto-generated from h2 ids */}
+          <TableOfContents content={article.content} />
 
           {/* Article Body */}
           <div
