@@ -3,6 +3,7 @@
 import { useDevisCart, FINISHES } from './DevisCartProvider';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { trackAddToDevis } from '@/src/lib/tracking';
 
 interface AddToDevisButtonProps {
   slug: string;
@@ -26,6 +27,7 @@ export default function AddToDevisButton({ slug, name, category, subcategory, im
       image,
       finish: selectedFinish,
     });
+    trackAddToDevis({ name, category, slug });
     router.push('/devis');
   };
 

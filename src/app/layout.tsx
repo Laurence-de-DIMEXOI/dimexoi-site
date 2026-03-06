@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import Header from '@/src/components/Header';
 import Footer from '@/src/components/Footer';
 import { LocalBusinessSchema } from '@/src/components/SchemaOrg';
-import GoogleAnalytics from '@/src/components/GoogleAnalytics';
+import GoogleTagManager, { GoogleTagManagerNoScript } from '@/src/components/GoogleTagManager';
+import MetaPixel from '@/src/components/MetaPixel';
 import CookieConsent from '@/src/components/CookieConsent';
+import UtmCapture from '@/src/components/UtmCapture';
 import WhatsAppButton from '@/src/components/WhatsAppButton';
 import { DevisCartProvider } from '@/src/components/DevisCartProvider';
 import DevisCartDrawer from '@/src/components/DevisCartDrawer';
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'DIMEXOI',
-    url: 'https://dimexoi.re',
+    url: 'https://dimexoi.fr',
   },
   robots: {
     index: true,
@@ -52,7 +54,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://dimexoi.re',
+    canonical: 'https://dimexoi.fr',
   },
   verification: {
     google: 'YOUR_GOOGLE_VERIFICATION_CODE',
@@ -77,7 +79,10 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className="bg-off-white text-dark-charcoal">
-        <GoogleAnalytics />
+        <GoogleTagManager />
+        <GoogleTagManagerNoScript />
+        <MetaPixel />
+        <UtmCapture />
         <DevisCartProvider>
           <Header />
           <main>{children}</main>

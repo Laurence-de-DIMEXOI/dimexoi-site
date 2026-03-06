@@ -2,6 +2,13 @@
 
 import { useState, useEffect } from 'react';
 
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+    fbq: (...args: unknown[]) => void;
+  }
+}
+
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
@@ -14,13 +21,39 @@ export default function CookieConsent() {
     return undefined;
   }, []);
 
+  const updateConsent = (granted: boolean) => {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args: unknown[]) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      window.dataLayer.push(args as any);
+    }
+
+    if (granted) {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted',
+      });
+    } else {
+      gtag('consent', 'update', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+      });
+    }
+  };
+
   const handleAccept = () => {
     localStorage.setItem('dimexoi-cookie-consent', 'accepted');
+    updateConsent(true);
     setVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem('dimexoi-cookie-consent', 'declined');
+    updateConsent(false);
     setVisible(false);
   };
 

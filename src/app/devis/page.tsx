@@ -8,6 +8,8 @@ import Breadcrumb from '@/src/components/Breadcrumb';
 import { useDevisCart, FINISHES } from '@/src/components/DevisCartProvider';
 import { getProductBySlug } from '@/src/lib/products';
 import { useState, useEffect } from 'react';
+import { trackDevisSubmission } from '@/src/lib/tracking';
+import { getUtmData, getSourceLabel } from '@/src/lib/utm';
 
 const SHOWROOM_MAP: Record<string, string> = {
   sud: 'SUD - Saint-Pierre',
@@ -84,7 +86,8 @@ function DevisContent() {
       showroom: SHOWROOM_MAP[showroomKey] || showroomKey,
       budget: BUDGET_MAP[budgetKey] || budgetKey || '',
       message: formData.get('message') || '',
-      source: 'site-web-v2',
+      source: getSourceLabel() !== 'direct' ? `site-web-v2 (${getSourceLabel()})` : 'site-web-v2',
+      utm: getUtmData(),
       articles,
       consentements: {
         offre: consentOffers,
@@ -108,6 +111,13 @@ function DevisContent() {
       if (!result?.success) {
         throw new Error(result?.error || 'Erreur lors de l\'envoi du formulaire');
       }
+
+      // Track conversion
+      trackDevisSubmission({
+        showroom: SHOWROOM_MAP[showroomKey] || showroomKey,
+        articlesCount: articles.length,
+        articles: articles.map(a => a.nom),
+      });
 
       setSuccess(true);
       clearCart();

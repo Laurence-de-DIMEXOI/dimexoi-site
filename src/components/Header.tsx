@@ -51,6 +51,7 @@ export default function Header() {
     { href: '/catalogue', label: 'Catalogue' },
     { href: '/collections', label: 'Collections' },
     { href: '/a-propos', label: 'Notre histoire' },
+    { href: '/blog', label: 'Blog', italic: true },
     { href: '/contact', label: 'Contact' },
   ];
 
@@ -118,7 +119,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-dark-charcoal hover:text-dark-olive font-medium text-sm uppercase tracking-wider transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-teak-brown after:transition-all after:duration-300 hover:after:w-full py-2"
+                  className={`text-dark-charcoal hover:text-dark-olive font-medium text-sm uppercase tracking-wider transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-teak-brown after:transition-all after:duration-300 hover:after:w-full py-2${link.italic ? ' italic' : ''}`}
                 >
                   {link.label}
                 </Link>
@@ -246,7 +247,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-between py-4 px-4 text-dark-charcoal hover:text-dark-olive hover:bg-warm-beige font-medium text-sm uppercase tracking-wider transition-all border-b border-gray-50"
+                  className={`flex items-center justify-between py-4 px-4 text-dark-charcoal hover:text-dark-olive hover:bg-warm-beige font-medium text-sm uppercase tracking-wider transition-all border-b border-gray-50${link.italic ? ' italic' : ''}`}
                 >
                   {link.label}
                   <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
