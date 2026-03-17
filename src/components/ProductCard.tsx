@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { useDevisCart, FINISHES } from './DevisCartProvider';
 import { useState } from 'react';
 
+// Tiny beige placeholder (1x1 pixel)
+const BLUR_PLACEHOLDER = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8f4e5HgAHpALhfBmelAAAAABJRU5ErkJggg==';
+
 interface ProductCardProps {
   id: number;
   name: string;
@@ -13,6 +16,7 @@ interface ProductCardProps {
   subcategory: string;
   category: string;
   dimensions: string;
+  priority?: boolean;
 }
 
 export default function ProductCard({
@@ -22,6 +26,7 @@ export default function ProductCard({
   subcategory,
   category,
   dimensions,
+  priority = false,
 }: ProductCardProps) {
   const mainImage = images && images.length > 0 ? images[0] : null;
   const isLocal = mainImage?.startsWith('/images/');
@@ -61,8 +66,11 @@ export default function ProductCard({
               alt={name}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               unoptimized={!isLocal}
+              priority={priority}
+              placeholder="blur"
+              blurDataURL={BLUR_PLACEHOLDER}
             />
           ) : (
             <div className="w-full h-full bg-cream flex flex-col items-center justify-center text-gray-300">

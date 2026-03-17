@@ -115,3 +115,60 @@ export function trackPhoneCall(showroom: string) {
     });
   }
 }
+
+// --- Chat IA tracking events ---
+
+export function trackChatOpened() {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({ event: 'chat_opened' });
+  }
+}
+
+export function trackChatMessageSent() {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({ event: 'chat_message_sent' });
+  }
+}
+
+export function trackChatProductViewed(productSlug: string) {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'chat_product_viewed',
+      chat_product_slug: productSlug,
+    });
+  }
+}
+
+export function trackChatLeadSubmitted(products: string[]) {
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    window.fbq('track', 'Lead', {
+      content_name: 'Chat IA Lead',
+      contents: products.map((slug) => ({ id: slug, quantity: 1 })),
+    });
+  }
+
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'chat_lead_submitted',
+      chat_products: products,
+    });
+  }
+}
+
+export function trackChatVisualizationStarted(productSlug: string) {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'chat_visualization_started',
+      chat_product_slug: productSlug,
+    });
+  }
+}
+
+export function trackChatVisualizationCompleted(productSlug: string) {
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'chat_visualization_completed',
+      chat_product_slug: productSlug,
+    });
+  }
+}

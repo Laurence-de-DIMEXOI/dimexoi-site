@@ -74,6 +74,15 @@ export default function Footer() {
               <p className="pt-2"><a href="tel:+262262350679" className="text-off-white hover:text-gray-300 transition-colors font-medium">0262 35 06 79</a></p>
               <p><a href="mailto:contact@dimexoi.fr" className="hover:text-off-white transition-colors">contact@dimexoi.fr</a></p>
               <p className="text-xs text-gray-600 pt-2">Mar - Sam : 9h - 17h</p>
+              <a
+                href="https://g.page/r/CZ-Q4gM3Rw_HEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-3 text-xs text-off-white hover:text-teak-light transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Laisser un avis Google
+              </a>
             </div>
           </div>
 
@@ -86,6 +95,15 @@ export default function Footer() {
               <p className="pt-2"><a href="tel:+262262203030" className="text-off-white hover:text-gray-300 transition-colors font-medium">0262 20 30 30</a></p>
               <p><a href="mailto:bernard@dimexoi.fr" className="hover:text-off-white transition-colors">bernard@dimexoi.fr</a></p>
               <p className="text-xs text-gray-600 pt-2">Mar - Sam : 10h-13h &amp; 14h-18h</p>
+              <a
+                href="https://g.page/r/CbTbK3m9vV8nEAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-3 text-xs text-off-white hover:text-teak-light transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                Laisser un avis Google
+              </a>
             </div>
           </div>
 

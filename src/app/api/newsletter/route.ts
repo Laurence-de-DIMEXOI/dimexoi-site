@@ -1,10 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { ratelimit, getIP } from '@/src/lib/ratelimit';
+
+const newsletterSchema = z.object({
+  email: z.string().email(),
+});
 
 export async function POST(request: NextRequest) {
   try {
+    // Vérification origine (CSRF)
+    const origin = request.headers.get('origin');
+    const allowedOrigins = ['https://www.dimexoi.fr', 'https://dimexoi.fr', 'http://localhost:3000'];
+    if (process.env.NODE_ENV === 'production' && (!origin || !allowedOrigins.includes(origin))) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
+
+    // Rate limiting
+    if (ratelimit) {
+      const ip = getIP(request);
+      const { success } = await ratelimit.limit(`newsletter:${ip}`);
+      if (!success) {
+        return NextResponse.json({ error: 'Trop de requêtes, réessayez plus tard' }, { status: 429 });
+      }
+    }
+
     const body = await request.json();
 
-    const crmUrl = process.env.NEXT_PUBLIC_CRM_URL;
+    // Validation Zod
+    const parsed = newsletterSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+    }
+
+    const crmUrl = process.env.CRM_URL;
     if (!crmUrl) {
       return NextResponse.json(
         { error: 'CRM URL not configured' },
@@ -19,7 +47,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         type: 'newsletter',
-        ...body,
+        ...parsed.data,
         createdAt: new Date().toISOString(),
       }),
     });

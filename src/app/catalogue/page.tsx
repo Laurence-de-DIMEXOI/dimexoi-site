@@ -1,17 +1,37 @@
 'use client';
 
-import { useState, useMemo, Suspense } from 'react';
+import { useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import Breadcrumb from '@/src/components/Breadcrumb';
 import ProductCard from '@/src/components/ProductCard';
 import { products, getCategories, getSubcategories, getCollections } from '@/src/lib/products';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+
+function SkeletonGrid() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div key={i} className="bg-white border border-gray-100 animate-pulse">
+          <div className="aspect-square bg-gray-200" />
+          <div className="p-4 space-y-3">
+            <div className="h-4 bg-gray-200 rounded w-3/4" />
+            <div className="h-3 bg-gray-200 rounded w-1/2" />
+            <div className="h-3 bg-gray-200 rounded w-2/3" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function CatalogueContent() {
   const searchParams = useSearchParams();
-  const categoryParam = searchParams.get('category') || '';
-  const subcategoryParam = searchParams.get('subcategory') || '';
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const categoryParam = searchParams.get('categorie') || searchParams.get('category') || '';
+  const subcategoryParam = searchParams.get('sous-categorie') || searchParams.get('subcategory') || '';
   const collectionParam = searchParams.get('collection') || '';
-  const searchParam = searchParams.get('search') || '';
+  const searchParam = searchParams.get('recherche') || searchParams.get('search') || '';
 
   const [searchQuery, setSearchQuery] = useState(searchParam);
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
@@ -19,6 +39,22 @@ function CatalogueContent() {
   const [selectedCollection, setSelectedCollection] = useState(collectionParam);
   const [sortBy, setSortBy] = useState('');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  // Sync filters to URL
+  const syncURL = useCallback(() => {
+    const params = new URLSearchParams();
+    if (selectedCategory) params.set('categorie', selectedCategory);
+    if (selectedSubcategory) params.set('sous-categorie', selectedSubcategory);
+    if (selectedCollection) params.set('collection', selectedCollection);
+    if (searchQuery) params.set('recherche', searchQuery);
+    const qs = params.toString();
+    router.replace(`${pathname}${qs ? `?${qs}` : ''}`, { scroll: false });
+  }, [selectedCategory, selectedSubcategory, selectedCollection, searchQuery, pathname, router]);
+
+  useEffect(() => {
+    const timer = setTimeout(syncURL, 300);
+    return () => clearTimeout(timer);
+  }, [syncURL]);
 
   const categories = getCategories();
   const subcategories = getSubcategories();
@@ -284,8 +320,8 @@ function CatalogueContent() {
           <div className="flex-1 min-w-0">
             {/* Desktop result count */}
             <div className="hidden lg:flex items-center justify-between mb-6">
-              <p className="text-sm text-gray-500">
-                {filteredProducts.length} produit{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
+              <p className="text-sm font-bold text-teak-brown">
+                {filteredProducts.length} meuble{filteredProducts.length !== 1 ? 's' : ''} trouvé{filteredProducts.length !== 1 ? 's' : ''}
               </p>
               {hasActiveFilters && (
                 <button
@@ -299,8 +335,8 @@ function CatalogueContent() {
 
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
-                {filteredProducts.map(product => (
-                  <ProductCard key={product.id} {...product} />
+                {filteredProducts.map((product, index) => (
+                  <ProductCard key={product.id} {...product} priority={index < 3} />
                 ))}
               </div>
             ) : (
@@ -326,8 +362,15 @@ function CatalogueContent() {
 export default function CataloguePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-off-white flex items-center justify-center">
-        <p className="text-gray-500 text-sm uppercase tracking-wider">Chargement du catalogue...</p>
+      <div className="min-h-screen bg-off-white">
+        <div className="bg-dark-olive text-off-white py-10 sm:py-14">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="h-8 bg-white/10 rounded w-48 animate-pulse" />
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <SkeletonGrid />
+        </div>
       </div>
     }>
       <CatalogueContent />

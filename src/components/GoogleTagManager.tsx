@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { useEffect } from 'react';
 
-const GTM_ID = 'GTM-MZ7DQBL';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? '';
 
 export default function GoogleTagManager() {
   useEffect(() => {

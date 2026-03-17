@@ -4,8 +4,9 @@ import Breadcrumb from '@/src/components/Breadcrumb';
 import ImageGallery from '@/src/components/ImageGallery';
 import QuoteForm from '@/src/components/QuoteForm';
 import ProductCard from '@/src/components/ProductCard';
+import ShareButton from '@/src/components/ShareButton';
 import { getProductBySlug, getProductsBySubcategory, products } from '@/src/lib/products';
-import { ProductSchema } from '@/src/components/SchemaOrg';
+import { ProductSchema, BreadcrumbSchema } from '@/src/components/SchemaOrg';
 import AddToDevisButton from '@/src/components/AddToDevisButton';
 import { notFound } from 'next/navigation';
 
@@ -22,13 +23,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Produit non trouv\u00e9' };
   }
 
+  const description = product.description.split('\n')[0].replace(/^✓\s*/, '') || `${product.name} - Meuble en bois exotique par Dimexoi`;
+
   return {
-    title: `${product.name} - DIMEXOI`,
-    description: product.description.split('\n')[0],
+    title: `${product.name} | Dimexoi — Meubles en Bois Exotique La Réunion`,
+    description,
     openGraph: {
-      title: product.name,
-      description: product.description,
-      type: 'website',
+      title: `${product.name} | Dimexoi`,
+      description,
+      type: 'article',
+      images: product.images?.[0] ? [{ url: product.images[0], width: 800, height: 800, alt: product.name }] : [],
     },
   };
 }
@@ -60,6 +64,14 @@ export default function ProductDetailPage({ params }: PageProps) {
         image={product.images?.[0] || ''}
         category={product.category}
         slug={product.slug}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Accueil', url: 'https://dimexoi.fr' },
+          { name: 'Catalogue', url: 'https://dimexoi.fr/catalogue' },
+          { name: product.category, url: `https://dimexoi.fr/catalogue?categorie=${encodeURIComponent(product.category)}` },
+          { name: product.name },
+        ]}
       />
       {/* Page Header */}
       <div className="bg-dark-olive text-off-white py-10 sm:py-14">
@@ -144,6 +156,11 @@ export default function ProductDetailPage({ params }: PageProps) {
               <Link href="/contact" className="block text-center btn-outline w-full">
                 Voir en showroom
               </Link>
+            </div>
+
+            {/* Share */}
+            <div className="mb-8">
+              <ShareButton productName={product.name} productSlug={product.slug} />
             </div>
 
             {/* Showroom Info */}

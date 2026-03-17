@@ -129,7 +129,7 @@ export function ProductSchema({
     material: 'Teck massif Tectona Grandis',
     offers: {
       '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
+      availability: 'https://schema.org/InStoreOnly',
       priceCurrency: 'EUR',
       seller: {
         '@type': 'Organization',

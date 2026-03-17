@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const bodyText = await request.text();
+
+    // Vérification HMAC si WEBHOOK_SECRET est configuré
+    const signature = request.headers.get('x-webhook-signature');
+    if (process.env.WEBHOOK_SECRET && signature) {
+      const expected = crypto
+        .createHmac('sha256', process.env.WEBHOOK_SECRET)
+        .update(bodyText)
+        .digest('hex');
+      if (signature !== expected) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
+    }
+
+    const body = JSON.parse(bodyText);
 
     const response = await fetch('https://kokpit-kappa.vercel.app/api/webhooks/newsletter', {
       method: 'POST',

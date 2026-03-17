@@ -9,6 +9,7 @@ import UtmCapture from '@/src/components/UtmCapture';
 import WhatsAppButton from '@/src/components/WhatsAppButton';
 import { DevisCartProvider } from '@/src/components/DevisCartProvider';
 import DevisCartDrawer from '@/src/components/DevisCartDrawer';
+import { ToastProvider } from '@/src/components/Toast';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -84,12 +85,14 @@ export default function RootLayout({
         <MetaPixel />
         <UtmCapture />
         <DevisCartProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <DevisCartDrawer />
-          <WhatsAppButton />
-          <CookieConsent />
+          <ToastProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <DevisCartDrawer />
+            <WhatsAppButton />
+            <CookieConsent />
+          </ToastProvider>
         </DevisCartProvider>
       </body>
     </html>
