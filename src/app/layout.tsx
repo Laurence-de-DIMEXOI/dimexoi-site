@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
-import Header from '@/src/components/Header';
-import Footer from '@/src/components/Footer';
 import { LocalBusinessSchema } from '@/src/components/SchemaOrg';
 import GoogleTagManager, { GoogleTagManagerNoScript } from '@/src/components/GoogleTagManager';
 import MetaPixel from '@/src/components/MetaPixel';
 import CookieConsent from '@/src/components/CookieConsent';
 import UtmCapture from '@/src/components/UtmCapture';
-import WhatsAppButton from '@/src/components/WhatsAppButton';
 import { DevisCartProvider } from '@/src/components/DevisCartProvider';
-import DevisCartDrawer from '@/src/components/DevisCartDrawer';
 import { ToastProvider } from '@/src/components/Toast';
+import SiteShell from '@/src/components/SiteShell';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -86,11 +83,7 @@ export default function RootLayout({
         <UtmCapture />
         <DevisCartProvider>
           <ToastProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <DevisCartDrawer />
-            <WhatsAppButton />
+            <SiteShell>{children}</SiteShell>
             <CookieConsent />
           </ToastProvider>
         </DevisCartProvider>

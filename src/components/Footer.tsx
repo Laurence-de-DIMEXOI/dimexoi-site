@@ -117,6 +117,7 @@ export default function Footer() {
                 { href: '/devis', label: 'Demander un devis' },
                 { href: '/a-propos', label: 'Notre histoire' },
                 { href: '/contact', label: 'Contact' },
+                { href: '/club-grandis', label: 'Club Grandis' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:text-off-white transition-colors">{link.label}</Link>

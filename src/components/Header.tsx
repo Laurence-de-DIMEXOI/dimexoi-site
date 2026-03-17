@@ -53,6 +53,7 @@ export default function Header() {
     { href: '/a-propos', label: 'Notre histoire' },
     { href: '/blog', label: 'Blog', italic: true },
     { href: '/contact', label: 'Contact' },
+    { href: '/club-grandis', label: 'Club Grandis' },
   ];
 
   return (
