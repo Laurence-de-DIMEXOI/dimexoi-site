@@ -231,7 +231,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
         {isLoading ? 'Envoi en cours...' : 'Envoyer ma demande'}
       </button>
 
-      <p className="text-xs text-gray-400 text-center">* Champs obligatoires — Nous répondons dans les 48 heures</p>
+      <p className="text-xs text-gray-400 text-center">* Champs obligatoires  - Nous répondons dans les 48 heures</p>
     </form>
   );
 }

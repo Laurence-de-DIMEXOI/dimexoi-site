@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = product.description.split('\n')[0].replace(/^✓\s*/, '') || `${product.name} - Meuble en bois exotique par Dimexoi`;
 
   return {
-    title: `${product.name} | Dimexoi — Meubles en Bois Exotique La Réunion`,
+    title: `${product.name} | Dimexoi  - Meubles en Bois Exotique La Réunion`,
     description,
     openGraph: {
       title: `${product.name} | Dimexoi`,

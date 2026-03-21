@@ -102,7 +102,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Section — Mosaic Layout */}
+      {/* Categories Section  - Mosaic Layout */}
       <section className="py-20 bg-off-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
