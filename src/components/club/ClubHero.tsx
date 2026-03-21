@@ -5,8 +5,10 @@ import Link from 'next/link';
 export default function ClubHero() {
   const handleScroll = () => {
     document.getElementById('les-cinq-cercles')?.scrollIntoView({ behavior: 'smooth' });
-    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'club_tectona_cta_hero');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).gtag('event', 'club_tectona_cta_hero');
     }
   };
 
