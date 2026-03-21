@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-const RECTO_SRC = '/images/carte fid/recto.png';
-const VERSO_SRC = '/images/carte fid/verso.png';
+const RECTO_SRC = '/images/carte-fid/recto.png';
+const VERSO_SRC = '/images/carte-fid/verso.png';
 
 export default function ClubCarte() {
   const [flipped, setFlipped] = useState(false);
