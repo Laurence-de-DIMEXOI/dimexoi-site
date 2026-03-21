@@ -5,11 +5,11 @@ import Link from 'next/link';
 const etapes = [
   {
     num: '1.',
-    text: "Passez une première commande de 500 € ou plus — et vous rejoignez automatiquement le cercle I, L'Écorce.",
+    text: "Passez une première commande de 500 € ou plus et vous rejoignez automatiquement le cercle I, L'Écorce.",
   },
   {
     num: '2.',
-    text: "À chaque achat, votre niveau évolue. Pas de formulaire, pas de démarche : le Club Grandis vous reconnaît.",
+    text: "À chaque achat, votre niveau évolue. Pas de formulaire, pas de démarche : le Club Tectona vous reconnaît.",
   },
   {
     num: '3.',
@@ -20,7 +20,7 @@ const etapes = [
 export default function ClubRejoindre() {
   const handleCta = () => {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'club_grandis_cta_catalogue');
+      window.gtag('event', 'club_tectona_cta_catalogue');
     }
   };
 
@@ -31,7 +31,7 @@ export default function ClubRejoindre() {
           className="text-2xl md:text-3xl text-center text-white mb-16"
           style={{ fontFamily: "'Perandory', 'Cormorant Garamond', serif" }}
         >
-          Comment rejoindre le Club Grandis ?
+          Comment rejoindre le Club Tectona ?
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-16">

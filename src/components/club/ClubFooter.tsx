@@ -21,7 +21,7 @@ export default function ClubFooter() {
         </Link>
       </div>
       <p className="text-white/30 text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
-        © {new Date().getFullYear()} Dimexoi — La Réunion
+        © {new Date().getFullYear()} Dimexoi - La Réunion
       </p>
     </footer>
   );

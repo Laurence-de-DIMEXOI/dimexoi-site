@@ -53,7 +53,7 @@ export default function Header() {
     { href: '/a-propos', label: 'Notre histoire' },
     { href: '/blog', label: 'Blog', italic: true },
     { href: '/contact', label: 'Contact' },
-    { href: '/club-grandis', label: 'Club Grandis' },
+    { href: '/club-grandis', label: 'Club Tectona' },
   ];
 
   return (
@@ -115,16 +115,30 @@ export default function Header() {
 
             {/* === DESKTOP (lg+) === */}
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-10">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-dark-charcoal hover:text-dark-olive font-medium text-sm uppercase tracking-wider transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-teak-brown after:transition-all after:duration-300 hover:after:w-full py-2${link.italic ? ' italic' : ''}`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav className="hidden lg:flex items-center gap-6">
+              {navLinks.map((link) =>
+                link.href === '/club-grandis' ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="py-2 transition-opacity hover:opacity-70"
+                  >
+                    <img
+                      src="/images/club-tectona-logo.png"
+                      alt="Club Tectona"
+                      className="h-8 w-auto"
+                    />
+                  </Link>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`text-dark-charcoal hover:text-dark-olive font-medium text-xs uppercase tracking-wider transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-teak-brown after:transition-all after:duration-300 hover:after:w-full py-2 whitespace-nowrap${link.italic ? ' italic' : ''}`}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </nav>
 
             {/* Right zone */}
@@ -164,7 +178,7 @@ export default function Header() {
 
               {/* Desktop CTA */}
               <div className="hidden lg:block ml-2">
-                <Link href="/devis" className="btn-primary text-sm">
+                <Link href="/devis" className="btn-primary text-xs whitespace-nowrap">
                   Demander un devis
                 </Link>
               </div>
@@ -243,17 +257,33 @@ export default function Header() {
 
             {/* Navigation Links */}
             <nav className="p-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center justify-between py-4 px-4 text-dark-charcoal hover:text-dark-olive hover:bg-warm-beige font-medium text-sm uppercase tracking-wider transition-all border-b border-gray-50${link.italic ? ' italic' : ''}`}
-                >
-                  {link.label}
-                  <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </Link>
-              ))}
+              {navLinks.map((link) =>
+                link.href === '/club-grandis' ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between py-4 px-4 hover:bg-warm-beige transition-all border-b border-gray-50"
+                  >
+                    <img
+                      src="/images/club-tectona-logo.png"
+                      alt="Club Tectona"
+                      className="h-6 w-auto"
+                    />
+                    <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </Link>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center justify-between py-4 px-4 text-dark-charcoal hover:text-dark-olive hover:bg-warm-beige font-medium text-sm uppercase tracking-wider transition-all border-b border-gray-50${link.italic ? ' italic' : ''}`}
+                  >
+                    {link.label}
+                    <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </Link>
+                )
+              )}
             </nav>
 
             {/* CTA */}

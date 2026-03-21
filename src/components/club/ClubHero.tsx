@@ -1,45 +1,45 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function ClubHero() {
   const handleScroll = () => {
     document.getElementById('les-cinq-cercles')?.scrollIntoView({ behavior: 'smooth' });
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'club_grandis_cta_hero');
+      window.gtag('event', 'club_tectona_cta_hero');
     }
   };
 
   return (
     <section className="min-h-svh flex flex-col items-center justify-center relative" style={{ backgroundColor: '#515712' }}>
-      {/* Ligne verticale décorative */}
-      <div className="w-px h-10 bg-white/50 mb-10" />
-
-      {/* Logo Club Grandis */}
-      <div className="text-center mb-10">
-        <p
-          className="text-white text-2xl md:text-3xl tracking-[0.3em] uppercase mb-1"
-          style={{ fontFamily: "'Perandory', 'Cormorant Garamond', serif" }}
-        >
-          CLUB
-        </p>
-        <p
-          className="text-white text-5xl md:text-7xl"
-          style={{ fontFamily: "'Burgues Script', 'Cormorant Garamond', serif" }}
-        >
-          Grandis
-        </p>
-        <div className="w-32 h-px bg-white/40 mx-auto mt-6 mb-4" />
-        <p className="text-white/50 text-xs tracking-[0.2em] uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>
-          par Dimexoi
-        </p>
-      </div>
-
-      {/* Tagline */}
-      <p
-        className="text-white/70 text-base md:text-lg text-center max-w-md px-6 mb-12"
-        style={{ fontFamily: "'Perandory', 'Cormorant Garamond', serif", fontStyle: 'italic' }}
+      {/* Retour au site */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 text-white/50 text-xs hover:text-white/80 transition-colors flex items-center gap-1.5"
+        style={{ fontFamily: 'Inter, sans-serif' }}
       >
-        Cinq cercles. Une seule règle : être exigeant.
+        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Retour au site
+      </Link>
+
+      {/* Bienvenue au */}
+      <p
+        className="text-white/60 text-sm md:text-base tracking-[0.25em] uppercase mb-6"
+        style={{ fontFamily: 'Inter, sans-serif' }}
+      >
+        Bienvenue au
       </p>
+
+      {/* Logo Club Tectona */}
+      <div className="mb-16">
+        <img
+          src="/images/club-tectona-logo-blanc.png"
+          alt="Club Tectona par Dimexoi"
+          className="mx-auto h-40 md:h-56 w-auto"
+        />
+      </div>
 
       {/* CTA */}
       <button
