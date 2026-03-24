@@ -49,7 +49,6 @@ export const CLUB_NIVEAUX = [
     remiseDetail: 'à vie sur les meubles en teck',
     avantages: [
       'Cadeau pour avoir atteint le palier',
-      'Carte membre personnalisée à votre nom',
     ],
   },
 ]
