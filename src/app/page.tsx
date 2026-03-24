@@ -238,6 +238,61 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Club Tectona */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            {/* Card flip */}
+            <div className="w-full max-w-[380px] flex-shrink-0">
+              <div
+                className="cursor-pointer"
+                style={{ perspective: '1200px', aspectRatio: '460 / 326' }}
+                onMouseEnter={(e) => {
+                  const inner = e.currentTarget.firstElementChild as HTMLElement;
+                  if (inner) inner.style.transform = 'rotateY(180deg)';
+                }}
+                onMouseLeave={(e) => {
+                  const inner = e.currentTarget.firstElementChild as HTMLElement;
+                  if (inner) inner.style.transform = 'rotateY(0deg)';
+                }}
+              >
+                <div
+                  className="relative w-full h-full"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1)',
+                  }}
+                >
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg" style={{ backfaceVisibility: 'hidden' }}>
+                    <img src="/images/carte-fid/recto.png" alt="Carte Club Tectona" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-lg" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+                    <img src="/images/carte-fid/verso.png" alt="Carte Club Tectona - verso" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Text */}
+            <div className="text-center md:text-left">
+              <p className="text-teak-brown font-semibold text-sm uppercase tracking-widest mb-4">Programme de fidélité</p>
+              <h2 className="text-4xl font-serif font-bold text-dark-olive section-heading-left">
+                Club <em className="italic">Tectona</em>
+              </h2>
+              <p className="text-gray-700 mb-4 leading-relaxed mt-6">
+                Cinq niveaux de fidélité inspirés du teck. Des remises exclusives sur les meubles en teck, jusqu&apos;à <strong>25 % à vie</strong>.
+              </p>
+              <p className="text-gray-500 text-sm mb-8">
+                Votre niveau évolue à chaque achat. Automatiquement.
+              </p>
+              <Link href="/club-grandis" className="btn-outline">
+                Découvrir le Club Tectona →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Showroom CTA */}
       <section className="py-20 bg-dark-olive text-off-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
