@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "img-src 'self' data: blob: https://images.unsplash.com https://lh3.googleusercontent.com https://www.facebook.com; " +
-    "font-src 'self' https://fonts.gstatic.com; " +
+    "font-src 'self' https://fonts.gstatic.com data:; " +
     "connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://kokpit-kappa.vercel.app; " +
     "frame-src https://www.google.com/maps;"
   );

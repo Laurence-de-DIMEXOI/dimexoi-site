@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Inter, Playfair_Display, Cormorant_Garamond } from 'next/font/google';
 import { LocalBusinessSchema } from '@/src/components/SchemaOrg';
 import GoogleTagManager, { GoogleTagManagerNoScript } from '@/src/components/GoogleTagManager';
 import MetaPixel from '@/src/components/MetaPixel';
@@ -8,6 +9,29 @@ import { DevisCartProvider } from '@/src/components/DevisCartProvider';
 import { ToastProvider } from '@/src/components/Toast';
 import SiteShell from '@/src/components/SiteShell';
 import './globals.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-playfair',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-cormorant',
+});
 
 export const metadata: Metadata = {
   title: {
@@ -65,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${inter.variable} ${playfair.variable} ${cormorant.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
