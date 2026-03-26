@@ -45,12 +45,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] bg-dark-charcoal overflow-hidden flex items-center">
         <Image
-          src="https://lh3.googleusercontent.com/d/1kQwn1zIMOqDjqHLMG8weJPyQvKlIFr3K=w1920"
+          src="/images/hero-chambre.jpg"
           alt="Mobilier en teck DIMEXOI"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
-          unoptimized
         />
         <div className="hero-overlay absolute inset-0"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -202,8 +202,7 @@ export default function Home() {
                 width={600}
                 height={500}
                 className="w-full h-auto object-cover"
-                unoptimized
-              />
+                             />
               <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-teak-brown -z-10 hidden lg:block"></div>
             </div>
             <div>
