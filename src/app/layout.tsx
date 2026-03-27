@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display, Cormorant_Garamond } from 'next/font/google';
 import { LocalBusinessSchema } from '@/src/components/SchemaOrg';
 import GoogleTagManager, { GoogleTagManagerNoScript } from '@/src/components/GoogleTagManager';
+import GoogleAnalytics from '@/src/components/GoogleAnalytics';
 import MetaPixel from '@/src/components/MetaPixel';
 import CookieConsent from '@/src/components/CookieConsent';
 import UtmCapture from '@/src/components/UtmCapture';
@@ -103,6 +104,7 @@ export default function RootLayout({
       <body className="bg-off-white text-dark-charcoal">
         <GoogleTagManager />
         <GoogleTagManagerNoScript />
+        <GoogleAnalytics />
         <MetaPixel />
         <UtmCapture />
         <DevisCartProvider>
