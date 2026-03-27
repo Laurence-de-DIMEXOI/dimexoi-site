@@ -25,6 +25,7 @@ export default function GoogleAnalytics() {
               page_title: document.title,
               page_location: window.location.href,
             });
+            gtag('event', 'conversion', {'send_to': 'AW-869002426/3MTcCOuCiIsYELrZr54D'});
           `,
         }}
       />

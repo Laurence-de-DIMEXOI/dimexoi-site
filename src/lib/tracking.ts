@@ -7,7 +7,37 @@ declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
     fbq: (...args: unknown[]) => void;
+    gtag: (...args: unknown[]) => void;
   }
+}
+
+/**
+ * Google Ads conversion - Website traffic
+ */
+export function gtagReportConversion(url?: string) {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') {
+    if (url) window.location.href = url;
+    return;
+  }
+  const callback = () => {
+    if (url) window.location.href = url;
+  };
+  window.gtag('event', 'conversion', {
+    send_to: 'AW-869002426/3MTcCOuCiIsYELrZr54D',
+    event_callback: callback,
+  });
+}
+
+/**
+ * Google Ads conversion - Demande de devis (valeur 26€)
+ */
+export function gtagReportDevisConversion() {
+  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+  window.gtag('event', 'conversion', {
+    send_to: 'AW-869002426/bwcYCO_RtZAcELrZr54D',
+    value: 26.0,
+    currency: 'EUR',
+  });
 }
 
 /**

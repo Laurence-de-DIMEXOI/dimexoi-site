@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { gtagReportDevisConversion } from '@/src/lib/tracking';
 
 interface QuoteFormProps {
   productSlug?: string;
@@ -89,6 +90,7 @@ export default function QuoteForm({ productSlug, productName }: QuoteFormProps) 
       }
 
       setSuccess(true);
+      gtagReportDevisConversion();
       (e.target as HTMLFormElement).reset();
       setConsentOffers(false);
       setConsentNewsletter(false);
