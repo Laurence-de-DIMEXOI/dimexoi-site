@@ -35,6 +35,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.dimexoi.fr'),
   title: {
     default: 'DIMEXOI - Mobilier en Teck Haut de Gamme | La R\u00e9union (974)',
     template: '%s | DIMEXOI',

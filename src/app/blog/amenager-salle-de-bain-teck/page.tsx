@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: 'Aménager sa salle de bain en teck - 12 conseils d\'experts',
     description: 'Guide complet + PDF gratuit. Par DIMEXOI, spécialiste du teck à La Réunion.',
     type: 'article',
-    images: [{ url: '/images/blog/guide-sdb-cover.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.dimexoi.fr/images/blog/guide-sdb-cover.png', width: 1200, height: 630 }],
   },
   alternates: { canonical: 'https://dimexoi.fr/blog/amenager-salle-de-bain-teck' },
 };
