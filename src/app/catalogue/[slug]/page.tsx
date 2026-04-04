@@ -8,7 +8,6 @@ import ShareButton from '@/src/components/ShareButton';
 import { getProductBySlug, getProductsBySubcategory, products } from '@/src/lib/products';
 import { ProductSchema, BreadcrumbSchema } from '@/src/components/SchemaOrg';
 import AddToDevisButton from '@/src/components/AddToDevisButton';
-import CalendlyWidget from '@/src/components/CalendlyWidget';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -154,13 +153,9 @@ export default function ProductDetailPage({ params }: PageProps) {
                 subcategory={product.subcategory}
                 image={product.images?.[0] || ''}
               />
-              <CalendlyWidget
-                mode="popup"
-                pageSource="fiche_produit"
-                productSlug={product.slug}
-                buttonText="Voir ce meuble en showroom"
-                buttonClassName="block text-center w-full py-3 px-6 border-2 border-teak-brown text-teak-brown hover:bg-teak-brown hover:text-white rounded-lg transition-colors font-medium"
-              />
+              <Link href="/contact" className="block text-center btn-outline w-full">
+                Voir en showroom
+              </Link>
             </div>
 
             {/* Share */}
