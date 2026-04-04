@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import GuideMockup from './GuideMockup';
+import { trackGuideDownload } from '@/src/lib/tracking';
 
 interface GuideDownloadFormProps {
   variant?: 'compact' | 'full' | 'banner';
@@ -45,10 +46,13 @@ export default function GuideDownloadForm({
       setDownloadUrl(data.downloadUrl);
       setSuccess(true);
 
-      // GTM tracking
-      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-        window.gtag('event', 'guide_sdb_download', { source, piece: piece || 'non_specifie' });
-      }
+      // Tracking complet : Meta Pixel Lead + GTM + Google Ads conversion
+      trackGuideDownload({
+        guideName: 'salle_de_bain_teck',
+        showroom: showroom || undefined,
+        piece: piece || undefined,
+        source,
+      });
     } catch {
       setError('Une erreur est survenue. Réessayez ou contactez-nous directement.');
     } finally {
@@ -60,8 +64,11 @@ export default function GuideDownloadForm({
     return (
       <div className={`rounded-2xl p-6 text-center ${className}`} style={{ background: '#f0faf8', border: '1px solid #0E6973' }}>
         <div className="text-4xl mb-3">✓</div>
-        <h3 className="text-lg font-bold mb-1" style={{ color: '#0E6973' }}>Votre guide est prêt !</h3>
-        <p className="text-gray-600 text-sm mb-4">Merci {prenom}. Téléchargez votre guide gratuitement.</p>
+        <h3 className="text-lg font-bold mb-1" style={{ color: '#0E6973' }}>Votre guide est en route !</h3>
+        <p className="text-gray-600 text-sm mb-4">
+          Merci {prenom} ! Consultez votre boîte email dans les prochaines minutes.<br />
+          En attendant, téléchargez-le directement :
+        </p>
         <a
           href={downloadUrl}
           download
@@ -78,6 +85,15 @@ export default function GuideDownloadForm({
           </svg>
           Télécharger le guide PDF
         </a>
+        <p className="mt-4">
+          <a
+            href="/catalogue?category=salle-de-bains"
+            className="text-sm font-medium hover:underline"
+            style={{ color: '#0E6973' }}
+          >
+            Découvrir notre collection salle de bain &rarr;
+          </a>
+        </p>
       </div>
     );
   }

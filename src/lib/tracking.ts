@@ -146,6 +146,45 @@ export function trackPhoneCall(showroom: string) {
   }
 }
 
+// --- Guide PDF tracking events ---
+
+/**
+ * Track guide PDF download (lead magnet)
+ * Fires: Meta Pixel Lead + GTM guide_download + Google Ads conversion
+ */
+export function trackGuideDownload(data: {
+  guideName: string;
+  showroom?: string;
+  piece?: string;
+  source?: string;
+}) {
+  // Meta Pixel - Lead event
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    window.fbq('track', 'Lead', {
+      content_name: data.guideName,
+      content_category: 'lead_magnet',
+    });
+  }
+
+  // GTM dataLayer
+  if (typeof window !== 'undefined' && window.dataLayer) {
+    window.dataLayer.push({
+      event: 'guide_download',
+      guide_name: data.guideName,
+      guide_showroom: data.showroom || '',
+      guide_piece: data.piece || '',
+      guide_source: data.source || '',
+    });
+  }
+
+  // Google Ads conversion
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    window.gtag('event', 'conversion', {
+      send_to: 'AW-869002426/bwcYCO_RtZAcELrZr54D',
+    });
+  }
+}
+
 // --- Chat IA tracking events ---
 
 export function trackChatOpened() {
