@@ -7,6 +7,7 @@ const guideDownloadSchema = z.object({
   email: z.string().email().transform(s => s.toLowerCase().trim()),
   telephone: z.string().optional().or(z.literal('')),
   piece: z.string().optional().or(z.literal('')),
+  showroom: z.enum(['SUD', 'NORD']).optional().or(z.literal('')),
   consentRGPD: z.literal(true, { message: 'Le consentement RGPD est obligatoire' }),
   source: z.string().optional().default('blog_sdb'),
 });
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
     }
 
-    const { prenom, email, telephone, piece, source } = parsed.data;
+    const { prenom, email, telephone, piece, showroom, source } = parsed.data;
 
     const crmUrl = process.env.CRM_URL;
     if (crmUrl) {
@@ -47,6 +48,7 @@ export async function POST(request: NextRequest) {
           tags: ['GUIDE_SDB'],
           metadata: {
             piece: piece || null,
+            showroom: showroom || null,
             source,
             guide: 'amenager-salle-de-bain-en-teck',
             downloadedAt: new Date().toISOString(),

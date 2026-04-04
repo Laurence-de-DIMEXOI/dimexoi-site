@@ -18,6 +18,7 @@ export default function GuideDownloadForm({
   const [email, setEmail] = useState('');
   const [telephone, setTelephone] = useState('');
   const [piece, setPiece] = useState('');
+  const [showroom, setShowroom] = useState('');
   const [consentRGPD, setConsentRGPD] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -37,7 +38,7 @@ export default function GuideDownloadForm({
       const res = await fetch('/api/guide-download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom, email, telephone, piece, consentRGPD, source }),
+        body: JSON.stringify({ prenom, email, telephone, piece, showroom, consentRGPD, source }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Erreur serveur');
@@ -177,6 +178,18 @@ export default function GuideDownloadForm({
               <option value="Salon">Salon</option>
               <option value="Cuisine">Cuisine</option>
               <option value="Autre">Autre</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Votre showroom préféré</label>
+            <select
+              value={showroom}
+              onChange={e => setShowroom(e.target.value)}
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent bg-white"
+            >
+              <option value="">Sélectionnez...</option>
+              <option value="SUD">Saint-Pierre (Sud)</option>
+              <option value="NORD">Saint-Denis (Nord)</option>
             </select>
           </div>
         </>
