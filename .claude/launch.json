@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "nextjs-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/Users/laurencepayet/Documents/dimexoi-site/node_modules/.bin/next", "dev"],
       "port": 3000,
       "autoPort": true
     }
