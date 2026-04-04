@@ -12,12 +12,12 @@ export function middleware(request: NextRequest) {
   response.headers.set(
     'Content-Security-Policy',
     "default-src 'self'; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net; " +
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://assets.calendly.com; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; " +
     "img-src 'self' data: blob: https://images.unsplash.com https://lh3.googleusercontent.com https://www.facebook.com; " +
     "font-src 'self' https://fonts.gstatic.com data:; " +
-    "connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://kokpit-kappa.vercel.app; " +
-    "frame-src https://www.google.com/maps;"
+    "connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://kokpit-kappa.vercel.app https://calendly.com; " +
+    "frame-src https://www.google.com/maps https://calendly.com;"
   );
   return response;
 }
