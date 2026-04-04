@@ -112,10 +112,10 @@ export default function ContactPage() {
               <span className="w-8 h-px bg-teak-brown"></span>
             </div>
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-dark-olive mb-2">
-              Prenez rendez-vous directement
+              Rendez-vous avec notre dessinateur 3D
             </h2>
             <p className="text-gray-500 text-sm max-w-lg mx-auto">
-              Visitez notre showroom et d&eacute;couvrez nos meubles en teck. 60 minutes pour vous accompagner dans votre projet.
+              Cuisine, salle de bain, meuble sur mesure&hellip; R&eacute;servez un cr&eacute;neau avec notre dessinateur pour concevoir votre projet en 3D, &agrave; distance.
             </p>
           </div>
           <div className="bg-white border border-gray-100 p-4 max-w-3xl mx-auto">
