@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; " +
     "img-src 'self' data: blob: https: ; " +
     "font-src 'self' https://fonts.gstatic.com data:; " +
-    "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.facebook.com https://kokpit-kappa.vercel.app https://calendly.com https://www.google.com https://googleads.g.doubleclick.net https://google.com https://googleleads.g.doubleclick.net; " +
+    "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://region1.analytics.google.com https://www.facebook.com https://kokpit-kappa.vercel.app https://calendly.com https://www.google.com https://googleads.g.doubleclick.net https://google.com https://googleleads.g.doubleclick.net; " +
     "frame-src https://www.google.com https://calendly.com https://td.doubleclick.net;"
   );
   return response;
