@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
     "img-src 'self' data: blob: https://images.unsplash.com https://lh3.googleusercontent.com https://www.facebook.com; " +
     "font-src 'self' https://fonts.gstatic.com data:; " +
     "connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://kokpit-kappa.vercel.app https://calendly.com; " +
-    "frame-src https://www.google.com/maps https://calendly.com;"
+    "frame-src https://www.google.com https://calendly.com;"
   );
   return response;
 }
