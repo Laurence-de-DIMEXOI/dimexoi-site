@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Breadcrumb from '@/src/components/Breadcrumb';
 import ContactForm from '@/src/components/ContactForm';
+import CalendlyWidget from '@/src/components/CalendlyWidget';
 
 export const metadata: Metadata = {
   title: 'Contact - DIMEXOI',
@@ -99,6 +100,26 @@ export default function ContactPage() {
                 ></iframe>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Calendly RDV */}
+        <div className="mb-16">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teak-brown mb-3">
+              <span className="w-8 h-px bg-teak-brown"></span>
+              ou
+              <span className="w-8 h-px bg-teak-brown"></span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-dark-olive mb-2">
+              Prenez rendez-vous directement
+            </h2>
+            <p className="text-gray-500 text-sm max-w-lg mx-auto">
+              Visitez notre showroom et d&eacute;couvrez nos meubles en teck. 60 minutes pour vous accompagner dans votre projet.
+            </p>
+          </div>
+          <div className="bg-white border border-gray-100 p-4 max-w-3xl mx-auto">
+            <CalendlyWidget mode="inline" pageSource="contact" />
           </div>
         </div>
 

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import GuideMockup from './GuideMockup';
 import { trackGuideDownload } from '@/src/lib/tracking';
+import CalendlyWidget from './CalendlyWidget';
 
 interface GuideDownloadFormProps {
   variant?: 'compact' | 'full' | 'banner';
@@ -94,6 +95,18 @@ export default function GuideDownloadForm({
             Découvrir notre collection salle de bain &rarr;
           </a>
         </p>
+
+        {/* CTA Calendly post-soumission */}
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-gray-700 text-sm font-medium mb-3">Envie d&apos;aller plus loin ?</p>
+          <p className="text-gray-500 text-xs mb-3">Venez d&eacute;couvrir notre collection salle de bain en showroom.</p>
+          <CalendlyWidget
+            mode="popup"
+            pageSource="guide_sdb"
+            buttonText="Prendre rendez-vous en showroom"
+            buttonClassName="inline-flex items-center gap-2 py-2.5 px-5 bg-teak-brown text-white text-sm font-semibold rounded-xl transition-opacity hover:opacity-90"
+          />
+        </div>
       </div>
     );
   }
