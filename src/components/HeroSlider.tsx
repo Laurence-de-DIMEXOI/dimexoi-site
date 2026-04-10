@@ -39,20 +39,26 @@ const SLIDES = [
 ];
 
 const INTERVAL = 6000;
+const SHOW_FROM = new Date('2026-04-17T00:00:00');
 
 export default function HeroSlider() {
+  const slides = typeof window !== 'undefined' && new Date() >= SHOW_FROM
+    ? SLIDES
+    : SLIDES.slice(0, 1);
+
   const [current, setCurrent] = useState(0);
   const pausedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
+    if (slides.length <= 1) return;
     timerRef.current = setInterval(() => {
       if (!pausedRef.current) {
-        setCurrent(c => (c + 1) % SLIDES.length);
+        setCurrent(c => (c + 1) % slides.length);
       }
     }, INTERVAL);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     startTimer();
@@ -64,7 +70,7 @@ export default function HeroSlider() {
     startTimer();
   };
 
-  const slide = SLIDES[current];
+  const slide = slides[current];
 
   return (
     <section
@@ -73,7 +79,7 @@ export default function HeroSlider() {
       onMouseLeave={() => { pausedRef.current = false; }}
     >
       {/* Toutes les images/vidéos empilées, seule la courante est visible */}
-      {SLIDES.map((s, i) =>
+      {slides.map((s, i) =>
         'video' in s && s.video ? (
           <video
             key={i}
@@ -131,7 +137,7 @@ export default function HeroSlider() {
 
       {/* Dots (bas centre) */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[3] flex items-center gap-3">
-        {SLIDES.map((_, i) => (
+        {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
@@ -143,7 +149,7 @@ export default function HeroSlider() {
 
       {/* Flèches */}
       <button
-        onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)}
+        onClick={() => goTo((current - 1 + slides.length) % slides.length)}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-[3] w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center transition-colors"
         aria-label="Précédent"
       >
@@ -152,7 +158,7 @@ export default function HeroSlider() {
         </svg>
       </button>
       <button
-        onClick={() => goTo((current + 1) % SLIDES.length)}
+        onClick={() => goTo((current + 1) % slides.length)}
         className="absolute right-4 top-1/2 -translate-y-1/2 z-[3] w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center transition-colors"
         aria-label="Suivant"
       >
@@ -163,7 +169,7 @@ export default function HeroSlider() {
 
       {/* Compteur */}
       <div className="absolute bottom-8 right-6 z-[3] text-white/40 text-xs font-mono">
-        {String(current + 1).padStart(2, '0')} / {String(SLIDES.length).padStart(2, '0')}
+        {String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
       </div>
 
       {/* Barre de progression */}
