@@ -240,7 +240,6 @@ export default function ArticleVasqueTeck() {
               className="px-8 py-5 flex items-center gap-3"
               style={{ background: 'linear-gradient(135deg, #1a3a3e 0%, #0E6973 100%)' }}
             >
-              <span className="text-white/70 text-2xl" aria-hidden="true">🪨</span>
               <h2
                 className="text-xl md:text-2xl font-bold text-white"
                 style={{ fontFamily: 'var(--font-playfair, serif)' }}
@@ -299,7 +298,7 @@ export default function ArticleVasqueTeck() {
               className="px-8 py-5 flex items-center gap-3"
               style={{ background: 'linear-gradient(135deg, #2d1b69 0%, #5b3fa0 100%)' }}
             >
-              <span className="text-white/70 text-2xl" aria-hidden="true">✨</span>
+
               <h2
                 className="text-xl md:text-2xl font-bold text-white"
                 style={{ fontFamily: 'var(--font-playfair, serif)' }}
@@ -358,7 +357,6 @@ export default function ArticleVasqueTeck() {
               className="px-8 py-5 flex items-center gap-3"
               style={{ background: 'linear-gradient(135deg, #4a3520 0%, #8B6340 100%)' }}
             >
-              <span className="text-white/70 text-2xl" aria-hidden="true">🦴</span>
               <h2
                 className="text-xl md:text-2xl font-bold text-white"
                 style={{ fontFamily: 'var(--font-playfair, serif)' }}
@@ -417,7 +415,6 @@ export default function ArticleVasqueTeck() {
               className="px-8 py-5 flex items-center gap-3"
               style={{ background: 'linear-gradient(135deg, #374151 0%, #6b7280 100%)' }}
             >
-              <span className="text-white/70 text-2xl" aria-hidden="true">⬜</span>
               <h2
                 className="text-xl md:text-2xl font-bold text-white"
                 style={{ fontFamily: 'var(--font-playfair, serif)' }}
