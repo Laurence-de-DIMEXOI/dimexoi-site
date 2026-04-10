@@ -3426,5 +3426,17 @@
     ],
     "description": "",
     "collection": ""
+  },
+  {
+    "id": 208,
+    "name": "Lit Sarulla",
+    "slug": "lit-sarulla",
+    "category": "Chambre",
+    "subcategory": "Lit",
+    "attributes": "Teck massif + cannage naturel",
+    "dimensions": "160×200 cm (disponible en stock)\n\nToutes dimensions sur commande :\n90×190 cm\n140×190 cm\n160×200 cm\n200×200 cm\n\nSommier et tête de lit inclus — vendu sans matelas",
+    "images": ["/images/products/lit-sarulla.jpg"],
+    "description": "100% teck massif certifié\nCannage naturel sur la tête de lit\nSommier et tête de lit inclus\nVendu sans matelas\nDisponible en 160×200 cm — toutes dimensions sur commande",
+    "collection": ""
   }
 ]

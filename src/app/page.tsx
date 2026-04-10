@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ProductCard from '@/src/components/ProductCard';
+import CataloguePopup from '@/src/components/CataloguePopup';
+import HeroSlider from '@/src/components/HeroSlider';
 import { products } from '@/src/lib/products';
 import { useState, useEffect } from 'react';
 
@@ -42,41 +44,9 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-[85vh] min-h-[600px] bg-dark-charcoal overflow-hidden flex items-center">
-        <Image
-          src="/images/hero-chambre.jpg"
-          alt="Mobilier en teck DIMEXOI"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          priority
-        />
-        <div className="hero-overlay absolute inset-0"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <p className="text-gray-300 font-semibold text-sm uppercase tracking-widest mb-4">
-              Depuis 1995 à La Réunion
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-off-white mb-6 leading-tight">
-              Mobilier en <em className="not-italic">teck</em><br />
-              <span className="text-off-white italic">d&apos;exception</span>
-            </h1>
-            <p className="text-lg text-gray-200 mb-10 max-w-lg leading-relaxed">
-              Découvrez notre collection de meubles <em className="italic">artisanaux</em> en teck massif.
-              Qualité, durabilité et élégance <em className="italic">intemporelle</em>.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/catalogue" className="btn-primary">
-                Découvrir le catalogue
-              </Link>
-              <Link href="/devis" className="btn-secondary">
-                Demander un devis
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CataloguePopup />
+
+      <HeroSlider />
 
       {/* Trust Bar */}
       <section className="bg-dark-olive text-off-white py-10">
