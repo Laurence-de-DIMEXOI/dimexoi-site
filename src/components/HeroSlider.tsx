@@ -42,9 +42,10 @@ const INTERVAL = 6000;
 const SHOW_FROM = new Date('2026-04-17T00:00:00');
 
 export default function HeroSlider() {
+  // Slide catalogue (index 2) uniquement à partir du 17 avril
   const slides = typeof window !== 'undefined' && new Date() >= SHOW_FROM
     ? SLIDES
-    : SLIDES.slice(0, 1);
+    : SLIDES.slice(0, 2);
 
   const [current, setCurrent] = useState(0);
   const pausedRef = useRef(false);
