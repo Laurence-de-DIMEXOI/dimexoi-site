@@ -61,7 +61,7 @@ const faqSchema = {
       name: 'Comment entretenir une vasque en pierre naturelle ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Une vasque en pierre naturelle se nettoie à l\'eau savonneuse et se protège avec une huile spécifique tous les 6 mois environ. Il faut éviter les produits acides (vinaigre, citron, détartrants) qui peuvent attaquer la surface.',
+        text: 'Une vasque en pierre naturelle se nettoie à l\'eau savonneuse. Il faut éviter les produits acides (vinaigre, citron, détartrants) qui peuvent attaquer la surface.',
       },
     },
     {
@@ -77,7 +77,7 @@ const faqSchema = {
       name: 'Quelle est la différence entre une vasque en pierre et une vasque en marbre ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'La vasque en pierre naturelle est généralement non polie, avec une surface texturée et brute. Elle est légèrement poreuse et demande un huilage périodique. Le marbre, lui, est poli pour révéler ses veinages, plus imperméable naturellement, mais sensible aux acides. La pierre apporte un caractère plus rustique, le marbre une élégance plus raffinée.',
+        text: 'La vasque en pierre naturelle est généralement non polie, avec une surface texturée et brute. Le marbre, lui, est poli pour révéler ses veinages, plus imperméable naturellement, mais sensible aux acides. La pierre apporte un caractère plus rustique, le marbre une élégance plus raffinée.',
       },
     },
     {
@@ -273,7 +273,7 @@ export default function ArticleVasqueTeck() {
                   <div className="text-sm font-bold text-orange-700 uppercase tracking-wider mb-3">Points d&apos;attention</div>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Poids : 20 à 50 kg (le meuble en teck massif supporte sans problème)</li>
-                    <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Légèrement poreuse : huilage protecteur tous les 6 mois</li>
+                    <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Légèrement poreuse : éviter les produits acides</li>
                     <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Variations entre pièces : on ne commande pas « la même » en double</li>
                   </ul>
                 </div>
@@ -390,7 +390,7 @@ export default function ArticleVasqueTeck() {
                   <div className="text-sm font-bold text-orange-700 uppercase tracking-wider mb-3">Points d&apos;attention</div>
                   <ul className="space-y-2 text-sm text-gray-600">
                     <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Surface légèrement irrégulière : à voir et à toucher en showroom</li>
-                    <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Entretien similaire à la pierre : huilage tous les 6 mois</li>
+                    <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Éviter les produits acides pour préserver l&apos;éclat</li>
                     <li className="flex gap-2"><span className="text-orange-400 mt-0.5">!</span> Stock limité : chaque pièce est unique et non remplaçable à l&apos;identique</li>
                   </ul>
                 </div>
@@ -487,7 +487,7 @@ export default function ArticleVasqueTeck() {
                 {[
                   { label: 'Esthétique', pierre: 'Brute, authentique', marbre: 'Élégante, intemporelle', ceramique: 'Épurée, contemporaine' },
                   { label: 'Unicité', pierre: 'Chaque pièce unique', marbre: 'Veinages uniques', ceramique: 'Production en série' },
-                  { label: 'Entretien', pierre: 'Huilage tous les 6 mois', marbre: 'Éviter les acides', ceramique: 'Aucune précaution' },
+                  { label: 'Entretien', pierre: 'Éviter les acides', marbre: 'Éviter les acides', ceramique: 'Aucune précaution' },
                   { label: 'Résistance aux taches', pierre: 'Moyenne (poreuse)', marbre: 'Bonne (sauf acides)', ceramique: 'Excellente' },
                   { label: 'Accord avec le teck', pierre: 'Excellent (organique)', marbre: 'Excellent (élégant)', ceramique: 'Bon (fonctionnel)' },
                   { label: 'Budget', pierre: '€€€', marbre: '€€€', ceramique: '€' },
@@ -612,7 +612,7 @@ export default function ArticleVasqueTeck() {
               },
               {
                 q: 'Comment entretenir une vasque en pierre naturelle dans une salle de bain ?',
-                a: 'Nettoyage à l\'eau savonneuse au quotidien et application d\'une huile protectrice spécifique tous les 6 mois. Évitez les produits acides (vinaigre, citron, détartrants) qui peuvent altérer la surface.',
+                a: 'Nettoyage à l\'eau savonneuse au quotidien. Évitez les produits acides (vinaigre, citron, détartrants) qui peuvent altérer la surface.',
               },
               {
                 q: 'Le marbre convient-il à une salle de bain à La Réunion ?',
