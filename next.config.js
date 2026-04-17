@@ -20,6 +20,15 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false,
+  // Catalogue PDF → route API pour tracking
+  async rewrites() {
+    return [
+      {
+        source: '/catalogues/mobilier-interieur-teck.pdf',
+        destination: '/api/catalogue-pdf',
+      },
+    ];
+  },
   // Cache headers for static assets
   async headers() {
     return [
