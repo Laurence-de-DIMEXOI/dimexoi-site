@@ -2,6 +2,30 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // --- Tracking accès direct au catalogue PDF ---
+  if (request.nextUrl.pathname === "/catalogues/mobilier-interieur-teck.pdf") {
+    const crmUrl = process.env.NEXT_PUBLIC_CRM_URL;
+    if (crmUrl) {
+      const utmSource   = request.nextUrl.searchParams.get("utm_source")   || "direct";
+      const utmMedium   = request.nextUrl.searchParams.get("utm_medium")   || null;
+      const utmCampaign = request.nextUrl.searchParams.get("utm_campaign") || null;
+      const referrer    = request.headers.get("referer") || null;
+      // Fire-and-forget — ne bloque pas la réponse
+      fetch(`${crmUrl}/api/webhooks/catalogue`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "click",
+          referrer,
+          utmSource,
+          utmMedium,
+          utmCampaign,
+          page: "/catalogues/mobilier-interieur-teck.pdf",
+        }),
+      }).catch(() => {});
+    }
+  }
+
   const response = NextResponse.next();
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
