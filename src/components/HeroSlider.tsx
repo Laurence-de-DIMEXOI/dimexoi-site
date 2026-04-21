@@ -6,6 +6,17 @@ import Link from 'next/link';
 
 const SLIDES = [
   {
+    image: '/images/catalogue-cover-mockup.svg',
+    video: '/slides/catalogue-avril-2026.mp4',
+    tag: 'Collection Avril 2026',
+    titre: <>Votre mobilier<br /><em className="italic">d&apos;intérieur en teck</em></>,
+    description: <>Chambres, salons, salles de bain — catalogue <em className="italic">artisanal</em>. Teck massif <em className="italic">certifié Tectona Grandis</em>, dans nos 2 showrooms à <em className="italic">La Réunion</em>.</>,
+    ctas: [
+      { label: 'Voir le catalogue PDF', href: '/catalogue-tarifs', primary: true },
+      { label: 'Nos showrooms', href: '/contact', primary: false },
+    ],
+  },
+  {
     image: '/images/hero-chambre.jpg',
     tag: 'Depuis 1995 à La Réunion',
     titre: <>Mobilier en <em className="not-italic">teck</em><br /><span className="italic">d&apos;exception</span></>,
@@ -25,27 +36,12 @@ const SLIDES = [
       { label: 'Demander un devis', href: '/devis', primary: false },
     ],
   },
-  {
-    image: '/images/catalogue-cover-mockup.svg',
-    video: '/slides/catalogue-avril-2026.mp4',
-    tag: 'Collection Avril 2026',
-    titre: <>Votre mobilier<br /><em className="italic">d&apos;intérieur en teck</em></>,
-    description: <>Chambres, salons, salles de bain — catalogue <em className="italic">artisanal</em>. Teck massif <em className="italic">certifié Tectona Grandis</em>, dans nos 2 showrooms à <em className="italic">La Réunion</em>.</>,
-    ctas: [
-      { label: 'Voir le catalogue PDF', href: '/catalogue-tarifs', primary: true },
-      { label: 'Nos showrooms', href: '/contact', primary: false },
-    ],
-  },
 ];
 
 const INTERVAL = 6000;
-const SHOW_FROM = new Date('2026-04-17T00:00:00');
 
 export default function HeroSlider() {
-  // Slide catalogue (index 2) uniquement à partir du 17 avril
-  const slides = typeof window !== 'undefined' && new Date() >= SHOW_FROM
-    ? SLIDES
-    : SLIDES.slice(0, 2);
+  const slides = SLIDES;
 
   const [current, setCurrent] = useState(0);
   const pausedRef = useRef(false);
