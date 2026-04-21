@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import Breadcrumb from '@/src/components/Breadcrumb';
 import ProductCard from '@/src/components/ProductCard';
+import CataloguePopup from '@/src/components/CataloguePopup';
 import { products, getCategories, getSubcategories, getCollections } from '@/src/lib/products';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
@@ -361,6 +362,8 @@ function CatalogueContent() {
 
 export default function CataloguePage() {
   return (
+    <>
+    <CataloguePopup />
     <Suspense fallback={
       <div className="min-h-screen bg-off-white">
         <div className="bg-dark-olive text-off-white py-10 sm:py-14">
@@ -375,5 +378,6 @@ export default function CataloguePage() {
     }>
       <CatalogueContent />
     </Suspense>
+    </>
   );
 }
