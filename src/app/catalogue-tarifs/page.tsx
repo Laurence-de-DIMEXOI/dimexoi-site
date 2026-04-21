@@ -76,27 +76,29 @@ function CatalogueTarifsContent() {
         </div>
       </div>
 
-      {/* PDF Viewer */}
+      {/* Calameo Flipbook Viewer */}
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-6">
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white"
-          style={{ height: 'calc(100vh - 200px)', minHeight: '600px' }}>
+        <div className="relative w-full rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-white"
+          style={{ paddingBottom: '64%', minHeight: '500px' }}>
           <iframe
-            src="/catalogues/mobilier-interieur-teck.pdf"
-            className="w-full h-full"
+            src="https://v.calameo.com/?bkcode=00754619265ede04854a9&authid=&mode=mini&clickto=view&skin=default&lang=fr"
+            className="absolute inset-0 w-full h-full"
+            frameBorder="0"
+            scrolling="no"
+            allowFullScreen
             title="Catalogue DIMEXOI — Mobilier en teck 2026"
           />
         </div>
 
-        {/* Fallback si iframe bloqué */}
         <p className="text-center text-sm text-gray-400 mt-3">
-          Si le catalogue ne s&apos;affiche pas,{' '}
+          Feuilletez le catalogue ou{' '}
           <a
-            href="/catalogues/mobilier-interieur-teck.pdf"
+            href="https://www.calameo.com/books/00754619265ede04854a9"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-gray-600"
           >
-            téléchargez-le ici
+            ouvrez-le en plein écran
           </a>
           .
         </p>

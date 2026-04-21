@@ -41,7 +41,7 @@ export function middleware(request: NextRequest) {
     "img-src 'self' data: blob: https: ; " +
     "font-src 'self' https://fonts.gstatic.com data:; " +
     "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://region1.analytics.google.com https://www.facebook.com https://kokpit-kappa.vercel.app https://calendly.com https://www.google.com https://googleads.g.doubleclick.net https://google.com https://googleleads.g.doubleclick.net; " +
-    "frame-src 'self' https://www.google.com https://calendly.com https://td.doubleclick.net;"
+    "frame-src 'self' https://v.calameo.com https://www.google.com https://calendly.com https://td.doubleclick.net;"
   );
   return response;
 }
