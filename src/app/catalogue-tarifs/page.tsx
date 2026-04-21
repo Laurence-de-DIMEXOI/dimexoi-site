@@ -3,7 +3,7 @@
 import { useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { FileText, MessageCircle, ClipboardList } from 'lucide-react';
+// icons inline — pas de dépendance lucide-react
 
 const CRM_URL = process.env.NEXT_PUBLIC_CRM_URL;
 
@@ -38,7 +38,7 @@ function CatalogueTarifsContent() {
       <div className="bg-dark-olive text-off-white py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-2">
-            <FileText className="w-6 h-6 opacity-70" />
+            <svg className="w-6 h-6 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
             <span className="text-sm uppercase tracking-widest opacity-70">DIMEXOI</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-playfair font-semibold mb-1">
@@ -62,14 +62,14 @@ function CatalogueTarifsContent() {
               className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90"
               style={{ backgroundColor: '#5C6B3A' }}
             >
-              <ClipboardList className="w-4 h-4" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
               Demander un devis
             </Link>
             <Link
               href="/contact"
               className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium border border-gray-300 text-gray-700 bg-white transition-colors hover:bg-gray-50"
             >
-              <MessageCircle className="w-4 h-4" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
               Nous contacter
             </Link>
           </div>
@@ -116,14 +116,14 @@ function CatalogueTarifsContent() {
               href="/devis"
               className="flex items-center justify-center gap-2 px-8 py-3 rounded-lg text-sm font-semibold text-dark-olive bg-off-white hover:bg-white transition-colors"
             >
-              <ClipboardList className="w-4 h-4" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
               Demander un devis gratuit
             </Link>
             <Link
               href="/contact"
               className="flex items-center justify-center gap-2 px-8 py-3 rounded-lg text-sm font-semibold border border-white/40 text-off-white hover:bg-white/10 transition-colors"
             >
-              <MessageCircle className="w-4 h-4" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
               Nous contacter
             </Link>
           </div>
