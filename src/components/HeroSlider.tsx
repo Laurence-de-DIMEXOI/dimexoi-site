@@ -32,7 +32,7 @@ const SLIDES = [
     titre: <>Votre mobilier<br /><em className="italic">d&apos;intérieur en teck</em></>,
     description: <>Chambres, salons, salles de bain — catalogue <em className="italic">artisanal</em>. Teck massif <em className="italic">certifié Tectona Grandis</em>, dans nos 2 showrooms à <em className="italic">La Réunion</em>.</>,
     ctas: [
-      { label: 'Voir le catalogue PDF', href: '/catalogues/mobilier-interieur-teck.pdf', primary: true, external: true },
+      { label: 'Voir le catalogue PDF', href: '/catalogue-tarifs', primary: true },
       { label: 'Nos showrooms', href: '/contact', primary: false },
     ],
   },

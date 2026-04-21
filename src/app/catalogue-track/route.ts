@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const PDF_URL = "/catalogues/mobilier-interieur-teck.pdf";
+const PDF_URL = "/catalogue-tarifs";
 const CRM_URL = process.env.NEXT_PUBLIC_CRM_URL;
 
 /**
