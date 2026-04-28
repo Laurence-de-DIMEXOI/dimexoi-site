@@ -39,3 +39,7 @@ yarn-error.log*
 # Product images (hosted on Google CDN)
 /public/images/products/
 .vercel
+
+# Teck Days build artifacts
+/teck-days-export/
+/teck-days-preview.zip

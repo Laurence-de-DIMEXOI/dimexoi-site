@@ -1,0 +1,250 @@
+/* =========================================================
+   TECK DAYS 2026 — Design System
+   Scoped to .teck-days root
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Caveat+Brush&family=Bree+Serif&family=Rye&display=swap');
+
+/* Si tu déposes Intro Rust dans /public/fonts/IntroRust/, décommente :
+@font-face {
+  font-family: 'Intro Rust';
+  src: url('/fonts/IntroRust/IntroRust-Base.woff2') format('woff2');
+  font-display: swap;
+}
+puis remplace 'Rye' par 'Intro Rust' dans --td-font-poster ci-dessous. */
+
+.teck-days {
+  /* --- Palette --- */
+  --td-teck-dark: #7A3A14;
+  --td-teck-main: #9A4A1A;
+  --td-teck-light: #B7541C;
+  --td-teck-warm: #C46B2C;
+
+  --td-green-dark: #2D4520;
+  --td-green-main: #3D5A2A;
+  --td-green-fresh: #5A7A3B;
+  --td-green-leaf: #7FA855;
+
+  --td-cream-bg: #FAF6E8;
+  --td-cream-light: #FDF9ED;
+  --td-cream-warm: #F5EFD8;
+
+  --td-charcoal: #1A1A1A;
+  --td-stamp-bg: #A85A2D;
+
+  /* --- Typo --- */
+  --td-font-titles: 'Bree Serif', Georgia, serif;
+  --td-font-body: 'Cabin', system-ui, sans-serif;
+  --td-font-script: 'Caveat Brush', cursive;
+  --td-font-poster: 'Rye', 'Bree Serif', serif; /* fallback Intro Rust */
+
+  font-family: var(--td-font-body);
+  color: var(--td-charcoal);
+  background: var(--td-cream-light);
+}
+
+.teck-days h1,
+.teck-days h2,
+.teck-days h3,
+.teck-days h4 {
+  font-family: var(--td-font-titles);
+  font-weight: normal;
+  line-height: 1.15;
+  color: var(--td-teck-dark);
+}
+
+.teck-days .td-script {
+  font-family: var(--td-font-script);
+}
+
+/* --- Cadre orange-teck (style affiche) --- */
+.td-frame {
+  border: clamp(4px, 0.7vw, 8px) solid var(--td-teck-light);
+  background: var(--td-cream-bg);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+
+/* --- Bloc pointillés + tampon bois --- */
+.td-block {
+  position: relative;
+  border: 2px dashed var(--td-teck-dark);
+  background: var(--td-cream-light);
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+}
+.td-block-stamp {
+  position: absolute;
+  top: -18px;
+  right: -12px;
+  width: 70px;
+  height: 70px;
+  background: var(--td-stamp-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--td-cream-bg);
+  font-family: var(--td-font-titles);
+  font-size: 14px;
+  text-align: center;
+  line-height: 1;
+  transform: rotate(-8deg);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.18), inset 0 0 0 2px rgba(250, 246, 232, 0.25);
+}
+
+/* --- CTA primary --- */
+.td-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--td-green-fresh);
+  color: white;
+  font-family: var(--td-font-titles);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  padding: 1rem 2.5rem;
+  border-radius: 6px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-decoration: none;
+}
+.td-btn-primary:hover {
+  background: var(--td-green-main);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(45, 69, 32, 0.32);
+}
+
+/* --- CTA secondary (outline marron) --- */
+.td-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--td-teck-dark);
+  font-family: var(--td-font-titles);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  padding: 0.9rem 2.4rem;
+  border-radius: 6px;
+  border: 2px solid var(--td-teck-dark);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-decoration: none;
+}
+.td-btn-secondary:hover {
+  background: var(--td-teck-dark);
+  color: var(--td-cream-bg);
+  transform: translateY(-2px);
+}
+
+/* --- Sticker bois gravé "-30%" (image PNG avec masque radial pour fondre le fond sombre) --- */
+.td-sticker-img {
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  /* masque radial : centre opaque -> bords transparents (fond foncé du PNG fondu) */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 70%, transparent 88%);
+          mask-image: radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 70%, transparent 88%);
+}
+.td-sticker-img img { display: block; }
+
+/* --- Tailles responsives via clamp() pour rester lisible sur tous écrans --- */
+.td-sticker-img.lg-responsive {
+  width: clamp(140px, 28vw, 240px) !important;
+  height: clamp(140px, 28vw, 240px) !important;
+}
+.td-sticker-img.md-responsive {
+  width: clamp(90px, 16vw, 140px) !important;
+  height: clamp(90px, 16vw, 140px) !important;
+}
+
+/* --- Sections --- */
+.td-section {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(0.875rem, 3vw, 2rem);
+}
+.td-section-title {
+  font-family: var(--td-font-titles);
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--td-teck-dark);
+  line-height: 1.15;
+}
+
+.td-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Form fields --- */
+.td-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+.td-field label {
+  font-family: var(--td-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--td-green-dark);
+}
+.td-field input,
+.td-field select,
+.td-field textarea {
+  font-family: var(--td-font-body);
+  font-size: 15px;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid rgba(122, 58, 20, 0.35);
+  border-radius: 6px;
+  background: var(--td-cream-light);
+  color: var(--td-charcoal);
+}
+.td-field input:focus,
+.td-field select:focus,
+.td-field textarea:focus {
+  outline: none;
+  border-color: var(--td-green-fresh);
+  box-shadow: 0 0 0 3px rgba(90, 122, 59, 0.18);
+}
+
+/* --- FAQ accordion --- */
+.td-faq-item {
+  background: var(--td-cream-bg);
+  border: 1.5px solid rgba(122, 58, 20, 0.18);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.td-faq-item summary {
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  font-family: var(--td-font-titles);
+  font-size: 1.05rem;
+  color: var(--td-teck-dark);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.td-faq-item summary::-webkit-details-marker { display: none; }
+.td-faq-item summary::after {
+  content: '+';
+  font-size: 1.4rem;
+  color: var(--td-green-fresh);
+  transition: transform 200ms ease;
+}
+.td-faq-item[open] summary::after { content: '−'; }
+.td-faq-item .td-faq-answer {
+  padding: 0 1.25rem 1.1rem 1.25rem;
+  color: var(--td-charcoal);
+  line-height: 1.6;
+}

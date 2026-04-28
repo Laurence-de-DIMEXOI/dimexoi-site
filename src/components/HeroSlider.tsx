@@ -4,16 +4,44 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+function TeckDaysStickerOverlay() {
+  return (
+    <div
+      className="hidden md:block absolute z-[2] pointer-events-none"
+      style={{
+        top: '8%',
+        right: '4%',
+        width: 'clamp(140px, 18vw, 240px)',
+        height: 'clamp(140px, 18vw, 240px)',
+        transform: 'rotate(-12deg)',
+        filter: 'drop-shadow(4px 8px 14px rgba(0,0,0,0.4))',
+        WebkitMaskImage: 'radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 70%, transparent 88%)',
+        maskImage: 'radial-gradient(circle at 50% 50%, #000 58%, rgba(0,0,0,0.85) 70%, transparent 88%)',
+      }}
+      aria-hidden
+    >
+      <Image
+        src="/teck-days/assets/sticker-30.png"
+        alt=""
+        width={600}
+        height={400}
+        priority
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+    </div>
+  );
+}
+
 const SLIDES = [
   {
-    image: '/images/catalogue-cover-mockup.svg',
-    video: '/slides/catalogue-avril-2026.mp4',
-    tag: 'Collection Avril 2026',
-    titre: <>Votre mobilier<br /><em className="italic">d&apos;intérieur en teck</em></>,
-    description: <>Chambres, salons, salles de bain — catalogue <em className="italic">artisanal</em>. Teck massif <em className="italic">certifié Tectona Grandis</em>, dans nos 2 showrooms à <em className="italic">La Réunion</em>.</>,
+    image: '/teck-days/assets/slide.png',
+    overlay: 'teckdays' as const,
+    tag: 'Du 1ᵉʳ au 10 mai 2026',
+    titre: <>TECK DAYS<br /><em className="italic">−30 % sur tout le teck</em></>,
+    description: <>Stock disponible · Sur-mesure modélisé en 3D · 2 showrooms à <em className="italic">La Réunion</em>. Devis validables en ligne 7j/7 jusqu&apos;au 10 mai.</>,
     ctas: [
-      { label: 'Voir le catalogue PDF', href: '/catalogue-tarifs', primary: true },
-      { label: 'Nos showrooms', href: '/contact', primary: false },
+      { label: 'Découvrir l’offre', href: '/teck-days', primary: true },
+      { label: 'Prendre RDV visio', href: '/teck-days#calendly', primary: false },
     ],
   },
   {
@@ -95,6 +123,7 @@ export default function HeroSlider() {
             fill
             sizes="100vw"
             className={`object-cover absolute inset-0 transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
+            style={'overlay' in s && s.overlay === 'teckdays' ? { objectPosition: 'left center' } : undefined}
             unoptimized
             priority={i === 0}
           />
@@ -103,6 +132,9 @@ export default function HeroSlider() {
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent z-[1]" />
+
+      {/* Sticker Teck Days en sur-impression (visible uniquement quand le slide actif est celui des Teck Days) */}
+      {('overlay' in slide && slide.overlay === 'teckdays') && <TeckDaysStickerOverlay />}
 
       {/* Contenu */}
       <div className="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
