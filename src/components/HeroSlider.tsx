@@ -103,32 +103,20 @@ export default function HeroSlider() {
       onMouseEnter={() => { pausedRef.current = true; }}
       onMouseLeave={() => { pausedRef.current = false; }}
     >
-      {/* Toutes les images/vidéos empilées, seule la courante est visible */}
-      {slides.map((s, i) =>
-        'video' in s && s.video ? (
-          <video
-            key={i}
-            src={s.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className={`object-cover absolute inset-0 w-full h-full transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
-          />
-        ) : (
-          <Image
-            key={i}
-            src={s.image}
-            alt={`DIMEXOI slide ${i + 1}`}
-            fill
-            sizes="100vw"
-            className={`object-cover absolute inset-0 transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
-            style={'overlay' in s && s.overlay === 'teckdays' ? { objectPosition: 'left center' } : undefined}
-            unoptimized
-            priority={i === 0}
-          />
-        )
-      )}
+      {/* Toutes les images empilées, seule la courante est visible */}
+      {slides.map((s, i) => (
+        <Image
+          key={i}
+          src={s.image}
+          alt={`DIMEXOI slide ${i + 1}`}
+          fill
+          sizes="100vw"
+          className={`object-cover absolute inset-0 transition-opacity duration-700 ${i === current ? 'opacity-100' : 'opacity-0'}`}
+          style={'overlay' in s && s.overlay === 'teckdays' ? { objectPosition: 'left center' } : undefined}
+          unoptimized
+          priority={i === 0}
+        />
+      ))}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent z-[1]" />
