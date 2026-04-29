@@ -23,6 +23,8 @@ type ForwardArgs = {
   notesExtra?: string | null;
   consentements?: { rgpdEmail?: boolean };
   utm?: Record<string, string | undefined>;
+  /** Email à notifier si aucun commercial n'est auto-assigné (sinon commercial@dimexoi.fr). */
+  notifyEmailFallback?: string;
 };
 
 export async function forwardTeckDaysLead(args: ForwardArgs) {
@@ -36,6 +38,7 @@ export async function forwardTeckDaysLead(args: ForwardArgs) {
     telephone: args.telephone || undefined,
     showroom: args.showroomLabel || undefined,
     source: 'SALON', // Teck Days mappé sur LeadSource.SALON
+    notifyEmailFallback: args.notifyEmailFallback || undefined,
     message: notes,
     articles: [{ nom: args.meuble, categorie: 'TECK_DAYS' }],
     consentements: {

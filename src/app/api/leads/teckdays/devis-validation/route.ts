@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
       meuble,
       notesExtra: notes,
       consentements: { rgpdEmail: true },
+      notifyEmailFallback: 'contact@dimexoi.fr',
     });
 
     return NextResponse.json({
