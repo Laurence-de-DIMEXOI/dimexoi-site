@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ProductCard from '@/src/components/ProductCard';
 import CataloguePopup from '@/src/components/CataloguePopup';
 import HeroSlider from '@/src/components/HeroSlider';
+import ProductCarousel from '@/src/components/ProductCarousel';
 import { products } from '@/src/lib/products';
 import { useState, useEffect } from 'react';
 
@@ -160,6 +161,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ProductCarousel />
 
       {/* About Section */}
       <section className="py-20 bg-warm-beige">
