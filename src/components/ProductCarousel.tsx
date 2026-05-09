@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 
-const IMAGES = Array.from({ length: 21 }, (_, i) =>
-  `/teck-days/assets/carroussel/carroussel%20produits/${i + 1}.png`
+const IMAGE_NUMS = [28, 27, 26, 25, 24, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const IMAGES = IMAGE_NUMS.map(
+  (n) => `/teck-days/assets/carroussel/carroussel%20produits/${n}.png`
 );
 
 const CARD_W  = 288; // w-72 = 288px
@@ -88,7 +89,7 @@ export default function ProductCarousel() {
             >
               <img
                 src={src}
-                alt={`Réalisation ${(i % 21) + 1}`}
+                alt={`Réalisation ${IMAGE_NUMS[i % IMAGE_NUMS.length]}`}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
