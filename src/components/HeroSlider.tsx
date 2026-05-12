@@ -34,14 +34,15 @@ function TeckDaysStickerOverlay() {
 
 const SLIDES = [
   {
-    image: '/teck-days/assets/slide.png',
-    overlay: 'teckdays' as const,
-    tag: 'Du 1ᵉʳ au 10 mai 2026',
+    image: ‘/teck-days/assets/slide.png’,
+    overlay: ‘teckdays’ as const,
+    tag: ‘Teck Days · Prolongation’,
+    badge: ‘⚡ PROLONGÉ JUSQU\’AU 31 MAI’,
     titre: <>TECK DAYS<br /><em className="italic">−30 % sur tout le teck</em></>,
-    description: <>Stock disponible · Sur-mesure modélisé en 3D · 2 showrooms à <em className="italic">La Réunion</em>. Devis validables en ligne 7j/7 jusqu&apos;au 10 mai.</>,
+    description: <>Stock disponible · Sur-mesure modélisé en 3D · 2 showrooms à <em className="italic">La Réunion</em>. Devis validables en ligne 7j/7 jusqu&apos;au <strong style={{color:’#FFD9A8’}}>31 mai</strong>.</>,
     ctas: [
-      { label: 'Découvrir l’offre', href: '/teck-days', primary: true },
-      { label: 'Prendre RDV visio', href: '/teck-days#calendly', primary: false },
+      { label: ‘Profiter de l\’offre’, href: ‘/teck-days’, primary: true },
+      { label: ‘Prendre RDV visio’, href: ‘/teck-days#calendly’, primary: false },
     ],
   },
   {
@@ -127,9 +128,29 @@ export default function HeroSlider() {
       {/* Contenu */}
       <div className="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-2xl">
-          <p key={`tag-${current}`} className="text-gray-300 font-semibold text-sm uppercase tracking-widest mb-4 animate-fade-in">
-            {slide.tag}
-          </p>
+          {'badge' in slide && slide.badge ? (
+            <div key={`badge-${current}`} className="mb-5 animate-fade-in">
+              <span style={{
+                display: 'inline-block',
+                background: 'linear-gradient(90deg, #C0561E, #9A4A1A)',
+                color: '#FAF6E8',
+                fontFamily: 'system-ui, sans-serif',
+                fontWeight: 800,
+                fontSize: 'clamp(13px, 2vw, 18px)',
+                letterSpacing: '0.08em',
+                padding: '6px 20px',
+                borderRadius: 4,
+                boxShadow: '0 2px 12px rgba(0,0,0,0.4)',
+                textTransform: 'uppercase',
+              }}>
+                {slide.badge}
+              </span>
+            </div>
+          ) : (
+            <p key={`tag-${current}`} className="text-gray-300 font-semibold text-sm uppercase tracking-widest mb-4 animate-fade-in">
+              {slide.tag}
+            </p>
+          )}
           <h1 key={`h1-${current}`} className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-off-white mb-6 leading-tight animate-fade-in">
             {slide.titre}
           </h1>
