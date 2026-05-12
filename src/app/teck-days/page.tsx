@@ -11,12 +11,12 @@ import Faq from './components/Faq';
 import FooterTD from './components/FooterTD';
 
 export const metadata: Metadata = {
-  title: 'Teck Days DIMEXOI — -30% sur tout le teck du 1ᵉʳ au 10 mai 2026',
+  title: 'Teck Days DIMEXOI — -30% sur tout le teck · Prolongé jusqu\'au 31 mai 2026',
   description:
-    "-30% sur tout le mobilier en teck. 2 showrooms à La Réunion (600 m²). Stock disponible. Sur-mesure avec dessinateur 3D sur RDV.",
+    "PROLONGÉ ! -30% sur tout le mobilier en teck jusqu'au 31 mai 2026. 2 showrooms à La Réunion (600 m²). Stock disponible. Sur-mesure avec dessinateur 3D sur RDV.",
   openGraph: {
-    title: 'Teck Days DIMEXOI · -30% sur tout le teck',
-    description: 'Du 1ᵉʳ au 10 mai 2026. 2 showrooms. Stock dispo. Sur-mesure 3D.',
+    title: 'Teck Days DIMEXOI · -30% prolongé jusqu\'au 31 mai 2026',
+    description: 'Offre prolongée jusqu\'au 31 mai 2026. 2 showrooms. Stock dispo. Sur-mesure 3D.',
     images: ['/teck-days/assets/og-teck-days.jpg'],
     type: 'website',
   },

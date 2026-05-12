@@ -30,6 +30,22 @@ export default function Hero() {
             L&apos;événement teck de l&apos;année
           </p>
 
+          {/* Badge prolongation */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
+            <span style={{
+              display: 'inline-block',
+              background: 'var(--td-teck-dark)',
+              color: '#FAF6E8',
+              fontFamily: 'var(--td-font-body)',
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              padding: '5px 16px',
+              borderRadius: 4,
+              textTransform: 'uppercase',
+            }}>⚡ Offre prolongée</span>
+          </div>
+
           <p style={{
             textAlign: 'center',
             fontFamily: 'var(--td-font-poster)',
@@ -40,7 +56,7 @@ export default function Hero() {
             marginBottom: '2rem',
             lineHeight: 1.15,
           }}>
-            DU 1ᵉʳ AU 10 MAI 2026
+            JUSQU&apos;AU 31 MAI 2026
           </p>
 
           {/* Sticker -30% */}
@@ -49,7 +65,7 @@ export default function Hero() {
           </div>
 
           {/* Countdown */}
-          <TeckCountdown endDate="2026-05-10T23:59:59+04:00" />
+          <TeckCountdown endDate="2026-05-31T23:59:59+04:00" />
 
           {/* CTAs */}
           <div style={{
