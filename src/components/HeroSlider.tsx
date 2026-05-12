@@ -37,11 +37,11 @@ const SLIDES = [
     image: ‘/teck-days/assets/slide.png’,
     overlay: ‘teckdays’ as const,
     tag: ‘Teck Days · Prolongation’,
-    badge: ‘⚡ PROLONGÉ JUSQU\’AU 31 MAI’,
+    badge: "⚡ PROLONGÉ JUSQU’AU 31 MAI",
     titre: <>TECK DAYS<br /><em className="italic">−30 % sur tout le teck</em></>,
     description: <>Stock disponible · Sur-mesure modélisé en 3D · 2 showrooms à <em className="italic">La Réunion</em>. Devis validables en ligne 7j/7 jusqu&apos;au <strong style={{color:’#FFD9A8’}}>31 mai</strong>.</>,
     ctas: [
-      { label: ‘Profiter de l\’offre’, href: ‘/teck-days’, primary: true },
+      { label: "Profiter de l’offre", href: ‘/teck-days’, primary: true },
       { label: ‘Prendre RDV visio’, href: ‘/teck-days#calendly’, primary: false },
     ],
   },
