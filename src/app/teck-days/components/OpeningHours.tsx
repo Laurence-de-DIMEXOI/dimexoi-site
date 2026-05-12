@@ -1,8 +1,8 @@
-const DAYS = ['Sam 2 mai', 'Mar 5 mai', 'Mer 6 mai', 'Jeu 7 mai', 'Sam 9 mai'];
+const JOURS = ['Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
 const SHOWROOMS = [
   { name: 'Saint-Pierre', hours: '9h — 17h' },
-  { name: 'Saint-Denis',  hours: '10h — 13h · 14h — 18h' },
+  { name: 'Saint-Denis',  hours: '10h — 13h · 14h — 18h' },
 ];
 
 export default function OpeningHours() {
@@ -16,10 +16,10 @@ export default function OpeningHours() {
           padding: '2rem 1.25rem',
         }}>
           <h2 className="td-section-title" style={{ marginBottom: '0.5rem' }}>
-            Jours d&apos;ouverture pendant les Teck Days
+            Horaires d&apos;ouverture
           </h2>
           <p style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--td-charcoal)' }}>
-            5 jours d&apos;ouverture dans nos 2 showrooms
+            Du mardi au samedi &middot; jusqu&apos;au 31 mai 2026
           </p>
 
           <div style={{
@@ -55,8 +55,8 @@ export default function OpeningHours() {
                   {sr.hours}
                 </p>
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  {DAYS.map((d) => (
-                    <li key={d} style={{
+                  {JOURS.map((j) => (
+                    <li key={j} style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.5rem',
@@ -66,8 +66,8 @@ export default function OpeningHours() {
                       fontFamily: 'var(--td-font-body)',
                       color: 'var(--td-charcoal)',
                     }}>
-                      <span style={{ color: 'var(--td-green-fresh)', fontWeight: 700 }}>✓</span>
-                      <span>{d}</span>
+                      <span style={{ color: 'var(--td-green-fresh)', fontWeight: 700 }}>&#10003;</span>
+                      <span>{j}</span>
                     </li>
                   ))}
                 </ul>
@@ -75,18 +75,25 @@ export default function OpeningHours() {
             ))}
           </div>
 
-          <p style={{
-            marginTop: '1.5rem',
+          {/* Exception 14 mai */}
+          <div style={{
+            marginTop: '1.25rem',
+            padding: '0.75rem 1.25rem',
+            background: '#FFF3E0',
+            border: '1px solid #F59E0B',
+            borderRadius: 6,
             textAlign: 'center',
+            fontFamily: 'var(--td-font-body)',
             fontSize: 14,
-            color: 'var(--td-charcoal)',
-            opacity: 0.75,
+            color: '#92400E',
+            maxWidth: 600,
+            margin: '1.25rem auto 0',
           }}>
-            Showrooms fermés les 1ᵉʳ, 3, 4, 8 et 10 mai (jours fériés / dimanches / lundi)
-          </p>
+            &#9888; Ferm&eacute; le <strong>jeudi 14 mai</strong> (Ascension &mdash; jour f&eacute;ri&eacute;)
+          </div>
 
           <div style={{
-            marginTop: '2rem',
+            marginTop: '1.5rem',
             padding: '1.5rem',
             background: 'var(--td-green-main)',
             color: 'white',
@@ -101,7 +108,7 @@ export default function OpeningHours() {
           }}>
             <p style={{ margin: 0 }}>
               <strong style={{ fontFamily: 'var(--td-font-titles)' }}>Bonne nouvelle :</strong>{' '}
-              votre devis est validable en ligne 7j/7 jusqu&apos;au 10 mai 23:59.
+              votre devis est validable en ligne 7j/7 jusqu&apos;au 31 mai 23:59.
             </p>
             <a
               href="#valider-devis"
