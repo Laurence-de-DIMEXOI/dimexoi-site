@@ -257,7 +257,7 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
           marginBottom: '0.75rem', fontWeight: 600,
           fontStyle: 'italic',
         }}>
-          Demande re&ccedil;ue
+          R&eacute;servation enregistr&eacute;e
         </h2>
         <p style={{ color: '#555', lineHeight: 1.8, fontSize: 15, maxWidth: 300 }}>
           Notre &eacute;quipe vous contacte sous{' '}
@@ -292,13 +292,13 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
           color: '#0D0D0D', fontWeight: 600,
           fontStyle: 'italic', marginBottom: '0.4rem',
         }}>
-          Recevoir un rappel
+          R&eacute;server ce meuble
         </h2>
         <p style={{
           fontFamily: "'Inter', sans-serif",
           fontSize: 13, color: '#999', lineHeight: 1.55,
         }}>
-          Offre valable jusqu&apos;au 31 mai &middot; Rappel sous 24h ouvr&eacute;es
+          Un conseiller DIMEXOI vous contacte sous 24h ouvr&eacute;es
         </p>
       </div>
 
@@ -428,14 +428,14 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
             cursor: status === 'loading' ? 'wait' : 'pointer',
           }}
         >
-          {status === 'loading' ? 'Envoi...' : "Recevoir un rappel →"}
+          {status === 'loading' ? 'Envoi...' : "Réserver ce meuble →"}
         </button>
 
         <p style={{
           textAlign: 'center', fontSize: 11, color: '#CCC',
           fontFamily: "'Inter', sans-serif",
         }}>
-          Sans engagement &bull; Rappel sous 24h &bull; 31 mai 2026
+          Stock limit&eacute; &bull; Offre jusqu&apos;au 31 mai 2026
         </p>
       </form>
     </div>
