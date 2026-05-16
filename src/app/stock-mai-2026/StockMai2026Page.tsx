@@ -6,13 +6,13 @@ import Link from 'next/link';
 // ── PRIX À METTRE À JOUR AVANT LE LANCEMENT ─────────────────────────────────
 // ── Photos : /public/stock-mai-2026/{slug}.png ───────────────────────────────
 const PRODUITS = [
-  { slug: 'sofia',       nom: 'Sofia',       categorie: 'Salon',          prix: 2490 },
-  { slug: 'baya',        nom: 'Baya',        categorie: 'Chambre',        prix: 3200 },
-  { slug: 'goa',         nom: 'Goa',         categorie: 'Salle à manger', prix: 2850 },
-  { slug: 'uluwatu',     nom: 'Uluwatu',     categorie: 'Extérieur',      prix: 3990 },
-  { slug: 'lemani',      nom: 'Lemani',      categorie: 'Chambre',        prix: 2190 },
-  { slug: 'cassandre',   nom: 'Cassandre',   categorie: 'Salon',          prix: 2750 },
-  { slug: 'evolia-wavy', nom: 'Evolia Wavy', categorie: 'Salon',          prix: 2390 },
+  { slug: 'sofia',       nom: 'Sofia',       categorie: 'Living',         prix: 4389 },
+  { slug: 'baya',        nom: 'Baya',        categorie: 'Salle de bains', prix: 1879 },
+  { slug: 'goa',         nom: 'Goa',         categorie: 'Salle de bains', prix: 729  },
+  { slug: 'uluwatu',     nom: 'Uluwatu',     categorie: 'Salle de bains', prix: 629  },
+  { slug: 'lemani',      nom: 'Lemani',      categorie: 'Dressing',       prix: 3279 },
+  { slug: 'cassandre',   nom: 'Cassandre',   categorie: 'Salle de bains', prix: 1089 },
+  { slug: 'evolia-wavy', nom: 'Evolia Wavy', categorie: 'Buffet',         prix: 2659 },
 ] as const;
 
 type Produit = (typeof PRODUITS)[number];
