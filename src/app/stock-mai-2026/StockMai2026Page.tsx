@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 
 // ── PRIX À METTRE À JOUR AVANT LE LANCEMENT ─────────────────────────────────
@@ -19,17 +19,16 @@ type Produit = (typeof PRODUITS)[number];
 function prixRemise(prix: number) { return Math.round(prix * 0.7); }
 function eur(n: number) { return n.toLocaleString('fr-FR') + ' €'; }
 
-// ── Image avec fallback png → jpg ─────────────────────────────────────────────
+// ── Image produit ─────────────────────────────────────────────────────────────
 function ProductImage({ slug, nom }: { slug: string; nom: string }) {
   const [ext, setExt] = useState<'png' | 'jpg' | 'none'>('png');
   if (ext === 'none') {
     return (
       <div style={{
-        position: 'absolute', inset: 0,
+        position: 'absolute', inset: 0, background: '#1A1A1A',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: '#1A1A1A',
         fontFamily: "'Playfair Display', serif",
-        fontSize: 14, color: 'rgba(255,255,255,0.18)', fontStyle: 'italic',
+        fontSize: 13, color: 'rgba(255,255,255,0.15)', fontStyle: 'italic',
       }}>
         {nom}
       </div>
@@ -46,18 +45,16 @@ function ProductImage({ slug, nom }: { slug: string; nom: string }) {
   );
 }
 
-// ── Carte galerie ─────────────────────────────────────────────────────────────
-function GalleryCard({ produit, selected, onSelect }: {
+// ── Carte produit ─────────────────────────────────────────────────────────────
+function ProductCard({ produit, selected, onSelect }: {
   produit: Produit; selected: boolean; onSelect: () => void;
 }) {
   return (
     <div
       onClick={onSelect}
       style={{
-        position: 'relative',
-        aspectRatio: '3 / 4',
-        overflow: 'hidden',
-        cursor: 'pointer',
+        position: 'relative', aspectRatio: '3 / 4',
+        overflow: 'hidden', cursor: 'pointer',
         background: '#1A1A1A',
         outline: selected ? '3px solid #C4661F' : '3px solid transparent',
         outlineOffset: '-3px',
@@ -67,14 +64,10 @@ function GalleryCard({ produit, selected, onSelect }: {
     >
       <ProductImage slug={produit.slug} nom={produit.nom} />
 
-      {/* Gradient bas */}
+      {/* Gradient */}
       <div style={{
-        position: 'absolute', inset: 0,
-        background: selected
-          ? 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(196,102,31,0.1) 55%, transparent 100%)'
-          : 'linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 52%)',
-        transition: 'background 0.2s',
-        zIndex: 1,
+        position: 'absolute', inset: 0, zIndex: 1,
+        background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 50%)',
       }} />
 
       {/* Badge −30% */}
@@ -83,13 +76,13 @@ function GalleryCard({ produit, selected, onSelect }: {
         background: '#C4661F', color: '#fff',
         fontFamily: "'Inter', sans-serif",
         fontSize: 10, fontWeight: 800,
-        padding: '3px 8px', letterSpacing: '0.05em',
+        padding: '3px 8px', letterSpacing: '0.04em',
         animation: 'pulseDiscount 1.8s ease-in-out infinite',
       }}>
         &minus;30&nbsp;%
       </div>
 
-      {/* ✓ sélectionné */}
+      {/* ✓ */}
       {selected && (
         <div style={{
           position: 'absolute', top: 8, right: 8, zIndex: 3,
@@ -102,21 +95,19 @@ function GalleryCard({ produit, selected, onSelect }: {
         </div>
       )}
 
-      {/* Infos */}
+      {/* Infos bas */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 2, padding: '0.6rem 0.7rem' }}>
         <p style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: 9, color: 'rgba(255,255,255,0.5)',
-          fontWeight: 600, letterSpacing: '0.1em',
-          textTransform: 'uppercase', marginBottom: 3,
+          fontFamily: "'Inter', sans-serif", fontSize: 9,
+          color: 'rgba(255,255,255,0.5)', fontWeight: 600,
+          letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 3,
         }}>
           {produit.categorie}
         </p>
         <p style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: 13, color: '#fff',
-          fontStyle: 'italic', fontWeight: 600,
-          lineHeight: 1.2, marginBottom: 4,
+          fontSize: 13, color: '#fff', fontStyle: 'italic',
+          fontWeight: 600, lineHeight: 1.2, marginBottom: 4,
         }}>
           {produit.nom}
         </p>
@@ -124,7 +115,7 @@ function GalleryCard({ produit, selected, onSelect }: {
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 700, color: '#F9EBC7' }}>
             {eur(prixRemise(produit.prix))}
           </span>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.32)', textDecoration: 'line-through' }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through' }}>
             {eur(produit.prix)}
           </span>
         </div>
@@ -133,200 +124,6 @@ function GalleryCard({ produit, selected, onSelect }: {
   );
 }
 
-// ── Formulaire ────────────────────────────────────────────────────────────────
-interface FormPanelProps {
-  produit: Produit | null;
-  form: { prenom: string; nom: string; email: string; telephone: string; showroom: string; rgpd: boolean };
-  setForm: React.Dispatch<React.SetStateAction<FormPanelProps['form']>>;
-  status: 'idle' | 'loading' | 'success' | 'error';
-  errorMsg: string;
-  submittedProduit: Produit | null;
-  onSubmit: (e: React.FormEvent) => void;
-}
-
-function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit, onSubmit }: FormPanelProps) {
-  if (status === 'success' && submittedProduit) {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 400, padding: '2.5rem 2rem', textAlign: 'center' }}>
-        <div style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid #C4661F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#C4661F', marginBottom: '1.5rem' }}>
-          &#10003;
-        </div>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#0D0D0D', marginBottom: '0.6rem', fontWeight: 600, fontStyle: 'italic' }}>
-          R&eacute;servation enregistr&eacute;e
-        </h2>
-        <p style={{ color: '#666', lineHeight: 1.75, fontSize: 14, maxWidth: 260 }}>
-          Notre &eacute;quipe vous contacte sous <strong style={{ color: '#0D0D0D' }}>24h ouvr&eacute;es</strong>.<br />
-          <span style={{ color: '#AAA', fontSize: 13 }}>{submittedProduit.nom} &mdash; {eur(prixRemise(submittedProduit.prix))}</span>
-        </p>
-        <p style={{ marginTop: '1.5rem', fontSize: 11, color: '#CCC' }}>
-          Cliquez sur un autre meuble pour une nouvelle demande
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ padding: 'clamp(1.25rem, 5vw, 2rem)', position: 'relative', overflow: 'hidden' }}>
-
-      {/* Watermark */}
-      <div aria-hidden style={{
-        position: 'absolute', top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%) rotate(-25deg)',
-        fontFamily: "'Playfair Display', serif",
-        fontSize: 'clamp(5rem, 18vw, 11rem)',
-        fontWeight: 700, fontStyle: 'italic',
-        color: '#C4661F', opacity: 0.04,
-        pointerEvents: 'none', userSelect: 'none',
-        whiteSpace: 'nowrap', zIndex: 0,
-      }}>
-        &minus;30%
-      </div>
-
-      {/* Bandeau urgence */}
-      <div style={{
-        position: 'relative', zIndex: 1,
-        background: '#111', color: '#fff',
-        padding: '0.5rem 1rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap',
-        marginLeft: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
-        marginRight: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
-        marginTop: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
-        marginBottom: '1.25rem',
-      }}>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#C4661F' }}>
-          &#9889; STOCK ULTRA LIMIT&Eacute;
-        </span>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>
-          &minus;30&nbsp;% &middot; 31 MAI
-        </span>
-      </div>
-
-      {/* Titre */}
-      <div style={{ marginBottom: '1.25rem', position: 'relative', zIndex: 1 }}>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#C4661F', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
-          &minus;30&nbsp;% · Stock Mai 2026
-        </p>
-        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.25rem, 4vw, 1.6rem)', color: '#0D0D0D', fontWeight: 600, fontStyle: 'italic', marginBottom: '0.9rem' }}>
-          R&eacute;server ce meuble
-        </h2>
-
-        {produit ? (
-          <div style={{ borderLeft: '3px solid #C4661F', paddingLeft: '0.8rem' }}>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: '#AAA', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 3 }}>
-              S&eacute;lectionn&eacute;
-            </p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: '#0D0D0D', fontStyle: 'italic', lineHeight: 1.4 }}>
-              {produit.nom}
-              {' '}
-              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontWeight: 700, color: '#C4661F', fontSize: 13 }}>
-                {eur(prixRemise(produit.prix))}
-              </span>
-              {' '}
-              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontSize: 11, color: '#CCC', textDecoration: 'line-through' }}>
-                {eur(produit.prix)}
-              </span>
-            </p>
-          </div>
-        ) : (
-          <div style={{ padding: '0.65rem 0.9rem', background: '#F7F7F7', border: '1px dashed #DDD' }}>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: '#BBB', textAlign: 'center' }}>
-              &#8592; S&eacute;lectionnez un meuble
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* Form */}
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
-          <div>
-            <label style={labelStyle}>Pr&eacute;nom *</label>
-            <input type="text" required className="sm26-input" placeholder="Jean" value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
-          </div>
-          <div>
-            <label style={labelStyle}>Nom</label>
-            <input type="text" className="sm26-input" placeholder="Dupont" value={form.nom} onChange={e => setForm(f => ({ ...f, nom: e.target.value }))} />
-          </div>
-        </div>
-
-        <div>
-          <label style={labelStyle}>Email *</label>
-          <input type="email" required className="sm26-input" placeholder="jean.dupont@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
-        </div>
-
-        <div>
-          <label style={labelStyle}>T&eacute;l&eacute;phone</label>
-          <input type="tel" className="sm26-input" placeholder="0692 XX XX XX" value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
-        </div>
-
-        <div>
-          <label style={labelStyle}>Showroom *</label>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.35rem' }}>
-            {([
-              { code: 'SAINT_PIERRE', label: 'Saint-Pierre' },
-              { code: 'SAINT_DENIS',  label: 'Saint-Denis'  },
-            ] as const).map(({ code, label }) => (
-              <label key={code} style={{
-                display: 'flex', alignItems: 'center', gap: '0.5rem',
-                padding: '0.6rem 0.75rem', cursor: 'pointer',
-                border: form.showroom === code ? '1.5px solid #111' : '1.5px solid #E5E5E5',
-                background: form.showroom === code ? '#111' : '#FFF',
-                fontFamily: "'Inter', sans-serif", fontSize: 13,
-                color: form.showroom === code ? '#FFF' : '#444',
-                fontWeight: form.showroom === code ? 600 : 400,
-                transition: 'all 0.15s',
-                minHeight: 44,
-              }}>
-                <input type="radio" name="showroom" value={code} required checked={form.showroom === code} onChange={e => setForm(f => ({ ...f, showroom: e.target.value }))} style={{ accentColor: '#C4661F' }} />
-                {label}
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', cursor: 'pointer', minHeight: 44 }}>
-          <input type="checkbox" required checked={form.rgpd} onChange={e => setForm(f => ({ ...f, rgpd: e.target.checked }))} style={{ marginTop: 4, accentColor: '#C4661F', flexShrink: 0, width: 16, height: 16 }} />
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#999', lineHeight: 1.55 }}>
-            J&apos;accepte que DIMEXOI utilise mes coordonn&eacute;es pour me recontacter.
-          </span>
-        </label>
-
-        {status === 'error' && errorMsg && (
-          <p style={{ color: '#C4661F', fontSize: 12, padding: '0.6rem', background: '#FFF8F4', border: '1px solid #F9EBC7', fontFamily: "'Inter', sans-serif" }}>
-            {errorMsg}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          disabled={!produit || status === 'loading'}
-          className="btn-primary"
-          style={{
-            width: '100%', justifyContent: 'center',
-            minHeight: 48,
-            fontSize: 13,
-            opacity: (!produit || status === 'loading') ? 0.45 : 1,
-            cursor: (!produit || status === 'loading') ? 'not-allowed' : 'pointer',
-          }}
-        >
-          {status === 'loading' ? 'Envoi...' : "Réserver ce meuble →"}
-        </button>
-
-        <p style={{ textAlign: 'center', fontSize: 10, color: '#CCC', fontFamily: "'Inter', sans-serif", lineHeight: 1.5 }}>
-          Stock limit&eacute; &bull; Offre jusqu&apos;au 31 mai 2026
-        </p>
-      </form>
-    </div>
-  );
-}
-
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: "'Inter', sans-serif",
-  fontSize: 11, fontWeight: 500, color: '#555',
-  marginBottom: '0.3rem',
-};
-
 // ── Page principale ───────────────────────────────────────────────────────────
 export default function StockMai2026Page() {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
@@ -334,12 +131,17 @@ export default function StockMai2026Page() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [submittedProduit, setSubmittedProduit] = useState<Produit | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const selectedProduit = PRODUITS.find(p => p.slug === selectedSlug) ?? null;
 
   function handleSelect(slug: string) {
-    setSelectedSlug(prev => prev === slug ? null : slug);
+    const next = slug === selectedSlug ? null : slug;
+    setSelectedSlug(next);
     if (status === 'success') setStatus('idle');
+    if (next) {
+      setTimeout(() => formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -378,81 +180,49 @@ export default function StockMai2026Page() {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
-
-        /* Reset scroll pour cette page */
         body { overflow-y: auto !important; }
 
         .sm26-input {
           width: 100%;
-          padding: 0.75rem 0.9rem;
+          padding: 0.75rem 1rem;
           border: 1.5px solid #E5E5E5;
           border-radius: 0;
-          font-size: 16px; /* 16px évite le zoom auto sur iOS */
+          font-size: 16px;
           font-family: 'Inter', sans-serif;
           background: #FFF;
           color: #0D0D0D;
           transition: border-color 0.2s;
           box-sizing: border-box;
           -webkit-appearance: none;
-          appearance: none;
         }
         .sm26-input:focus { outline: none; border-color: #111; }
-        .sm26-input::placeholder { color: #BBB; }
+        .sm26-input::placeholder { color: #C0C0C0; }
 
-        /* ── Layout ── */
-        .sm26-page {
-          font-family: 'Inter', sans-serif;
-          color: #0D0D0D;
-          background: #0D0D0D;
-          min-height: 100vh;
-        }
-        .sm26-body {
-          display: flex;
-          align-items: flex-start;
-        }
-        .sm26-gallery {
-          flex: 0 0 58%;
+        .sm26-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(7, 1fr);
           gap: 3px;
           background: #0D0D0D;
         }
-        .sm26-right {
-          flex: 1;
-          background: #FFF;
-          position: sticky;
-          top: 0;
-          max-height: 100vh;
-          overflow-y: auto;
-          border-left: 1px solid #EEE;
+        @media (max-width: 900px) {
+          .sm26-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 560px) {
+          .sm26-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
         }
 
-        /* ── Mobile ── */
-        @media (max-width: 720px) {
-          .sm26-body { flex-direction: column; }
-
-          .sm26-gallery {
-            flex: none;
-            width: 100%;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
-          }
-          /* Masque la 8e cellule CTA sur mobile */
-          .sm26-gallery-cta { display: none; }
-
-          .sm26-right {
-            flex: none;
-            width: 100%;
-            position: static;
-            max-height: none;
-            overflow-y: visible;
-            border-left: none;
-            border-top: 3px solid #C4661F;
-          }
+        .sm26-form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+        }
+        @media (max-width: 480px) {
+          .sm26-form-grid { grid-template-columns: 1fr; }
         }
       `}</style>
 
-      <div className="sm26-page">
+      <div style={{ fontFamily: "'Inter', sans-serif", color: '#0D0D0D', background: '#0D0D0D', minHeight: '100vh' }}>
+
         {/* ── Header ── */}
         <div style={{
           background: '#111', padding: '0.85rem 1.5rem',
@@ -480,45 +250,167 @@ export default function StockMai2026Page() {
           </span>
         </div>
 
-        {/* ── Corps ── */}
-        <div className="sm26-body">
-
-          {/* Galerie */}
-          <div className="sm26-gallery">
-            {PRODUITS.map(p => (
-              <GalleryCard
-                key={p.slug}
-                produit={p}
-                selected={selectedSlug === p.slug}
-                onSelect={() => handleSelect(p.slug)}
-              />
-            ))}
-            {/* 8e cellule */}
-            <div className="sm26-gallery-cta" style={{
-              aspectRatio: '3 / 4',
-              background: '#111',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: 'rgba(255,255,255,0.2)', textAlign: 'center', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1.7 }}>
-                Cliquez sur<br />un meuble
-              </p>
-            </div>
-          </div>
-
-          {/* Formulaire */}
-          <div className="sm26-right">
-            <FormPanel
-              produit={selectedProduit}
-              form={form}
-              setForm={setForm}
-              status={status}
-              errorMsg={errorMsg}
-              submittedProduit={submittedProduit}
-              onSubmit={handleSubmit}
+        {/* ── Galerie pleine largeur ── */}
+        <div className="sm26-grid">
+          {PRODUITS.map(p => (
+            <ProductCard
+              key={p.slug}
+              produit={p}
+              selected={selectedSlug === p.slug}
+              onSelect={() => handleSelect(p.slug)}
             />
+          ))}
+        </div>
+
+        {/* ── Formulaire ── */}
+        <div ref={formRef} style={{ background: '#FFF', borderTop: '3px solid #C4661F' }}>
+          <div style={{ maxWidth: 680, margin: '0 auto', padding: 'clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 5vw, 2rem)' }}>
+
+            {status === 'success' && submittedProduit ? (
+              /* Succès */
+              <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+                <div style={{ width: 60, height: 60, borderRadius: '50%', border: '2px solid #C4661F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26, color: '#C4661F', margin: '0 auto 1.5rem' }}>
+                  &#10003;
+                </div>
+                <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: '#0D0D0D', fontStyle: 'italic', fontWeight: 600, marginBottom: '0.6rem' }}>
+                  R&eacute;servation enregistr&eacute;e
+                </h2>
+                <p style={{ color: '#666', lineHeight: 1.8, fontSize: 15 }}>
+                  Notre &eacute;quipe vous contacte sous <strong style={{ color: '#0D0D0D' }}>24h ouvr&eacute;es</strong>.<br />
+                  <span style={{ color: '#AAA', fontSize: 14 }}>{submittedProduit.nom} &mdash; {eur(prixRemise(submittedProduit.prix))}</span>
+                </p>
+              </div>
+            ) : (
+              <>
+                {/* En-tête formulaire */}
+                <div style={{ marginBottom: '2rem' }}>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#C4661F', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                    &minus;30&nbsp;% · Stock Mai 2026
+                  </p>
+                  <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', color: '#0D0D0D', fontWeight: 600, fontStyle: 'italic', marginBottom: '1rem' }}>
+                    R&eacute;server ce meuble
+                  </h2>
+
+                  {/* Produit sélectionné */}
+                  {selectedProduit ? (
+                    <div style={{ borderLeft: '3px solid #C4661F', paddingLeft: '1rem', background: '#FAFAFA', padding: '0.75rem 1rem' }}>
+                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#AAA', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 4 }}>
+                        S&eacute;lectionn&eacute;
+                      </p>
+                      <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, color: '#0D0D0D', fontStyle: 'italic', display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
+                        {selectedProduit.nom}
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontWeight: 700, color: '#C4661F', fontSize: 15 }}>
+                          {eur(prixRemise(selectedProduit.prix))}
+                        </span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontSize: 12, color: '#CCC', textDecoration: 'line-through' }}>
+                          {eur(selectedProduit.prix)}
+                        </span>
+                      </p>
+                    </div>
+                  ) : (
+                    <div style={{ padding: '0.8rem 1rem', background: '#F7F7F7', border: '1px dashed #DDD', textAlign: 'center' }}>
+                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#BBB' }}>
+                        &#8593; Cliquez sur un meuble ci-dessus pour le s&eacute;lectionner
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Champs */}
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div className="sm26-form-grid">
+                    <div>
+                      <label style={labelStyle}>Pr&eacute;nom *</label>
+                      <input type="text" required className="sm26-input" placeholder="Jean" value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Nom</label>
+                      <input type="text" className="sm26-input" placeholder="Dupont" value={form.nom} onChange={e => setForm(f => ({ ...f, nom: e.target.value }))} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={labelStyle}>Email *</label>
+                    <input type="email" required className="sm26-input" placeholder="jean.dupont@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+                  </div>
+
+                  <div>
+                    <label style={labelStyle}>T&eacute;l&eacute;phone</label>
+                    <input type="tel" className="sm26-input" placeholder="0692 XX XX XX" value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
+                  </div>
+
+                  <div>
+                    <label style={labelStyle}>Showroom *</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', marginTop: '0.4rem' }}>
+                      {([
+                        { code: 'SAINT_PIERRE', label: 'Saint-Pierre (Sud)' },
+                        { code: 'SAINT_DENIS',  label: 'Saint-Denis (Nord)'  },
+                      ] as const).map(({ code, label }) => (
+                        <label key={code} style={{
+                          display: 'flex', alignItems: 'center', gap: '0.6rem',
+                          padding: '0.75rem 1rem', cursor: 'pointer', minHeight: 48,
+                          border: form.showroom === code ? '1.5px solid #111' : '1.5px solid #E5E5E5',
+                          background: form.showroom === code ? '#111' : '#FFF',
+                          fontFamily: "'Inter', sans-serif", fontSize: 14,
+                          color: form.showroom === code ? '#FFF' : '#444',
+                          fontWeight: form.showroom === code ? 600 : 400,
+                          transition: 'all 0.15s',
+                        }}>
+                          <input type="radio" name="showroom" value={code} required checked={form.showroom === code} onChange={e => setForm(f => ({ ...f, showroom: e.target.value }))} style={{ accentColor: '#C4661F', width: 16, height: 16 }} />
+                          {label}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', cursor: 'pointer', minHeight: 44 }}>
+                    <input type="checkbox" required checked={form.rgpd} onChange={e => setForm(f => ({ ...f, rgpd: e.target.checked }))} style={{ marginTop: 4, accentColor: '#C4661F', flexShrink: 0, width: 16, height: 16 }} />
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: '#999', lineHeight: 1.6 }}>
+                      J&apos;accepte que DIMEXOI utilise mes coordonn&eacute;es pour me recontacter au sujet de ma demande.
+                    </span>
+                  </label>
+
+                  {status === 'error' && errorMsg && (
+                    <p style={{ color: '#C4661F', fontSize: 13, padding: '0.75rem', background: '#FFF8F4', border: '1px solid #F9EBC7', fontFamily: "'Inter', sans-serif" }}>
+                      {errorMsg}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={!selectedProduit || status === 'loading'}
+                    className="btn-primary"
+                    style={{
+                      width: '100%', justifyContent: 'center', minHeight: 52, fontSize: 14,
+                      opacity: (!selectedProduit || status === 'loading') ? 0.45 : 1,
+                      cursor: (!selectedProduit || status === 'loading') ? 'not-allowed' : 'pointer',
+                    }}
+                  >
+                    {status === 'loading' ? 'Envoi en cours...' : "Réserver ce meuble →"}
+                  </button>
+
+                  <p style={{ textAlign: 'center', fontSize: 11, color: '#BBB', fontFamily: "'Inter', sans-serif" }}>
+                    Stock limit&eacute; &bull; Rappel sous 24h &bull; Offre jusqu&apos;au 31 mai 2026
+                  </p>
+                </form>
+              </>
+            )}
           </div>
+        </div>
+
+        {/* ── Footer ── */}
+        <div style={{ background: '#111', color: 'rgba(255,255,255,0.35)', textAlign: 'center', padding: '1.25rem 1rem', fontFamily: "'Inter', sans-serif", fontSize: 12 }}>
+          DIMEXOI &middot; Mobilier en teck depuis 1995 &middot; La R&eacute;union &nbsp;&middot;&nbsp;
+          <Link href="/" style={{ color: 'rgba(255,255,255,0.35)', textDecoration: 'underline' }}>dimexoi.fr</Link>
         </div>
       </div>
     </>
   );
 }
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  fontFamily: "'Inter', sans-serif",
+  fontSize: 12, fontWeight: 500, color: '#555',
+  marginBottom: '0.35rem',
+};
