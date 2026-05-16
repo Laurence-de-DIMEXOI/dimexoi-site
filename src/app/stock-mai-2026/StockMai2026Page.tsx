@@ -2,6 +2,11 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
+
+const FB_PIXEL_ID = '34647261824865095';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fbq = (...args: unknown[]) => (window as any).fbq?.(...args);
 
 // ── PRIX À METTRE À JOUR AVANT LE LANCEMENT ─────────────────────────────────
 const PRODUITS = [
@@ -163,6 +168,7 @@ export default function StockMai2026Page() {
       if (!res.ok) throw new Error('Erreur serveur');
       setStatus('success');
       setSubmittedProduit(selectedProduit);
+      fbq('track', 'Lead', { currency: 'EUR', value: prixRemise(selectedProduit.prix) });
     } catch {
       setStatus('error');
       setErrorMsg("Une erreur s'est produite. Veuillez réessayer.");
@@ -171,6 +177,18 @@ export default function StockMai2026Page() {
 
   return (
     <>
+      {/* ── Meta Pixel ── */}
+      <Script id="fb-pixel" strategy="afterInteractive">{`
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init','${FB_PIXEL_ID}');
+        fbq('track','PageView');
+      `}</Script>
+      <noscript><img height="1" width="1" style={{display:'none'}} src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`} alt="" /></noscript>
+
       <style>{`
         @keyframes pulseDiscount {
           0%, 100% { opacity: 1; transform: scale(1); }
