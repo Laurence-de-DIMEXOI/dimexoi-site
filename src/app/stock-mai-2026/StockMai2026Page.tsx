@@ -22,71 +22,78 @@ function eur(n: number) { return n.toLocaleString('fr-FR') + ' €'; }
 // ── Image avec fallback png → jpg ─────────────────────────────────────────────
 function ProductImage({ slug, nom }: { slug: string; nom: string }) {
   const [ext, setExt] = useState<'png' | 'jpg' | 'none'>('png');
+  if (ext === 'none') {
+    return (
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: '#1A1A1A',
+        fontFamily: "'Playfair Display', serif",
+        fontSize: 14, color: 'rgba(255,255,255,0.18)', fontStyle: 'italic',
+      }}>
+        {nom}
+      </div>
+    );
+  }
   return (
-    <>
-      {ext !== 'none' ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={"/stock-mai-2026/" + slug + "." + ext}
-          alt={nom}
-          onError={() => ext === 'png' ? setExt('jpg') : setExt('none')}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-        />
-      ) : (
-        <div style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: "'Playfair Display', serif",
-          fontSize: 16, color: 'rgba(255,255,255,0.2)', fontStyle: 'italic',
-        }}>
-          {nom}
-        </div>
-      )}
-    </>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={"/stock-mai-2026/" + slug + "." + ext}
+      alt={nom}
+      onError={() => ext === 'png' ? setExt('jpg') : setExt('none')}
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+    />
   );
 }
 
 // ── Carte galerie ─────────────────────────────────────────────────────────────
-function GalleryCard({ produit, selected, onSelect }: { produit: Produit; selected: boolean; onSelect: () => void }) {
+function GalleryCard({ produit, selected, onSelect }: {
+  produit: Produit; selected: boolean; onSelect: () => void;
+}) {
   return (
     <div
       onClick={onSelect}
       style={{
-        position: 'relative', overflow: 'hidden',
-        cursor: 'pointer', background: '#1A1A1A',
+        position: 'relative',
+        aspectRatio: '3 / 4',
+        overflow: 'hidden',
+        cursor: 'pointer',
+        background: '#1A1A1A',
         outline: selected ? '3px solid #C4661F' : '3px solid transparent',
         outlineOffset: '-3px',
         transition: 'outline 0.15s',
+        WebkitTapHighlightColor: 'transparent',
       }}
     >
       <ProductImage slug={produit.slug} nom={produit.nom} />
 
-      {/* Overlay gradient */}
+      {/* Gradient bas */}
       <div style={{
         position: 'absolute', inset: 0,
         background: selected
-          ? 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(196,102,31,0.08) 60%, transparent 100%)'
-          : 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 55%)',
+          ? 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(196,102,31,0.1) 55%, transparent 100%)'
+          : 'linear-gradient(to top, rgba(0,0,0,0.80) 0%, transparent 52%)',
         transition: 'background 0.2s',
+        zIndex: 1,
       }} />
 
       {/* Badge −30% */}
       <div style={{
-        position: 'absolute', top: 8, left: 8, zIndex: 2,
+        position: 'absolute', top: 8, left: 8, zIndex: 3,
         background: '#C4661F', color: '#fff',
         fontFamily: "'Inter', sans-serif",
         fontSize: 10, fontWeight: 800,
-        padding: '3px 7px', letterSpacing: '0.06em',
+        padding: '3px 8px', letterSpacing: '0.05em',
         animation: 'pulseDiscount 1.8s ease-in-out infinite',
       }}>
         &minus;30&nbsp;%
       </div>
 
-      {/* Checkmark sélectionné */}
+      {/* ✓ sélectionné */}
       {selected && (
         <div style={{
-          position: 'absolute', top: 8, right: 8, zIndex: 2,
-          width: 24, height: 24, borderRadius: '50%',
+          position: 'absolute', top: 8, right: 8, zIndex: 3,
+          width: 26, height: 26, borderRadius: '50%',
           background: '#C4661F', color: '#fff',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: 13, fontWeight: 700,
@@ -95,29 +102,29 @@ function GalleryCard({ produit, selected, onSelect }: { produit: Produit; select
         </div>
       )}
 
-      {/* Infos bas */}
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 2, padding: '0.5rem 0.6rem' }}>
+      {/* Infos */}
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 2, padding: '0.6rem 0.7rem' }}>
         <p style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: 9, color: 'rgba(255,255,255,0.55)',
-          fontWeight: 500, letterSpacing: '0.1em',
-          textTransform: 'uppercase', marginBottom: 2,
+          fontSize: 9, color: 'rgba(255,255,255,0.5)',
+          fontWeight: 600, letterSpacing: '0.1em',
+          textTransform: 'uppercase', marginBottom: 3,
         }}>
           {produit.categorie}
         </p>
         <p style={{
           fontFamily: "'Playfair Display', serif",
           fontSize: 13, color: '#fff',
-          fontStyle: 'italic', fontWeight: 600, marginBottom: 2,
-          lineHeight: 1.2,
+          fontStyle: 'italic', fontWeight: 600,
+          lineHeight: 1.2, marginBottom: 4,
         }}>
           {produit.nom}
         </p>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, fontWeight: 700, color: '#F9EBC7' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 5, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, fontWeight: 700, color: '#F9EBC7' }}>
             {eur(prixRemise(produit.prix))}
           </span>
-          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.35)', textDecoration: 'line-through' }}>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.32)', textDecoration: 'line-through' }}>
             {eur(produit.prix)}
           </span>
         </div>
@@ -126,7 +133,7 @@ function GalleryCard({ produit, selected, onSelect }: { produit: Produit; select
   );
 }
 
-// ── Formulaire (panneau droit) ────────────────────────────────────────────────
+// ── Formulaire ────────────────────────────────────────────────────────────────
 interface FormPanelProps {
   produit: Produit | null;
   form: { prenom: string; nom: string; email: string; telephone: string; showroom: string; rgpd: boolean };
@@ -140,34 +147,18 @@ interface FormPanelProps {
 function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit, onSubmit }: FormPanelProps) {
   if (status === 'success' && submittedProduit) {
     return (
-      <div style={{
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        minHeight: '100%', padding: '3rem 2rem', textAlign: 'center',
-      }}>
-        <div style={{
-          width: 60, height: 60, borderRadius: '50%',
-          border: '2px solid #C4661F',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 26, color: '#C4661F', marginBottom: '1.75rem',
-        }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 400, padding: '2.5rem 2rem', textAlign: 'center' }}>
+        <div style={{ width: 56, height: 56, borderRadius: '50%', border: '2px solid #C4661F', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, color: '#C4661F', marginBottom: '1.5rem' }}>
           &#10003;
         </div>
-        <h2 style={{
-          fontFamily: "'Playfair Display', serif",
-          fontSize: 24, color: '#0D0D0D',
-          marginBottom: '0.75rem', fontWeight: 600, fontStyle: 'italic',
-        }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: '#0D0D0D', marginBottom: '0.6rem', fontWeight: 600, fontStyle: 'italic' }}>
           R&eacute;servation enregistr&eacute;e
         </h2>
-        <p style={{ color: '#555', lineHeight: 1.8, fontSize: 14, maxWidth: 280 }}>
-          Notre &eacute;quipe vous contacte sous{' '}
-          <strong style={{ color: '#0D0D0D' }}>24h ouvr&eacute;es</strong>.<br />
-          <span style={{ color: '#999', fontSize: 13 }}>
-            {submittedProduit.nom}&ensp;&mdash;&ensp;{eur(prixRemise(submittedProduit.prix))}
-          </span>
+        <p style={{ color: '#666', lineHeight: 1.75, fontSize: 14, maxWidth: 260 }}>
+          Notre &eacute;quipe vous contacte sous <strong style={{ color: '#0D0D0D' }}>24h ouvr&eacute;es</strong>.<br />
+          <span style={{ color: '#AAA', fontSize: 13 }}>{submittedProduit.nom} &mdash; {eur(prixRemise(submittedProduit.prix))}</span>
         </p>
-        <p style={{ marginTop: '1.5rem', fontSize: 12, color: '#CCC' }}>
+        <p style={{ marginTop: '1.5rem', fontSize: 11, color: '#CCC' }}>
           Cliquez sur un autre meuble pour une nouvelle demande
         </p>
       </div>
@@ -175,14 +166,14 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
   }
 
   return (
-    <div style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)', boxSizing: 'border-box', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ padding: 'clamp(1.25rem, 5vw, 2rem)', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Watermark −30% */}
-      <div style={{
+      {/* Watermark */}
+      <div aria-hidden style={{
         position: 'absolute', top: '50%', left: '50%',
         transform: 'translate(-50%, -50%) rotate(-25deg)',
         fontFamily: "'Playfair Display', serif",
-        fontSize: 'clamp(6rem, 16vw, 12rem)',
+        fontSize: 'clamp(5rem, 18vw, 11rem)',
         fontWeight: 700, fontStyle: 'italic',
         color: '#C4661F', opacity: 0.04,
         pointerEvents: 'none', userSelect: 'none',
@@ -195,118 +186,106 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
       <div style={{
         position: 'relative', zIndex: 1,
         background: '#111', color: '#fff',
-        padding: '0.55rem 1rem',
-        marginBottom: '1.5rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        marginLeft: 'calc(-1 * clamp(1.5rem, 4vw, 2.5rem))',
-        marginRight: 'calc(-1 * clamp(1.5rem, 4vw, 2.5rem))',
-        marginTop: 'calc(-1 * clamp(1.5rem, 4vw, 2.5rem))',
+        padding: '0.5rem 1rem',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap',
+        marginLeft: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
+        marginRight: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
+        marginTop: 'calc(-1 * clamp(1.25rem, 5vw, 2rem))',
+        marginBottom: '1.25rem',
       }}>
         <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#C4661F' }}>
           &#9889; STOCK ULTRA LIMIT&Eacute;
         </span>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)' }}>
-          &minus;30&nbsp;% &middot; 31 MAI 2026
+        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>
+          &minus;30&nbsp;% &middot; 31 MAI
         </span>
       </div>
 
-      {/* Titre + produit sélectionné */}
-      <div style={{ marginBottom: '1.75rem', position: 'relative', zIndex: 1 }}>
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#C4661F', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>
-          Stock Mai 2026 &middot; &minus;30&nbsp;%
+      {/* Titre */}
+      <div style={{ marginBottom: '1.25rem', position: 'relative', zIndex: 1 }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#C4661F', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+          &minus;30&nbsp;% · Stock Mai 2026
         </p>
-        <h2 style={{
-          fontFamily: "'Playfair Display', serif",
-          fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)',
-          color: '#0D0D0D', fontWeight: 600,
-          fontStyle: 'italic', marginBottom: '1rem',
-        }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.25rem, 4vw, 1.6rem)', color: '#0D0D0D', fontWeight: 600, fontStyle: 'italic', marginBottom: '0.9rem' }}>
           R&eacute;server ce meuble
         </h2>
 
         {produit ? (
-          <div style={{ borderLeft: '3px solid #C4661F', paddingLeft: '0.85rem' }}>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: '#999', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.2rem' }}>
+          <div style={{ borderLeft: '3px solid #C4661F', paddingLeft: '0.8rem' }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: '#AAA', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 3 }}>
               S&eacute;lectionn&eacute;
             </p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: '#0D0D0D', fontStyle: 'italic' }}>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 15, color: '#0D0D0D', fontStyle: 'italic', lineHeight: 1.4 }}>
               {produit.nom}
-              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontWeight: 700, color: '#C4661F', marginLeft: '0.6rem', fontSize: 14 }}>
+              {' '}
+              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontWeight: 700, color: '#C4661F', fontSize: 13 }}>
                 {eur(prixRemise(produit.prix))}
               </span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontSize: 12, color: '#CCC', textDecoration: 'line-through', marginLeft: '0.35rem' }}>
+              {' '}
+              <span style={{ fontFamily: "'Inter', sans-serif", fontStyle: 'normal', fontSize: 11, color: '#CCC', textDecoration: 'line-through' }}>
                 {eur(produit.prix)}
               </span>
             </p>
           </div>
         ) : (
-          <div style={{ padding: '0.75rem 1rem', background: '#F9F9F9', border: '1px dashed #DDD' }}>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#AAA', textAlign: 'center' }}>
-              &#8592; Cliquez sur un meuble pour le s&eacute;lectionner
+          <div style={{ padding: '0.65rem 0.9rem', background: '#F7F7F7', border: '1px dashed #DDD' }}>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: '#BBB', textAlign: 'center' }}>
+              &#8592; S&eacute;lectionnez un meuble
             </p>
           </div>
         )}
       </div>
 
-      {/* Formulaire */}
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', position: 'relative', zIndex: 1 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+      {/* Form */}
+      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
           <div>
             <label style={labelStyle}>Pr&eacute;nom *</label>
-            <input type="text" required className="sm26-input" placeholder="Jean"
-              value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
+            <input type="text" required className="sm26-input" placeholder="Jean" value={form.prenom} onChange={e => setForm(f => ({ ...f, prenom: e.target.value }))} />
           </div>
           <div>
             <label style={labelStyle}>Nom</label>
-            <input type="text" className="sm26-input" placeholder="Dupont"
-              value={form.nom} onChange={e => setForm(f => ({ ...f, nom: e.target.value }))} />
+            <input type="text" className="sm26-input" placeholder="Dupont" value={form.nom} onChange={e => setForm(f => ({ ...f, nom: e.target.value }))} />
           </div>
         </div>
 
         <div>
           <label style={labelStyle}>Email *</label>
-          <input type="email" required className="sm26-input" placeholder="jean.dupont@email.com"
-            value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+          <input type="email" required className="sm26-input" placeholder="jean.dupont@email.com" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
         </div>
 
         <div>
           <label style={labelStyle}>T&eacute;l&eacute;phone</label>
-          <input type="tel" className="sm26-input" placeholder="0692 XX XX XX"
-            value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
+          <input type="tel" className="sm26-input" placeholder="0692 XX XX XX" value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} />
         </div>
 
         <div>
           <label style={labelStyle}>Showroom *</label>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.4rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.35rem' }}>
             {([
               { code: 'SAINT_PIERRE', label: 'Saint-Pierre' },
               { code: 'SAINT_DENIS',  label: 'Saint-Denis'  },
             ] as const).map(({ code, label }) => (
               <label key={code} style={{
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
-                padding: '0.55rem 0.75rem',
+                padding: '0.6rem 0.75rem', cursor: 'pointer',
                 border: form.showroom === code ? '1.5px solid #111' : '1.5px solid #E5E5E5',
-                cursor: 'pointer',
                 background: form.showroom === code ? '#111' : '#FFF',
                 fontFamily: "'Inter', sans-serif", fontSize: 13,
-                color: form.showroom === code ? '#FFF' : '#333',
+                color: form.showroom === code ? '#FFF' : '#444',
                 fontWeight: form.showroom === code ? 600 : 400,
                 transition: 'all 0.15s',
+                minHeight: 44,
               }}>
-                <input type="radio" name="showroom" value={code} required
-                  checked={form.showroom === code}
-                  onChange={e => setForm(f => ({ ...f, showroom: e.target.value }))}
-                  style={{ accentColor: '#C4661F' }} />
+                <input type="radio" name="showroom" value={code} required checked={form.showroom === code} onChange={e => setForm(f => ({ ...f, showroom: e.target.value }))} style={{ accentColor: '#C4661F' }} />
                 {label}
               </label>
             ))}
           </div>
         </div>
 
-        <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem', cursor: 'pointer' }}>
-          <input type="checkbox" required checked={form.rgpd}
-            onChange={e => setForm(f => ({ ...f, rgpd: e.target.checked }))}
-            style={{ marginTop: 3, accentColor: '#C4661F', flexShrink: 0 }} />
+        <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', cursor: 'pointer', minHeight: 44 }}>
+          <input type="checkbox" required checked={form.rgpd} onChange={e => setForm(f => ({ ...f, rgpd: e.target.checked }))} style={{ marginTop: 4, accentColor: '#C4661F', flexShrink: 0, width: 16, height: 16 }} />
           <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#999', lineHeight: 1.55 }}>
             J&apos;accepte que DIMEXOI utilise mes coordonn&eacute;es pour me recontacter.
           </span>
@@ -324,15 +303,16 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
           className="btn-primary"
           style={{
             width: '100%', justifyContent: 'center',
-            marginTop: '0.15rem',
-            opacity: (!produit || status === 'loading') ? 0.5 : 1,
+            minHeight: 48,
+            fontSize: 13,
+            opacity: (!produit || status === 'loading') ? 0.45 : 1,
             cursor: (!produit || status === 'loading') ? 'not-allowed' : 'pointer',
           }}
         >
           {status === 'loading' ? 'Envoi...' : "Réserver ce meuble →"}
         </button>
 
-        <p style={{ textAlign: 'center', fontSize: 11, color: '#CCC', fontFamily: "'Inter', sans-serif" }}>
+        <p style={{ textAlign: 'center', fontSize: 10, color: '#CCC', fontFamily: "'Inter', sans-serif", lineHeight: 1.5 }}>
           Stock limit&eacute; &bull; Offre jusqu&apos;au 31 mai 2026
         </p>
       </form>
@@ -388,132 +368,157 @@ export default function StockMai2026Page() {
   }
 
   return (
-    <div style={{
-      fontFamily: "'Inter', sans-serif",
-      color: '#0D0D0D',
-      display: 'flex', flexDirection: 'column',
-      height: '100vh', background: '#0D0D0D',
-      overflow: 'hidden',
-    }}>
+    <>
       <style>{`
         @keyframes pulseDiscount {
           0%, 100% { opacity: 1; transform: scale(1); }
-          50%       { opacity: 0.82; transform: scale(1.08); }
+          50%       { opacity: 0.82; transform: scale(1.09); }
         }
         @keyframes ticker {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
+
+        /* Reset scroll pour cette page */
+        body { overflow-y: auto !important; }
+
         .sm26-input {
-          width: 100%; padding: 0.65rem 0.85rem;
-          border: 1.5px solid #E5E5E5; border-radius: 0;
-          font-size: 13px; font-family: 'Inter', sans-serif;
-          background: #FFF; color: #0D0D0D;
-          transition: border-color 0.2s; box-sizing: border-box;
+          width: 100%;
+          padding: 0.75rem 0.9rem;
+          border: 1.5px solid #E5E5E5;
+          border-radius: 0;
+          font-size: 16px; /* 16px évite le zoom auto sur iOS */
+          font-family: 'Inter', sans-serif;
+          background: #FFF;
+          color: #0D0D0D;
+          transition: border-color 0.2s;
+          box-sizing: border-box;
+          -webkit-appearance: none;
+          appearance: none;
         }
         .sm26-input:focus { outline: none; border-color: #111; }
         .sm26-input::placeholder { color: #BBB; }
 
+        /* ── Layout ── */
+        .sm26-page {
+          font-family: 'Inter', sans-serif;
+          color: #0D0D0D;
+          background: #0D0D0D;
+          min-height: 100vh;
+        }
         .sm26-body {
-          display: flex; flex: 1;
-          overflow: hidden; min-height: 0;
+          display: flex;
+          align-items: flex-start;
         }
         .sm26-gallery {
           flex: 0 0 58%;
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          grid-template-rows: repeat(2, 1fr);
           gap: 3px;
           background: #0D0D0D;
         }
         .sm26-right {
-          flex: 1; background: #FFF;
+          flex: 1;
+          background: #FFF;
+          position: sticky;
+          top: 0;
+          max-height: 100vh;
           overflow-y: auto;
-          display: flex; flex-direction: column;
-          justify-content: center;
           border-left: 1px solid #EEE;
         }
-        @media (max-width: 900px) {
-          html, body { overflow: auto !important; }
-          .sm26-body { flex-direction: column; overflow: visible; height: auto; }
+
+        /* ── Mobile ── */
+        @media (max-width: 720px) {
+          .sm26-body { flex-direction: column; }
+
           .sm26-gallery {
-            flex: none; height: auto;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto;
-            aspect-ratio: 2 / 1;
+            flex: none;
+            width: 100%;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
           }
-          .sm26-right { flex: none; overflow-y: visible; height: auto; justify-content: flex-start; }
-        }
-        @media (max-width: 560px) {
-          .sm26-gallery { grid-template-columns: repeat(2, 1fr); aspect-ratio: auto; }
+          /* Masque la 8e cellule CTA sur mobile */
+          .sm26-gallery-cta { display: none; }
+
+          .sm26-right {
+            flex: none;
+            width: 100%;
+            position: static;
+            max-height: none;
+            overflow-y: visible;
+            border-left: none;
+            border-top: 3px solid #C4661F;
+          }
         }
       `}</style>
 
-      {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div style={{
-        background: '#111', padding: '0.85rem 1.75rem', flexShrink: 0,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      }}>
-        <Link href="/" style={{ color: '#FFF', textDecoration: 'none', fontFamily: "'Playfair Display', serif", fontSize: 19, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-          DIMEXOI
-        </Link>
-        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#C4661F', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          Teck Days &middot; &minus;30&nbsp;% jusqu&apos;au 31 mai
-        </span>
-      </div>
-
-      {/* ── Ticker ──────────────────────────────────────────────────────── */}
-      <div style={{ background: '#C4661F', overflow: 'hidden', whiteSpace: 'nowrap', padding: '0.42rem 0', flexShrink: 0 }}>
-        <span style={{
-          display: 'inline-block',
-          animation: 'ticker 22s linear infinite',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: 10, fontWeight: 700, color: '#FFF',
-          letterSpacing: '0.14em', textTransform: 'uppercase',
+      <div className="sm26-page">
+        {/* ── Header ── */}
+        <div style={{
+          background: '#111', padding: '0.85rem 1.5rem',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          position: 'sticky', top: 0, zIndex: 50,
         }}>
-          {'  —  ⚡ EN STOCK  ·  STOCK ULTRA LIMITÉ  ·  −30 %  ·  31 MAI 2026  ·  2 SHOWROOMS  ·  TECK MASSIF  '.repeat(8)}
-        </span>
-      </div>
+          <Link href="/" style={{ color: '#FFF', textDecoration: 'none', fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+            DIMEXOI
+          </Link>
+          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 11, color: '#C4661F', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Teck Days &middot; &minus;30&nbsp;%
+          </span>
+        </div>
 
-      {/* ── Corps ───────────────────────────────────────────────────────── */}
-      <div className="sm26-body">
-
-        {/* Galerie */}
-        <div className="sm26-gallery">
-          {PRODUITS.map(p => (
-            <GalleryCard
-              key={p.slug}
-              produit={p}
-              selected={selectedSlug === p.slug}
-              onSelect={() => handleSelect(p.slug)}
-            />
-          ))}
-          {/* 8e cellule : CTA */}
-          <div style={{
-            background: '#111', display: 'flex',
-            alignItems: 'center', justifyContent: 'center',
-            flexDirection: 'column', gap: 8, padding: '1rem',
-            cursor: 'default',
+        {/* ── Ticker ── */}
+        <div style={{ background: '#C4661F', overflow: 'hidden', whiteSpace: 'nowrap', padding: '0.4rem 0' }}>
+          <span style={{
+            display: 'inline-block',
+            animation: 'ticker 24s linear infinite',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: 10, fontWeight: 700, color: '#FFF',
+            letterSpacing: '0.14em', textTransform: 'uppercase',
           }}>
-            <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 10, color: 'rgba(255,255,255,0.25)', textAlign: 'center', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1.6 }}>
-              Cliquez sur<br />un meuble
+            {'  —  ⚡ EN STOCK  ·  STOCK ULTRA LIMITÉ  ·  −30 %  ·  31 MAI 2026  ·  TECK MASSIF  ·  2 SHOWROOMS  '.repeat(8)}
+          </span>
+        </div>
+
+        {/* ── Corps ── */}
+        <div className="sm26-body">
+
+          {/* Galerie */}
+          <div className="sm26-gallery">
+            {PRODUITS.map(p => (
+              <GalleryCard
+                key={p.slug}
+                produit={p}
+                selected={selectedSlug === p.slug}
+                onSelect={() => handleSelect(p.slug)}
+              />
+            ))}
+            {/* 8e cellule */}
+            <div className="sm26-gallery-cta" style={{
+              aspectRatio: '3 / 4',
+              background: '#111',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 9, color: 'rgba(255,255,255,0.2)', textAlign: 'center', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1.7 }}>
+                Cliquez sur<br />un meuble
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* Formulaire */}
-        <div className="sm26-right">
-          <FormPanel
-            produit={selectedProduit}
-            form={form}
-            setForm={setForm}
-            status={status}
-            errorMsg={errorMsg}
-            submittedProduit={submittedProduit}
-            onSubmit={handleSubmit}
-          />
+          {/* Formulaire */}
+          <div className="sm26-right">
+            <FormPanel
+              produit={selectedProduit}
+              form={form}
+              setForm={setForm}
+              status={status}
+              errorMsg={errorMsg}
+              submittedProduit={submittedProduit}
+              onSubmit={handleSubmit}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
