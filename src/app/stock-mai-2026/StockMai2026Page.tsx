@@ -76,12 +76,12 @@ function CarouselPanel({ current, onNav }: { current: number; onNav: (i: number)
       {/* Gradient bas */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 50%, transparent 72%)',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 40%, transparent 60%)',
       }} />
       {/* Gradient haut léger */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 20%)',
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 18%)',
       }} />
 
       {/* Badges haut gauche empilés */}
