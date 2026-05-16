@@ -84,36 +84,55 @@ function CarouselPanel({ current, onNav }: { current: number; onNav: (i: number)
         background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 20%)',
       }} />
 
-      {/* Badge −30% */}
-      <div style={{
-        position: 'absolute', top: 20, left: 20, zIndex: 3,
-        background: '#C4661F',
-        color: '#FFFFFF',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: 13, fontWeight: 700,
-        padding: '6px 14px',
-        letterSpacing: '0.08em',
-        textTransform: 'uppercase',
-        animation: 'pulseDiscount 2s ease-in-out infinite',
-      }}>
-        &minus;30&nbsp;%
+      {/* Badges haut gauche empilés */}
+      <div style={{ position: 'absolute', top: 18, left: 18, zIndex: 3, display: 'flex', flexDirection: 'column', gap: 7 }}>
+        <div style={{
+          background: '#C4661F', color: '#FFFFFF',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 16, fontWeight: 800,
+          padding: '7px 16px',
+          letterSpacing: '0.04em', textTransform: 'uppercase',
+          animation: 'pulseDiscount 1.6s ease-in-out infinite',
+          boxShadow: '0 4px 18px rgba(196,102,31,0.6)',
+        }}>
+          &minus;30&nbsp;%
+        </div>
+        <div style={{
+          background: '#111111', color: '#FFFFFF',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 10, fontWeight: 700,
+          padding: '5px 12px',
+          letterSpacing: '0.12em', textTransform: 'uppercase',
+        }}>
+          &#9889; STOCK ULTRA LIMIT&Eacute;
+        </div>
+        <div style={{
+          background: 'rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(6px)',
+          color: 'rgba(255,255,255,0.75)',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 10, fontWeight: 500,
+          padding: '4px 10px',
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          border: '1px solid rgba(255,255,255,0.15)',
+        }}>
+          EN STOCK &middot; LA R&Eacute;UNION
+        </div>
       </div>
 
-      {/* Badge En stock */}
+      {/* Watermark −30% dans l'image */}
       <div style={{
-        position: 'absolute', top: 20, left: 20, zIndex: 3,
-        marginLeft: 86,
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(6px)',
-        color: 'rgba(255,255,255,0.85)',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: 11, fontWeight: 500,
-        padding: '6px 12px',
-        letterSpacing: '0.06em',
-        textTransform: 'uppercase',
-        border: '1px solid rgba(255,255,255,0.18)',
+        position: 'absolute', top: '50%', right: '-8%',
+        transform: 'translateY(-60%) rotate(-18deg)',
+        zIndex: 1,
+        fontFamily: "'Playfair Display', serif",
+        fontSize: 'clamp(7rem, 20vw, 15rem)',
+        fontWeight: 700, fontStyle: 'italic',
+        color: 'rgba(255,255,255,0.05)',
+        pointerEvents: 'none', userSelect: 'none',
+        whiteSpace: 'nowrap',
       }}>
-        En stock &middot; La R&eacute;union
+        &minus;30%
       </div>
 
       {/* Infos produit en bas */}
@@ -274,10 +293,55 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
   }
 
   return (
-    <div style={{ padding: 'clamp(2rem, 5vw, 3rem)', boxSizing: 'border-box' }}>
+    <div style={{ padding: 'clamp(2rem, 5vw, 3rem)', boxSizing: 'border-box', position: 'relative', overflow: 'hidden' }}>
+
+      {/* Watermark −30% en fond du formulaire */}
+      <div style={{
+        position: 'absolute',
+        top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%) rotate(-25deg)',
+        fontFamily: "'Playfair Display', serif",
+        fontSize: 'clamp(7rem, 18vw, 13rem)',
+        fontWeight: 700, fontStyle: 'italic',
+        color: '#C4661F', opacity: 0.04,
+        pointerEvents: 'none', userSelect: 'none',
+        whiteSpace: 'nowrap', zIndex: 0,
+      }}>
+        &minus;30%
+      </div>
+
+      {/* Bandeau urgence haut */}
+      <div style={{
+        position: 'relative', zIndex: 1,
+        background: '#111111', color: '#FFFFFF',
+        padding: '0.6rem 1rem',
+        marginBottom: '1.5rem',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        gap: '0.5rem', flexWrap: 'wrap',
+        marginLeft: 'calc(-1 * clamp(2rem, 5vw, 3rem))',
+        marginRight: 'calc(-1 * clamp(2rem, 5vw, 3rem))',
+        marginTop: 'calc(-1 * clamp(2rem, 5vw, 3rem))',
+      }}>
+        <span style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 11, fontWeight: 700,
+          letterSpacing: '0.12em', textTransform: 'uppercase',
+          color: '#C4661F',
+        }}>
+          &#9889; STOCK ULTRA LIMIT&Eacute;
+        </span>
+        <span style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 11, fontWeight: 700,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          color: '#FFFFFF', opacity: 0.85,
+        }}>
+          &minus;30&nbsp;% &middot; 31 MAI 2026
+        </span>
+      </div>
 
       {/* Titre */}
-      <div style={{ marginBottom: '2rem' }}>
+      <div style={{ marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
         <p style={{
           fontFamily: "'Inter', sans-serif",
           fontSize: 11, color: '#C4661F', fontWeight: 600,
@@ -304,6 +368,7 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
 
       {/* Produit sélectionné */}
       <div style={{
+        position: 'relative', zIndex: 1,
         borderLeft: '3px solid #C4661F',
         paddingLeft: '1rem',
         marginBottom: '2rem',
@@ -340,7 +405,7 @@ function FormPanel({ produit, form, setForm, status, errorMsg, submittedProduit,
       </div>
 
       {/* Formulaire */}
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem', position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.9rem' }}>
           <div>
             <label style={labelStyle}>Pr&eacute;nom *</label>
@@ -520,8 +585,12 @@ export default function StockMai2026Page() {
     }}>
       <style>{`
         @keyframes pulseDiscount {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0.75; }
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50%       { opacity: 0.82; transform: scale(1.06); }
+        }
+        @keyframes ticker {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
         }
 
         .sm26-input {
@@ -609,6 +678,24 @@ export default function StockMai2026Page() {
           textTransform: 'uppercase',
         }}>
           Teck Days &middot; &minus;30&nbsp;% jusqu&apos;au 31 mai
+        </span>
+      </div>
+
+      {/* ── Ticker urgence ──────────────────────────────────────────────── */}
+      <div style={{
+        background: '#C4661F', overflow: 'hidden',
+        whiteSpace: 'nowrap', padding: '0.45rem 0',
+        flexShrink: 0,
+      }}>
+        <span style={{
+          display: 'inline-block',
+          animation: 'ticker 22s linear infinite',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 11, fontWeight: 700,
+          color: '#FFFFFF', letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+        }}>
+          {'  —  ⚡ EN STOCK  ·  STOCK ULTRA LIMITÉ  ·  −30 %  ·  31 MAI 2026  ·  2 SHOWROOMS  ·  TECK MASSIF  '.repeat(6)}
         </span>
       </div>
 
