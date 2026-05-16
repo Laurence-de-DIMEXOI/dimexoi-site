@@ -10,8 +10,9 @@ import TeckDaysBanner from '@/src/components/TeckDaysBanner';
 export default function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isClub = pathname.startsWith('/club-grandis');
+  const isStandalone = pathname.startsWith('/stock-mai-2026');
 
-  if (isClub) {
+  if (isClub || isStandalone) {
     return <>{children}</>;
   }
 
