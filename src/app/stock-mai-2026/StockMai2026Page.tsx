@@ -24,7 +24,7 @@ function eur(n: number) { return n.toLocaleString('fr-FR') + ' €'; }
 
 // ── Image avec fallback jpg → png → placeholder ──────────────────────────────
 function ProductImage({ slug, nom, active }: { slug: string; nom: string; active: boolean }) {
-  const [ext, setExt] = useState<'jpg' | 'png' | 'none'>('jpg');
+  const [ext, setExt] = useState<'png' | 'jpg' | 'none'>('png');
 
   return (
     <div style={{
@@ -39,7 +39,7 @@ function ProductImage({ slug, nom, active }: { slug: string; nom: string; active
           src={"/stock-mai-2026/" + slug + "." + ext}
           alt={nom}
           onError={() => {
-            if (ext === 'jpg') setExt('png');
+            if (ext === 'png') setExt('jpg');
             else setExt('none');
           }}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
